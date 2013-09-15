@@ -1,0 +1,241 @@
+<?php
+/**
+* Archivo de acceso 
+*
+* Accede y recupera clave perdida
+*
+* @author Zerquix18 <http://www.zerquix18.com/>
+* @since 0.1.1
+* @link http://trackyourpenguin.com/
+* 
+*
+**/
+
+require_once( dirname(__FILE__) . '/typ-load.php');
+$post = ( "POST" == $_SERVER['REQUEST_METHOD'] );
+$acc = isset($_GET['accion']) && !empty($_GET['accion']) && is_string($_GET['accion']) ? $_GET['accion'] : '';
+
+/**
+*
+* Carga la cabecera del archivo de acceso
+*
+* @param $titulo string
+* @param $mensaje bool
+* @param $error bool
+*
+**/
+
+function cabecera($titulo = '', $mensaje = false, $error = false ) {
+	$titulo = vacio($titulo) ? titulo() : $titulo . ' - ' . titulo();
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title><?php echo $titulo ?></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="<?php echo url() . INC . CSS . 'bootstrap.css' ?>" rel="stylesheet">
+	<link href="<?php echo url() . INC . CSS . 'bootstrap.min.css' ?>" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .form-signin {
+        max-width: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+    </style>
+  <body>
+    <div class="container">
+	<?php
+	if( $mensaje && ! $error )
+		agregar_info( $mensaje );
+	elseif( $mensaje && $error )
+		agregar_error($mensaje);
+}
+
+/**
+*
+* Pone los pies de la página de acceso
+*
+**/
+function pies() {
+	global $acc;
+	?>
+	     <ul class="pager">
+        <?php if($acc == 'acceder' || vacio($acc) || $acc !== 'co' || $acc !== 'rc' ) : ?>
+			<li><a href="<?php echo url() . 'acceso.php?accion=co' ?>"> ¿Olvidaste tus datos? &rarr; </li>
+        <?php elseif($acc == 'co') : ?>
+			<li><a href="<?php echo url() . 'acceso.php?accion=acceder' ?>">&larr; Volver al acceso </li>
+		<?php endif; ?>
+	     </ul>
+    </center>
+    </div> <!-- /container -->
+    <script src="<?php echo url() . INC . JS . 'jquery.js'; ?>"></script>
+    <script src="<?php echo url() . INC . JS . 'alerta.js'; ?>"></script>
+  </body>
+</html>
+	<?php
+}
+
+switch( $acc ) {
+	case "co": // Clave Olvidada
+
+	if( isset($_GET['error']) && (integer) $_GET['error'] == 1): 
+		$mensaje = 'El hash o el usuario son incorrectos.';
+		$error = true;
+	elseif( ! $post ) :
+		$mensaje = 'Agrega tu email para recuperar tu clave';
+		$error = false;
+	else:
+		$mensaje = false;
+		$error = false;
+	endif;
+
+	cabecera('Clave olvidada', $mensaje, $error);
+
+	if( $post ) {
+		$email = @$zerdb->proteger($_POST['email']);
+		$usuario = new extraer($zerdb->usuarios, "*", array("email" => $email) );
+
+		if( ! comprobar_args( @$_POST['email'] ) ) {
+			agregar_error("Haciendo trampa, ¿eh?");
+		}elseif( vacio($_POST['email']) ) {
+			agregar_error("El email no puede estar vacío", true, true);
+		}elseif( !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL ) ) {
+			agregar_error("El email no parece válido", true, true);
+		}elseif(! $usuario === true || ! ($usuario->nums > 0) ) {
+			agregar_error("El email que buscas no existe");
+		}else{
+			if( empty($usuario->hash) ) {
+				$hash = md5( uniqid() );
+				$zerdb->actualizar($zerdb->usuarios, array("hash" => $hash), array("email" => $email) );
+			}else{
+				$hash = $usuario->hash;
+			}
+			$asunto = sprintf('Clave olvidada [%s]', titulo() );
+			$texto = sprintf("
+					¡Hola, <b>%s</b>! \n\n
+					Se ha enviado una solicitud para cambiar la clave de tu usuario, si t&uacute; la enviaste, haz
+					<a href=\"%s\"><b>clic aqu&iacute;</b></a>\n\n
+					Si no la hiciste, d&eacute;jalo todo como est&aacute; y no pasar&aacute; nada. :)", 
+			$usuario->usuario, url() . 'acceso.php?accion=rc&hash=' . $hash . '&usuario=' . $usuario->usuario);
+			$mail = enviar_email($email, $asunto, $texto);
+			if( $mail )
+				agregar_info("Ha sido enviado un email a tu correo electrónico, por favor revísalo.");
+			else
+				agregar_error("Lamentablemente no se pudo enviar el email, por favor revisa que tu hosting tenga la función mail() activa.");
+		}
+	}
+	?>
+<form method="POST" class="form-signin" action="<?php echo url( true ) ?>">
+  <h2 class="form-signin-heading">Clave olvidada</h2>
+  <input type="text" name="email" class="input-block-level" placeholder="Ingresa tu email" id="email" 
+  required="required" <?php if($post) echo @$_POST['email'] ?> maxlength="60">
+  <center><input type="submit" value="Enviar" class="btn btn-primary"></center>
+</form>
+	<?php
+break;
+	case "rc": // Recuperar clave
+	$hash_ = isset($_GET['hash']) && !empty($_GET['hash']) && is_string($_GET['hash']) ? $_GET['hash'] : '';
+	$usuario_ = isset($_GET['usuario']) && !empty($_GET['usuario']) && is_string($_GET['usuario']) ? $_GET['usuario'] : '';
+	if( empty($usuario_) || empty($hash_) ) 
+		exit( header("Location: acceso.php?accion=co&error=1") );
+
+	$usuario = $zerdb->proteger( $_GET['usuario'] );
+	$hash = $zerdb->proteger( $_GET['hash'] );
+	$u = new extraer($zerdb->usuarios, "*", array("hash" => $hash, "usuario" => $usuario) );
+	if( ! $u  || !$u->nums > 0)
+		exit( header("Location: acceso.php?accion=co&error=1" ) );
+
+	cabecera('Cambiar clave', (!$post) ? 'Ya puedes poner tu nueva clave para actualizarla' : false, false );
+
+	if( $post ) {
+		if( ! comprobar_args(@$_POST['clave'], @$_POST['clave2']) ) {
+			agregar_error("Haciendo trampa, ¿eh?");
+		}elseif( ! ($_POST['clave'] == $_POST['clave2']) ) {
+			agregar_error("Las claves no coinciden");
+		}else{
+			$clave = md5( $zerdb->proteger($_POST['clave']) );
+			$zerdb->actualizar($zerdb->usuarios, array("clave" => $clave, "hash" => "") );
+			agregar_info("Tu clave ha sido actualizada");
+		}
+	}
+?>
+<form method="POST" class="form-signin" action="<?php echo url( true ) ?>">
+  <h2 class="form-signin-heading">Actualizar contraseña</h2>
+  <input type="password" name="clave" class="input-block-level" placeholder="Ingresa tu nueva clave" id="clave" 
+  required="required">
+  <input type="password" name="clave2" class="input-block-level" placeholder="Confirma tu clave" id="clave2"
+  required="required">
+  <center><input type="submit" value="Actualizar clave" class="btn btn-primary"></center>
+</form>
+	<?php
+	break;
+	case "acceder":
+	default:
+	cabecera('Acceder');
+
+	if( $post ) {
+		$usuario = @$zerdb->proteger( strtolower( $_POST['usuario'] ) );
+		$clave = md5( @$zerdb->proteger( $_POST['clave']) );
+		$query = new extraer($zerdb->usuarios, "*", array("usuario" => $usuario, "clave" => $clave) );
+		$recordar = isset($_POST['recuerdame']) ? true : false;
+
+		if( ! comprobar_args( @$_POST['usuario'], @$_POST['clave'] ) ) {
+			agregar_error("¿Haciendo trampa, eh?");
+		}elseif( ! $query || ! $query->nums > 0) {
+			agregar_error("El usuario o la clave no coinciden", true, true);
+		}elseif( $query->estado !== '1') {
+			agregar_error("Este usuario se encuentra suspendido");
+		}else{
+		$sesion->crear( $usuario, $recordar );
+        $uri = urlencode(url());
+        $decoded = (isset($_GET['continuar'])) ? urldecode( $_GET['continuar']) : '';
+        if( isset($_GET['continuar']) && preg_match("#" . url() . "#", $decoded ) )
+          header("Location: " . urldecode($_GET['continuar']) );
+        else
+          header("Location: " . url() );
+		}
+	}elseif( isset($_GET['salir']) && (int) $_GET['salir'] == 1) {
+		$sesion->destruir();
+		agregar_info("Has cerrado sesión");
+	}elseif( sesion_iniciada() ) {
+		header("Location: " . url() );
+	}
+	?>
+<form method="POST" class="form-signin" <?php echo url( true ) ?>>
+  <h2 class="form-signin-heading">Acceder</h2>
+  <input type="text" name="usuario" class="input-block-level" placeholder="Nombre de usuario" id="usuario" 
+  required="required" <?php if( $post ) echo 'value="' . @$_POST['usuario'] . '"' ?>>
+  <input type="password" name="clave" class="input-block-level" placeholder="Ingresa tu clave" id="clave"
+  required="required">
+  <label class="checkbox"><input type="checkbox" name="recuerdame">Recuérdame</label>
+  <center><input type="submit" value="Enviar" class="btn btn-primary"></center>
+</form>
+	<?php
+}
+pies();
