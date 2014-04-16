@@ -24,6 +24,17 @@ function buscadores_activados() {
 
 /**
 *
+* Obtiene el tema
+* @return string
+**/
+function tema() {
+	global $zerdb;
+	$t = new extraer($zerdb->config, "extra");
+	return !empty($t->extra) ? json_decode($t->extra)->tema : 'bootstrap';
+}
+
+/**
+*
 * Construye el documento.
 *
 * @param $a_construir string
@@ -37,10 +48,6 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 	$a_construir = strtolower($a_construir);
 	$t = new extraer($zerdb->trackers, "*");
 	$trackers = mysql_query($t->query);
-	$tema = function( $zerdb ) {
-		$t = new extraer($zerdb->config, "extra");
-		return !empty($t->extra) ? json_decode($t->extra)->tema : 'bootstrap';
-	};
 	switch($a_construir) {
 		case "cabecera":
 		?>
@@ -48,8 +55,8 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 		<html lang="es">
 		<head>
 			<title><?php if(!empty($titulo)) echo $titulo . ' - '; echo nombre() ?></title>
-			<link rel="stylesheet" id="estilo" href="<?php echo url() . INC . CSS . $tema($zerdb) . '.css' ?>" />
-			<link rel="stylesheet" id="estilo_r" href="<?php echo url() . INC . CSS . $tema($zerdb) . '.min.css' ?>" />
+			<link rel="stylesheet" id="estilo" href="<?php echo url() . INC . CSS . tema() . '.css' ?>" />
+			<link rel="stylesheet" id="estilo_r" href="<?php echo url() . INC . CSS . tema() . '.min.css' ?>" />
 			<link rel="stylesheet" href="<?php echo url() . INC . CSS . 'typ.css' ?>" />
 			<meta charset="utf-8">
 			<meta name="title" content="<?php if(!empty($titulo)) echo $titulo . ' - '; echo titulo() ?>" />
@@ -212,7 +219,7 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
   <div class="modal-footer">
   </div>
 </div>
-<script type="text/javascript">var uri = "<?php echo url(false) ?>", _tema = "<?php echo $tema($zerdb) ?>";</script>
+<script type="text/javascript">var uri = "<?php echo url(false) ?>", _tema = "<?php echo tema() ?>";</script>
 	</div><hr>
 				<footer><a target="_blank" href="http://trackyourpenguin.com/">&copy; TrackYourPenguin <b><?php echo $v ?></b></a></footer></div>
 		<?php
