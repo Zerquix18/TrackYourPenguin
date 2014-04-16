@@ -5,11 +5,12 @@
 *
 * @package TrackYourPenguin
 * @author Zerquix18
-* @since 0.0.1
+* @since 0.1
 *
 **/
 
 ob_start();
+ob_implicit_flush( true );
 session_start();
 header('Content-Type: text/html; charset=utf-8');
 define("INC", "typ-inc/");
@@ -19,10 +20,12 @@ define("IMG", "img/");
 define("LANG", "lang/");
 define("PATH", dirname(__FILE__) . '/');
 define("TRACKERS_PAG", (defined("TRACKERS_PAG")) ? (int) TRACKERS_PAG : 4);
-define("VERSION", "0.1");
-$v = constant("VERSION");
-$config = file_exists('typ-config.php') ? 'typ-config.php' : 'typ-config-sample.php';
+define("VERSION", "0.2");
+$GLOBALS['v'] = constant("VERSION");
+$config = file_exists(PATH . 'typ-config.php') ? 'typ-config.php' : 'typ-config-sample.php';
 require_once( PATH . $config );
+require_once( PATH . INC . 'i18n.php');
+require_once( PATH . INC . 'hora.php');
 require_once( PATH . INC . 'class-db.php');
 $zerdb = new zerdb( @DB_HOST, @DB_USUARIO, @DB_CLAVE, @DB_NOMBRE);
 require_once( PATH . INC. 'funciones.php');
@@ -38,5 +41,6 @@ require_once( PATH . INC . 'trackers.php' );
 require_once( PATH . INC . 'params.php' );
 require_once( PATH . INC . 'log.php' );
 $preg = ! preg_match("/instalar.php/", $_SERVER['PHP_SELF']) ;
-if( ! $zerdb->listo && $preg || ! comprobar_instalacion() && $preg )
+
+if( true !== $zerdb->listo && $preg || ! comprobar_instalacion() && $preg )
 	exit( header("Location: instalar.php") );

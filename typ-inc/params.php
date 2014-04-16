@@ -4,7 +4,7 @@
 * Funciones de los parámetros
 *
 * @author Zerquxi18 <http://www.zerquix18.com/>
-* @since 0.0.1
+* @since 0.1
 * @package TrackYourPenguin
 *
 **/
@@ -50,7 +50,7 @@ function obt_parametros($posicion, $tracker_id) {
 * Actualiza los parámetros de un tracker
 *
 * @author Zerquix18
-* @since 0.0.1
+* @since 0.1
 *
 **/
 
@@ -61,7 +61,7 @@ class actualizar_parametros {
 	*
 	* @access public
 	* @var bool
-	* @since 0.0.1
+	* @since 0.1
 	*
 	**/
 	public $comp_error = false;
@@ -70,7 +70,7 @@ class actualizar_parametros {
 	*
 	* @access public
 	* @var string
-	* @since 0.0.1
+	* @since 0.1
 	*
 	**/
 	public $error = '';
@@ -80,7 +80,7 @@ class actualizar_parametros {
 	*
 	* @access public
 	* @var string
-	* @since 0.0.1
+	* @since 0.1
 	*
 	**/
 	public $query = '';
@@ -99,19 +99,19 @@ class actualizar_parametros {
 
 		if( ! is_numeric( $tracker_id ) ) {
 			$this->comp_error = true;
-			$this->error = "El tracker debe ser un ID";
+			$this->error = __("El tracker debe ser un ID");
 			return false;
 		}
 
 		if( ! is_numeric($posicion) ) {
 			$this->comp_error = true;
-			$this->error = "La posición debe ser un número del 1 al 3";
+			$this->error = __("La posición debe ser un número del 1 al 3");
 			return false;
 		}
 
 		if( !is_array($parametros ) ) {
 			$this->comp_error = true;
-			$this->error = "Los parámetros deben ir en matriz";
+			$this->error = __("Los parámetros deben ir en matriz");
 			return false;
 		}
 
@@ -119,7 +119,7 @@ class actualizar_parametros {
 
 		if( $t && ! $t->nums > 0 ) {
 			$this->comp_error = true;
-			$this->error = "El tracker no existe";
+			$this->error = __("El tracker no existe");
 			return false;
 		}
 
@@ -128,11 +128,11 @@ class actualizar_parametros {
 		foreach($array as $a) {
 			if( ! comprobar_args_array($parametros) ) {
 				$this->comp_error = true;
-				$this->error = "Los parámetros enviados son incorrectos";
+				$this->error = __("Los parámetros enviados son incorrectos");
 				return false;
 			}elseif( empty($parametros) ) {
 				$this->comp_error = true;
-				$this->error ="No puedes dejar campos vacíos";
+				$this->error = __("No puedes dejar campos vacíos");
 				return false;
 			}
 		}

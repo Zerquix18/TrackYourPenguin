@@ -76,82 +76,82 @@ class zer_twitter {
 			return false;
 		switch($codigo) {
 			case 200:
-			$error = '200 - OK';
+			$error = __('200 - OK');
 			break;
 			case 304:
-			$error = 'Error 304: No modificado - La URL de la petición no fue modificada';
+			$error = __('Error 304: No modificado - La URL de la petición no fue modificada');
 			break;
 			case 400:
-			$error = 'Error 400: Mal solicitado - La solicitud hecha no es válida';
+			$error = __('Error 400: Mal solicitado - La solicitud hecha no es válida');
 			break;
 			case 401:
-			$error = 'Error 401: No autorizado - La aplicación no cuenta que los permisos suficientes (lectura y escritura)';
+			$error = __('Error 401: No autorizado - La aplicación no cuenta que los permisos suficientes (lectura y escritura)');
 			break;
 			case 403:
-			$error = "Error 403: Prohibido - Acceso no permitido, la aplicación no puede conectar a Twitter";
+			$error = __("Error 403: Prohibido - Acceso no permitido, la aplicación no puede conectar a Twitter");
 			break;
 			case 404:
-			$error = "Error 404: No encontrado - La URL no ha sido encontrada";
+			$error = __("Error 404: No encontrado - La URL no ha sido encontrada");
 			break;
 			case 406:
-			$error = "Error 406: No aceptable - El servidor no fue capaz de procesar la petición debido a los formatos";
+			$error = __("Error 406: No aceptable - El servidor no fue capaz de procesar la petición debido a los formatos");
 			break;
 			case 410:
-			$error = "Error 410: Ya no disponible - La URL de la petición ya no está disponible ni lo estará";
+			$error = __("Error 410: Ya no disponible - La URL de la petición ya no está disponible ni lo estará");
 			break;
 			case 420:
-			$error = "Error 420: Has superado el límite de búsquedas";
+			$error = __("Error 420: Has superado el límite de búsquedas");
 			break;
 			case 422:
-			$error = "Error 422: No pasable - La imagen que intentas subir no puede ser procesada";
+			$error = __("Error 422: No pasable - La imagen que intentas subir no puede ser procesada");
 			break;
 			case 429:
-			$error = "Error 429: Demasiadas solicitudes - Has llegado al límite de solicitudes";
+			$error = __("Error 429: Demasiadas solicitudes - Has llegado al límite de solicitudes");
 			break;
 			case 500:
-			$error = "Error 500: Error interno del servidor - Algo está roto. Twitter ha fallado en la solicitud";
+			$error = __("Error 500: Error interno del servidor - Algo está roto. Twitter ha fallado en la solicitud");
 			break;
 			case 502:
-			$error = "Error 502: Pasarela incorrecta - Twitter está de baja o está siendo actualizado";
+			$error = __("Error 502: Pasarela incorrecta - Twitter está de baja o está siendo actualizado");
 			break;
 			case 503:
-			$error = "Error 503: Servicio no disponible - Twitter no está de baja, pero sí recargado de solicitudes";
+			$error = __("Error 503: Servicio no disponible - Twitter no está de baja, pero sí recargado de solicitudes");
 			break;
 			case 504:
-			$error = "Error 504: Tiempo agotado - El tiempo para hacer la petición ha tardado demasiado";
+			$error = __("Error 504: Tiempo agotado - El tiempo para hacer la petición ha tardado demasiado");
 			break;
 			case 32:
-			$error = "Error: No se pudo autenticar - La autenticación ha fallado";
+			$error = __("Error: No se pudo autenticar - La autenticación ha fallado");
 			break;
 			case 34:
-			$error = "Error (404): No encontrado - La página no existe";
+			$error = __("Error (404): No encontrado - La página no existe");
 			break;
 			case 68:
-			$error = "El URL solicitado correspondía a la versión anterior de la API. Por favor actualiza";
+			$error = __("El URL solicitado correspondía a la versión anterior de la API. Por favor actualiza");
 			break;
 			case 88:
-			$error = "Error: Límite de velocidad - Se alcanzó el límite de velocidad de este recurso";
+			$error = __("Error: Límite de velocidad - Se alcanzó el límite de velocidad de este recurso");
 			break;
 			case 89:
-			$error = "Error: Clave de autenticación inválida o expirada - La clave de acceso usada está expirada o es inválida";
+			$error = __("Error: Clave de autenticación inválida o expirada - La clave de acceso usada está expirada o es inválida");
 			break;
 			case 64:
-			$error = "Error (403): Tu cuenta está suspendida y no le está permitida hacer esta acción";
+			$error = __("Error (403): Tu cuenta está suspendida y no le está permitida hacer esta acción");
 			break;
 			case 131:
-			$error = "Error (500): Error interno del servidor - Twitter ha fallado en la petición";
+			$error = __("Error (500): Error interno del servidor - Twitter ha fallado en la petición");
 			break;
 			case 135:
-			$error = "Error (401): No se puede autenticar - Quiere decir que la hora de este servidor está más adelante o detrás que la del rango aceptable de Twitter";
+			$error = __("Error (401): No se puede autenticar - Quiere decir que la hora de este servidor está más adelante o detrás que la del rango aceptable de Twitter");
 			break;
 			case 187:
-			$error = "Error: El tweet ha sido duplicado";
+			$error = __("Error: El tweet ha sido duplicado");
 			break;
 			case 215:
-			$error = "Error (400): Hacer esto requiere una autenticación válida. Recuerda que necesitas 4 parámetros (consumer_key, consumer_secret, access_token y access_token_secret)";
+			$error = __("Error (400): Hacer esto requiere una autenticación válida. Recuerda que necesitas 4 parámetros (consumer_key, consumer_secret, access_token y access_token_secret)");
 			break;
 			default:
-			$error = "Error no conocido :/";
+			$error = __("Error no conocido :/");
 		}
 		return $error;
 	}
@@ -175,7 +175,7 @@ class zer_twitter {
 			return false;
 		}elseif( isset($this->tweet->error)) {
 			$this->comp_error = true;
-			$this->error = "Error: La aplicación no cuenta con los permisos suficientes. Recuerda que deben ser lectura y escritura y están en sólo lectura";
+			$this->error = __("Error: La aplicación no cuenta con los permisos suficientes. Recuerda que deben ser lectura y escritura y están en sólo lectura");
 			return false;
 		}
 		/* valores retornados por twitter*/
@@ -233,11 +233,9 @@ function obt_key( $key ) {
 function insertar_oauth($a, $b, $c, $d) {
 	global $zerdb;
 	$args = func_get_args();
-	foreach( $args as $arg ){
+	foreach( $args as $arg )
 		if( ! is_string($arg) )
 			return false;
-	}
-
 	return $zerdb->insertar($zerdb->twitter, array($a, $b, $c, $d ) );
 }
 /**
@@ -255,11 +253,10 @@ function insertar_oauth($a, $b, $c, $d) {
 function actualizar_oauth($a, $b, $c, $d) {
 	global $zerdb;
 	$args = func_get_args();
-	foreach( $args as $arg ){
+	foreach( $args as $arg )
 		if( ! is_string($arg) )
 			return false;
-	}
-
+		
 	return $zerdb->actualizar($zerdb->twitter,
 			array("consumer_key" => $a, "consumer_secret" => $b, "access_token" => $c, "access_token_secret" => $d)
 		);
@@ -276,10 +273,7 @@ function actualizar_oauth($a, $b, $c, $d) {
 function oauth_configurado() {
 	$o = obt_oauth();
 
-	if( !$o || !$o->nums > 0)
-		return false;
-
-	return true;
+	return true == ($o && $o->nums > 0);
 }
 /**
 * Obtiene un tweet desde su ID
@@ -303,6 +297,8 @@ function obt_tweet( $id ) {
 
 function obt_tuit( $id ) {
 	$t = obt_tweet($id);
+	if( false == ($t && $t->nums > 0 ) )
+		return false;
 	return $t->tweet;
 }
 
@@ -331,9 +327,7 @@ function agregar_tweet( $nombre, $texto ) {
 	if( strlen($nombre) > 10 || strlen($texto) > 140 )
 		return false;
 
-	$insertar = $zerdb->insertar( $zerdb->tweets, array($nombre, $texto) );
-
-	return $insertar;
+	return $zerdb->insertar( $zerdb->tweets, array($nombre, $texto) );
 
 }
 /**
@@ -381,10 +375,7 @@ function existe_tweet( $id ) {
 	global $zerdb;
 	$id = $zerdb->proteger($id);
 	$comprobar = new extraer($zerdb->tweets, "*", array("id" => $id) );
-	if( ! $comprobar || ! $comprobar->nums > 0 )
-		return false;
-
-	return true;
+	return true == ( $comprobar && $comprobar->nums > 0 );
 }
 /**
 *
@@ -430,14 +421,14 @@ function obt_tweet_por($por, $donde) {
 	if( $t && $t->nums > 0)
 		return $t->$por;
 	else
-		return '';
+		return false;
 }
-
+/**
+*
+* Comprueba si el usuaro tiene tuits
+*
+**/
 function tiene_tweets() {
 	$t = obt_tweets();
-
-	if( ! $t || $t->nums == 0)
-		return false;
-
-	return true;
+	return true == ( $t && $t->nums > 0 );
 }

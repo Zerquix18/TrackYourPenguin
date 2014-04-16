@@ -14,9 +14,9 @@ elseif( es_super_admin() )
 $s = new extraer($zerdb->sesiones, "*", $dnd);
 
 if( isset($_GET['id']) && !$s->nums > 0)
-	typ_die("No hay sesiones para ese usuario");
+	typ_die( __("No hay sesiones para ese usuario") );
 
-construir('cabecera', 'Sesiones', true );
+construir('cabecera', __('Sesiones'), true );
 
 $u = obt_id( $s->id );
 
@@ -26,25 +26,26 @@ $fetch = mysql_query( $s->query . ' ' . $limit );
 $paginas = ceil( $s->nums / 5 );
 
 if( $pagina > $paginas ) {
-	agregar_error("No existen más sesiones");
+	agregar_error( __("No existen más sesiones") );
 	construir( 'pies' );
-	exit();
+	exit(0);
 }
-
 ?>
-<h3>Sesiones <?php
+<h3><?php _e("Sesiones");
+$del = __(' del usuario: ');
 if( es_super_admin() && isset($_GET['id']) )
-	echo 'del usuario: ' . ucfirst($u->usuario); ?></h3><hr>
+	echo  $del . ucfirst($u->usuario);
+?></h3><hr>
 
 <?php if( isset($_POST['borrar']) ) {
 	if( isset($_POST['eliminar']) && !is_array($_POST['eliminar']) or empty($_POST['eliminar']) ) {
-		agregar_error("Debes seleccionar una sesión para cerrar");
+		agregar_error( __("Debes seleccionar una sesión para cerrar") );
 	}else{
 		/** It's... time! **/
 		foreach( $_POST['eliminar'] as $hash ) {
 			$sesion->destruir_hash( $hash );
 		}
-		agregar_info("Las sesiones que seleccionaste han sido eliminadas (de ser existentes)");
+		agregar_info( __("Las sesiones que seleccionaste han sido eliminadas (de ser existentes)") );
 		echo redireccion( url( true ), 2);
 	}
 }elseif( isset($_POST['eliminar_todo'] ) ) {
@@ -56,16 +57,22 @@ if( es_super_admin() && isset($_GET['id']) )
 <table class="table">
 	<tr>
 		<th>#</th>
-		<th>Usuario</th>
-		<th>Fecha</th>
+		<th><?php _e("Usuario") ?></th>
+		<th><?php _e("Fecha") ?></th>
 	</tr>
 <?php
+$actual = __(" <b>(sesión actual)</b>");
 while($sesion = mysql_fetch_array($fetch) ) {
 	?>
 	<tr>
 		<td><input type="checkbox" name="eliminar[]" value="<?php echo $sesion['hash'] ?>"></td>
-		<td><?php echo ucfirst($u->usuario) ?></td>
-		<td><?php echo $sesion['fecha']; if( $sesion['hash'] == $_SESSION['hash']) echo ' <b>(sesión actual)</b>' ?></td>
+		<td><?php
+			if( $sesion['id'] !== $_SESSION['id'] && es_super_admin() && ! isset($_GET['id']) )
+				echo sprintf('<a href=\'%1$ssesiones.php?id=%3$d\'>%2$s</a>', url(), ucfirst( $u->usuario ), (int) $u->id );
+			else
+				echo ucfirst( $u->usuario );
+		?></td>
+		<td><?php echo mostrar_fecha($sesion['fecha']); if( $sesion['hash'] == $_SESSION['hash']) echo $actual ?></td>
 	</tr>
 <?php } ?>
 </table>
@@ -85,12 +92,12 @@ while($sesion = mysql_fetch_array($fetch) ) {
 	</ul>
 </div>
 
-<?php $este_tu = ($u->id == $s->id) ? 'tu' : 'este' ?>
+<?php $este_tu = ($u->id == $s->id) ? __('tu') : __('este') ?>
 	<button type="submit" name="eliminar_todo" class="btn btn-danger text-right">
-		<i class="icon-trash"></i>&nbsp;Cerrar todas las sesiones de <?php echo $este_tu ?> usuario
+		<i class="icon-trash"></i>&nbsp;<?php echo sprintf( __("Cerrar todas las sesiones de %s usuario"), $este_tu) ?>
 	</button> |
 	<button type="submit" name="borrar" class="btn btn-danger text-right">
-		<i class="icon-trash"></i>&nbsp;Cerrar sesiones seleccionadas
+		<i class="icon-trash"></i>&nbsp;<?php _e("Cerrar sesiones seleccionadas") ?>
 	</button>
 </form>
 <?php 

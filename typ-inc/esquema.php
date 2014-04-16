@@ -2,13 +2,16 @@
 /**
 * Archivo del SQL para la base de datos
 *
-* Contiene el SQL insertado en las tablas
+* Contiene el SQL que crea las tablas.
 *
 * @author Zerquix18 <http://www.zerquix18.com/>
-* @since 0.0.1
+* @since 0.1
 * @package TrackYourPenguin
 *
 **/
+
+$preg = sprintf("#%s#", basename(__FILE__) );
+if( preg_match($preg, $_SERVER['PHP_SELF'])) exit(0);
 
 $sql = array();
 
@@ -48,7 +51,8 @@ $sql['trackers'] = "CREATE TABLE IF NOT EXISTS $zerdb->trackers (
 $sql['config'] = "CREATE TABLE IF NOT EXISTS $zerdb->config (
 		titulo varchar(20),
 		url varchar(100),
-		robots varchar(1)
+		robots varchar(1),
+		extra varchar(200)
 	)";
 
 /*Tabla del OAuth de Twitter */

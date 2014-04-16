@@ -5,7 +5,7 @@
 *
 * @package TrackYourPenguin
 * @author Zerquix18
-* @since 0.0.1
+* @since 0.1
 *
 **/
 /**
@@ -41,6 +41,7 @@ function agregar_tracker($nombre, $img, $imgbg, $fuente) {
 	);
 
 	$id = mysql_insert_id();
+	
 	$zerdb->insertar( $zerdb->parametros, array(
 			$id, '1', '16', '0', '120', '130'
 		)
@@ -91,10 +92,7 @@ function existe_tracker( $id ) {
 	$id = $zerdb->proteger( $id );
 	$t = obt_tracker( $id );
 
-	if( ! $t || ! $t->nums > 0 )
-		return FALSE;
-
-	return true;
+	return true == ( $t && $t->nums > 0 );
 }
 
 /**

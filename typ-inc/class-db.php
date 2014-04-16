@@ -22,7 +22,7 @@ class zerdb {
 					"personaje", "img", "imgbg", "fuente"
 				),
 			"config" => array(
-					"titulo", "url", "robots"
+					"titulo", "url", "robots", "extra"
 				),
 			"twitter" => array(
 					"consumer_key", "consumer_secret", "access_token", "access_token_secret"
@@ -378,7 +378,6 @@ class zerdb {
 		else
 			return addslashes( $string );
 	}
-
 }
 
 class extraer {
@@ -431,6 +430,5 @@ class extraer {
 			$this->error = true;
 			$this->obt_error = mysql_error();
 		}
-
 	}
 }

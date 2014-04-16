@@ -3,17 +3,15 @@
 * Este archivo contiene funciones para extraer datos fácilmente
 *
 * @author Zerquix18
-* @since 0.0.1
+* @since 0.1
 **/
 
 function existe_usuario( $usuario ) {
 	global $zerdb;
 	$usuario = $zerdb->proteger( $usuario );
 	$u = new extraer($zerdb->usuarios, "*", array("usuario" => $usuario) );
-	if(! $u || $u->nums == 0)
-		return false;
 
-	return true;
+	return true == ( $u && (int) $u->nums > 0 );
 }
 
 
@@ -32,17 +30,18 @@ function obt_id( $id ) {
 /**
 *
 * Obtiene el usuario de la sesión actual
-*
+* Si $array es true, lo devolverá en un array y no en objeto.
+* 
 **/
 
-function obt_usuario_actual() {
+function obt_usuario_actual( $array = false ) {
 	global $zerdb;
 	if( ! sesion_iniciada() )
 		return false;
 
 	$u = obt_id( $_SESSION['id'] );
 	unset($u->clave);
-	return $u;
+	return ($array) ? (array) $u : $u;
 }
 
 /**
@@ -61,10 +60,7 @@ function es_super_admin() {
 
 	$u = new extraer($zerdb->usuarios, "rango", array("id" => $id) );
 
-	if( (integer) $u->rango == 1)
-		return true;
-
-	return false;
+	return true == ( (int) $u->rango == 1);
 }
 
 /**
@@ -84,10 +80,7 @@ function es_admin() {
 
 	$u = @new extraer($zerdb->usuarios, "rango", array("id" => $id) );
 
-	if( (integer) $u->rango == 2 or es_super_admin() )
-		return true;
-
-	return false;
+	return true == ( (int) $u->rango == 2 || es_super_admin() );
 }
 
 
@@ -107,10 +100,7 @@ function es_actualizador() {
 
 	$u = @new extraer($zerdb->usuarios, "rango", array("id" => $id) );
 
-	if( (integer) $u->rango == 3 or es_admin() )
-		return true;
-
-	return false;
+	return true == ( (int) $u->rango == 3 || es_admin() );
 }
 
 /**
@@ -123,33 +113,28 @@ function es_actualizador() {
 
 function rango( $id = null ) {
 	global $zerdb;
-	if( ! is_numeric($id) || is_null($id) )
+	$u = new extraer($zerdb->usuarios, "*", array("id" => $zerdb->proteger($id)) );
+	if( false == ($u && $u->nums > 0 ) )
 		return false;
-
-	$u = @new extraer($zerdb->usuarios, "*", array("id" => $id) );
 	switch( $u->id ) {
 		case "1":
-		return "Super Administrador";
+		return __("Super Administrador");
 		break;
 		case "2":
-		return "Administrador";
+		return __("Administrador");
 		break;
 		case "3":
-		return "Actualizador";
+		return __("Actualizador");
 		break;
 		default:
-		return "No tiene rango .-. ):"; /// eeeeeeeeey troooooooooooll xdddddd
+		return __("No tiene rango .-. ):"); /// eeeeeeeeey troooooooooooll xdddddd
 	}
 }
-
 function existe_usuario_id( $id ) {
 	global $zerdb;
 	$id = $zerdb->proteger( $id );
 	$u = new extraer($zerdb->usuarios, "*", array("id" => $id) );
-	if(! $u || $u->nums == 0)
-		return false;
-
-	return true;
+	return true == ($u && (int) $u->nums > 0 );
 }
 
 function comprobar_rangos( $rango1, $rango2 = '') {
@@ -177,19 +162,12 @@ function existe_email( $email ) {
 
 	$q = new extraer($zerdb->usuarios, "*", array("email" => $zerdb->proteger( $email ) ) );
 
-	if( ! $q || ! $q->nums > 0)
-		return false;
-
-	return true;
+	return true == (  $q && $q->nums > 0);
 }
 
 function estado( $estado ) {
 	global $zerdb;
-
-	if( $estado == '1' )
-		return "Activo";
-	else
-		return "Suspendido";
+	return ( (int) $estado == 1 ) ? __("Activo") : __("Suspendido");
 }
 
 function eliminar_usuario( $id ) {
@@ -204,17 +182,13 @@ function eliminar_usuario( $id ) {
 		return false;
 
 	return $zerdb->eliminar( $zerdb->usuarios, array("id" => $zerdb->proteger( $id ) ) );
-
 }
 
 function esta_suspendido( $id ) {
 
 	$u = obt_id( $id );
 
-	if( $u->estado !== "1")
-		return true;
-
-	return false;
+	return (int) $u->estado !== 1;
 }
 
 function suspender_usuario( $id ) {

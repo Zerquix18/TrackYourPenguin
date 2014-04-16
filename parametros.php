@@ -14,27 +14,24 @@ require_once( dirname( __FILE__ ) . '/typ-load.php' );
 comprobar( false );
 
 if( ! es_admin() )
-	typ_die("Haciendo trampa, ¿eh?");
+	typ_die( __("Haciendo trampa, ¿eh?") );
 
 if( ! isset($_GET['id'] ) || empty($_GET['id'] ) || ! is_numeric( $_GET['id']) )
-	typ_die("Necesito un ID correcto para especificar");
-
+	typ_die( __("Necesito un ID correcto para especificar") );
 
 $t = obt_tracker( $zerdb->proteger( $_GET['id'] ) );
 
 if( ! $t or ! $t->nums > 0 )
-	typ_die("El tracker no existe");
+	typ_die( __("El tracker no existe") );
 
 $p = array(
 	"estado" => obt_parametros(1, $t->id),
 	"servidor" => obt_parametros(2, $t->id),
 	"sala" => obt_parametros(3, $t->id)
 	);
-
 $estado = $p['estado'];
 $servidor = $p['servidor'];
 $sala = $p['sala'];
-
 function desactivar( $posicion ) {
 	$comprobar = isset($_GET['posicion'] );
 	if( ! $comprobar )
@@ -58,13 +55,12 @@ function desactivar( $posicion ) {
 		return '';
 	}
 }
-
 function navegacion() {
 	if( ! isset($_GET['posicion'] ) ) :
-		agregar_info("Debes elegir una posición válida para editar sus parámetros");
+		agregar_info( __("Debes elegir una posición válida para editar sus parámetros") );
 		echo '<hr>';
 	endif;
-		?>
+?>
 <ul class="nav nav-pills">
   		<li <?php desactivar( 1 ) ?>>
    			 <a href="<?php echo url() . 'parametros.php?id=' . $_GET['id'] . '&posicion=estado' ?>">Estado</a>
@@ -83,18 +79,12 @@ function navegacion() {
 			exit();
 		}
 }
-
-construir( 'cabecera', sprintf('Editar parámetros del tracker: %s', ucwords($t->personaje) ) );
-
+construir( 'cabecera', sprintf( __('Editar parámetros del tracker: %s'), ucwords($t->personaje) ) );
 ?>
-<h3>Editar los parámetros del tracker <i><?php echo ucwords( $t->personaje ) ?></i></h3><hr>
-
+<h3><?php _e("Editar los parámetros del tracker: ") ?><i><?php echo ucwords( $t->personaje ) ?></i></h3><hr>
 <?php
-
 navegacion();
-
-if( $_GET['posicion'] == 'estado' ) :
-
+if( 'estado' == $_GET['posicion'] ) :
 	if( "POST" == $_SERVER['REQUEST_METHOD'] ) {
 		$data = array(
 				"x" => @$zerdb->proteger( $_POST['x'] ),
@@ -106,7 +96,7 @@ if( $_GET['posicion'] == 'estado' ) :
 		if( $actualizar->comp_error ) :
 			agregar_error( $actualizar->error );
 		else:
-			agregar_info("Parámetros actualizados. :)");
+			agregar_info( __("Parámetros actualizados. :)") );
 			echo redireccion( url( true ),  3 );
 		endif;
 	}
@@ -115,45 +105,44 @@ if( $_GET['posicion'] == 'estado' ) :
 <form action="<?php echo url( true ) ?>" method="POST" class="form-horizontal">
 	<div class="control-group">
 		<label class="control-label">
-			Tamaño del texto
+			<?php _e("Tamaño del texto") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="size" value="<?php echo $estado['size'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Tamaño en el que se escribirá el texto en la imagen</small></span>
+			<span class="help-inline"><small><?php _e("Tamaño en el que se escribirá el texto en la imagen") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-		Ángulo
+		<?php _e("Ángulo") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="angulo" value="<?php echo $estado['angulo'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Ángulo en el que se escribirá el texto</small></span>
+			<span class="help-inline"><small><?php _e("Ángulo en el que se escribirá el texto") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-			Posición X
+			<?php _e("Posición X") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="x" value="<?php echo $estado['x'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Pósición X de la imagen en donde se escribirá el texto</small></span>
+			<span class="help-inline"><small><?php _e("Pósición X de la imagen en donde se escribirá el texto") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-			Posición Y
+			<?php _e("Posición Y") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="y" value="<?php echo $estado['y'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Posición Y de la imagen en donde se escribirá el texto</small></span>
+			<span class="help-inline"><small><?php _e("Posición Y de la imagen en donde se escribirá el texto") ?></small></span>
 		</div>
 	</div>
 	<center><input type="submit" id="enviar_parametros" name="enviar_parametros" required="required" class="btn btn-primary"
-		value="Actualizar parámetros">
+		value="<?php _e("Actualizar parámetros") ?>">
 </form>
-<?php elseif( $_GET['posicion'] == 'servidor' ) :
-
+<?php elseif( 'servidor' == $_GET['posicion'] ) :
 	if( "POST" == $_SERVER['REQUEST_METHOD'] ) {
 		$data = array(
 				"x" => @$zerdb->proteger( $_POST['x'] ),
@@ -166,54 +155,53 @@ if( $_GET['posicion'] == 'estado' ) :
 		if( $actualizar->comp_error ) :
 			agregar_error( $actualizar->error );
 		else:
-			agregar_info("Parámetros actualizados. :)");
+			agregar_info( __("Parámetros actualizados. :)") );
 			echo redireccion( url( true ),  3 );
 		endif;
 	}
-
 ?>
 <form action="<?php echo url( true ) ?>" method="POST" class="form-horizontal">
 	<div class="control-group">
 		<label class="control-label">
-			Tamaño del texto
+			<?php _e("Tamaño del texto") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="size" value="<?php echo $servidor['size'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Tamaño en el que se escribirá el texto en la imagen</small></span>
+			<span class="help-inline"><small><?php _e("Tamaño en el que se escribirá el texto en la imagen") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-		Ángulo
+		<?php _e("Ángulo") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="angulo" value="<?php echo $servidor['angulo'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Ángulo en el que se escribirá el texto</small></span>
+			<span class="help-inline"><small><?php _e("Ángulo en el que se escribirá el texto") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-			Posición X
+			<?php _e("Posición X") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="x" value="<?php echo $servidor['x'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Pósición X de la imagen en donde se escribirá el texto</small></span>
+			<span class="help-inline"><small><?php _e("Pósición X de la imagen en donde se escribirá el texto") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-			Posición Y
+			<?php _e("Posición Y") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="y" value="<?php echo $servidor['y'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Posición Y de la imagen en donde se escribirá el texto</small></span>
+			<span class="help-inline"><small><?php _e("Posición Y de la imagen en donde se escribirá el texto") ?></small></span>
 		</div>
 	</div>
 	<center><input type="submit" id="enviar_parametros" required="required" class="btn btn-primary"
-		value="Actualizar parámetros">
+		value="<?php _e("Actualizar parámetros") ?>">
 </form>
 
-<?php elseif( $_GET['posicion'] == 'sala' ) :
+<?php elseif( 'sala' == $_GET['posicion'] ) :
 
 	if( "POST" == $_SERVER['REQUEST_METHOD'] ) {
 		$data = array(
@@ -227,7 +215,7 @@ if( $_GET['posicion'] == 'estado' ) :
 		if( $actualizar->comp_error ) :
 			agregar_error( $actualizar->error );
 		else:
-			agregar_info("Parámetros actualizados. :)");
+			agregar_info( __("Parámetros actualizados. :)") );
 			echo redireccion( url( true ),  3 );
 		endif;
 	}
@@ -236,46 +224,45 @@ if( $_GET['posicion'] == 'estado' ) :
 <form action="<?php echo url( true ) ?>" method="POST" class="form-horizontal">
 	<div class="control-group">
 		<label class="control-label">
-			Tamaño del texto
+			<?php _e("Tamaño del texto") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="size" value="<?php echo $sala['size'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Tamaño en el que se escribirá el texto en la imagen</small></span>
+			<span class="help-inline"><small><?php _e("Tamaño en el que se escribirá el texto en la imagen") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-		Ángulo
+		<?php _e("Ángulo") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="angulo" value="<?php echo $sala['angulo'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Ángulo en el que se escribirá el texto</small></span>
+			<span class="help-inline"><small><?php _e("Ángulo en el que se escribirá el texto") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-			Posición X
+			<?php _e("Posición X") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="x" value="<?php echo $sala['x'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Pósición X de la imagen en donde se escribirá el texto</small></span>
+			<span class="help-inline"><small><?php _e("Pósición X de la imagen en donde se escribirá el texto") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-			Posición Y
+			<?php _e("Posición Y") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="y" value="<?php echo $sala['y'] ?>" required="required" pattern="^[\d]+$" class="input-mini">
-			<span class="help-inline"><small>Posición Y de la imagen en donde se escribirá el texto</small></span>
+			<span class="help-inline"><small><?php _e("Posición Y de la imagen en donde se escribirá el texto") ?></small></span>
 		</div>
 	</div>
 	<center><input type="submit" id="enviar_parametros" required="required" class="btn btn-primary"
-		value="Actualizar parámetros">
+		value="<?php _e("Actualizar parámetros") ?>">
 </form>
 <?php 
 endif;
-
 ?>
 <script type="text/javascript">
 <!--
@@ -316,20 +303,21 @@ function GetCoordinates(e)
     }
   PosX = PosX - ImgPos[0];
   PosY = PosY - ImgPos[1];
-  document.getElementById("x_").innerHTML = "<b>Posición X</b>: " + PosX;
-  document.getElementById("y_").innerHTML = "<b>Posición Y</b>: " + PosY;
+  $("#y_").html("<?php _e('<b>Posición X</b>') ?>: " + PosX);
+  $("#x_").html("<?php _e('<b>Posición Y</b>') ?>: " + PosY);
+  $("input[name='x']").val(PosX);
+  $("input[name='y']").val(PosY);
 }
 //-->
 </script>
-
 <div id="obtparams" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Obtener parámetros X y Y</h3>
+    <h3 id="myModalLabel"><?php _e("Obtener parámetros X y Y") ?></h3>
   </div>
   <div class="modal-body">
-    <p>Obtén los parámetros X y Y de la imagen haciendo clic en donde quieres obtenerlos.</p>
-    <p>Por ejemplo, en donde va el estado, haz clic y obtendrás el parámetro X y Y para añadir en el tracker.</p>
+    <p><?php _e("Obtén los parámetros X y Y de la imagen haciendo clic en donde quieres obtenerlos.") ?></p>
+    <p><?php _e("Una vez des clic, puedes regresar al tracker y pulsar \"Actualizar parámetros\" para actualizarlos") ?></p>
 	<p id="x_"></p>
 	<p id="y_"></p>
 	<img id="myImgId" alt="" src="<?php echo url() . IMG . $t->imgbg ?>"/>
@@ -341,10 +329,9 @@ myImg.onmousedown = GetCoordinates;
 </script>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+    <button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true"><?php _e("Cerrar") ?></button>
     <img src="">
   </div>
 </div>
-
 <?php
 construir( "pies" ); // this won't stop!

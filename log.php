@@ -5,55 +5,56 @@
 *
 * @package TrackYourPenguin
 * @author Zerquix18
-* @since 0.0.1
+* @since 0.1
 *
 **/
 
 require_once( dirname(__FILE__) . '/typ-load.php' );
 
+comprobar( false );
+
 if( ! es_super_admin() )
 	typ_die("Haciendo trampa, ¿eh?");
-construir('cabecera', 'Registro de cambios', true );
+construir('cabecera', __('Registro de cambios'), true );
+
 if( isset($_GET['id']) && is_numeric($_GET['id'] ) )
 	$dnd = array("id" => $zerdb->proteger($_GET['id'] ) );
 else
 	$dnd = false;
 
-$l = new extraer( $zerdb->log, "*", $dnd );
+$order = isset($_GET['id']) && is_numeric($_GET['id']) ? '' : "ORDER BY id DESC";
+$l = new extraer( $zerdb->log, "*", $dnd, $order );
 
 if( isset($_GET['id']) && is_numeric($_GET['id'] ) ) {
 	if( ! $l || !$l->nums > 0 ) {
-		agregar_error("No existe ese ID en el log");
+		agregar_error( __("No existe ese ID en el log") );
 		exit( construir('pies') );
 	}
 	?>
-	<h3> Log ID: <?php echo $l->id ?></h3><hr>
+	<h3> <?php _e("Log ID") ?>: <?php echo $l->id ?></h3><hr>
 	<div class="well">
-		<?php echo $l->accion ?>
+		<?php echo mostrar_log($l->accion) ?>
 	</div>
-	<b>Fecha:</b>&nbsp;<i><?php echo $l->fecha ?></i>
+	<b><?php _e("Fecha") ?>:</b>&nbsp;<i><?php echo mostrar_fecha($l->fecha, true) ?></i>
 	<ul class="pager">
-		<li class="previous"><a href="<?php echo url() . 'log.php' ?>">&larr; Volver al log</a></li>
+		<li class="previous"><a href="<?php echo url() . 'log.php' ?>">&larr; <?php _e("Volver al log") ?></a></li>
 	</ul>
 	<?php
 	exit( construir('pies') );
 }
-
 ?>
-<h3> Registro de cambios </h3><hr>
+<h3> <?php _e("Registro de cambios") ?> </h3><hr>
 <?php
 	if( !$l || $l->nums == "0") {
-		agregar_error("No se ha registrado nada aún en el registro, vuelve más tarde. :)");
+		agregar_error( __("No se ha registrado nada aún en el registro, vuelve más tarde. :)") );
 		exit( construir('pies') );
 	}
-
-$pagina = isset($_GET['p']) && is_numeric($_GET['p']) ? $_GET['p'] : 1;
-$limit = 'LIMIT '. ($pagina-1) * 5 . ',' . 5;
-$fetch = mysql_query( $l->query . ' ' . $limit );
-$paginas = ceil( $s->nums / 5 );
-
+	$pagina = isset($_GET['p']) && is_numeric($_GET['p']) ? $_GET['p'] : 1;
+	$limit = 'LIMIT '. ($pagina-1) * 5 . ',' . 5;
+	$fetch = mysql_query( $l->query . ' ' . $limit );
+	$paginas = ceil( $l->nums / 5 );
 if( $pagina > $paginas ) {
-	agregar_error("No existen más registros");
+	agregar_error( __("No existen más registros") );
 	construir( 'pies' );
 	exit();
 }
@@ -61,12 +62,12 @@ if( $pagina > $paginas ) {
 <form method="POST" action="<?php echo url( true ) ?>">
 	<?php if( isset($_POST['borrar']) ) {
 	if( isset($_POST['eliminar']) && !is_array($_POST['eliminar']) or empty($_POST['eliminar']) ) {
-		agregar_error("Debes seleccionar un log para borrar");
+		agregar_error( __("Debes seleccionar un log para borrar") );
 	}else{
 		foreach( $_POST['eliminar'] as $id ) {
 			$zerdb->eliminar( $zerdb->log, array("id" => $zerdb->proteger($id) ) );
 		}
-		agregar_info("Los registros seleccionados han sido eliminados");
+		agregar_info( __("Los registros seleccionados han sido eliminados") );
 		echo redireccion( url( true ), 2);
 	}
 }elseif( isset($_POST['eliminar_todo'] ) ) {
@@ -77,8 +78,8 @@ if( $pagina > $paginas ) {
 <table class="table">
 	<tr>
 		<th>#</th>
-		<th>Acción</th>
-		<th>Fecha</th>
+		<th><?php _e("Acción") ?></th>
+		<th><?php _e("Fecha") ?></th>
 	</tr>
 <?php
 while($log = mysql_fetch_array($fetch) ) {
@@ -87,10 +88,10 @@ while($log = mysql_fetch_array($fetch) ) {
 		<td><input type="checkbox" name="eliminar[]" value="<?php echo $log['id'] ?>"></td>
 		<td><?php
 				if( strlen($log['accion']) > 100 )
-					echo substr($log['accion'], 0, 100) . '...<a href="' . url() . 'log.php?id=' . $log['id'] . '">más</a>';
-				else echo $log['accion'];
+					echo substr( mostrar_log($log['accion']), 0, 100) . '...<a href="' . url() . 'log.php?id=' . $log['id'] . '">' . __('más') . '</a>';
+				else echo mostrar_log($log['accion']);
 		?></td>
-		<td><?php echo $log['fecha'] ?></td>
+		<td><?php echo '<b>' . mostrar_fecha($log['fecha'])  . '</b>' ?></td>
 	</tr>
 <?php } ?>
 </table>
@@ -98,7 +99,7 @@ while($log = mysql_fetch_array($fetch) ) {
 <div class="pagination pagination-large text-center">
 	<ul>
 		<?php 
-		$n2 = ($pagina == '1') ? '1' : $pagina - 1;
+		$n2 = ('1' == $pagina) ? '1' : $pagina - 1;
 		echo '<li><a href="?p='. $n2 . '">&laquo;</a></li>';
 		for($i = 1; $i <= $paginas; $i++) :
 		$n = ($pagina == $i) ? 'class="disabled"' : '';
@@ -110,10 +111,10 @@ while($log = mysql_fetch_array($fetch) ) {
 	</ul>
 </div>
 	<button type="submit" name="eliminar_todo" class="btn btn-danger text-right">
-		<i class="icon-trash"></i>&nbsp;Vaciar el log
+		<i class="icon-trash"></i>&nbsp;<?php _e("Vaciar el log") ?>
 	</button> |
 	<button type="submit" name="borrar" class="btn btn-danger text-right">
-		<i class="icon-trash"></i>&nbsp;Limpiar elementos seleccionados
+		<i class="icon-trash"></i>&nbsp;<?php _e("Limpiar elementos seleccionados") ?>
 	</button>
 </form>
 

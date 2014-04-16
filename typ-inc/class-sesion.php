@@ -11,14 +11,18 @@
 * @author Zerquix18 <http://www.zerquix18.com/>
 * @link http://trackyourpenguin.com/
 * @copyright 2013 TrackYourPenguin
-* @since 0.0.1
+* @since 0.1
 * 
 * 
 **/
 
+$preg = sprintf("#%s#", basename(__FILE__) );
+if( preg_match($preg, $_SERVER['PHP_SELF'])) exit();
+
 class sesiones {
 
 	public function __construct() {
+		$this->sesion_iniciada = $this->sesion_iniciada();
 		return true;
 	}
 /**
@@ -42,15 +46,17 @@ class sesiones {
 			return false;
 
 		$id = $data->id;
-		$hash = md5( uniqid() );
-		$ip = $_SERVER['REMOTE_ADDR'];
-		$dia = retornar_fecha();
-		if( $alargar )
-		$xd = setcookie('hash', $hash, time() + 60 * 60 * 24 * 30 * 2);	
+		$hash = generar_hash(32, false, false);
+		$ip = obt_ip();
+		$dia = time();
+		if( $alargar ) {
+			$time = time() + 60 * 60 * 24 * 30 * 2;
+			setcookie('hash', $hash, $time);	// 2 meses.
+		}
 		$_SESSION['hash'] = $hash;
 		$_SESSION['usuario'] = $usuario;
 		$_SESSION['id'] = $id;
-		$this->insertar( $id, $hash, $ip, $dia );
+		return $zerdb->insertar($zerdb->sesiones, array($id, $hash, $ip, $dia ) );
 	}
 /**
 * Inserta la sesión en la base de datos
@@ -60,6 +66,7 @@ class sesiones {
 * @param $ip string
 * @param $dia string
 * @return bool
+* @deprecated 1.0
 *
 **/
 	private function insertar($id, $hash, $ip, $dia) {
@@ -77,33 +84,15 @@ class sesiones {
 
 	public function sesion_iniciada() {
 		global $zerdb;
-		if( ! $_SESSION )
+		if( ! comprobar_instalacion() || empty($_SESSION) )
 			return false;
 
 		$comprobar = new extraer($zerdb->sesiones, "*", array("id" => $_SESSION['id'], "hash" => $_SESSION['hash']) );
 		
-		if( $comprobar && (int) $comprobar->nums > 0) //si existe en la db...
+		if( isset($comprobar) && (int) $comprobar->nums > 0) //si existe en la db...
 			return true;
 
 		return false;
-	}
-/**
-*
-* Destruye todas las cookies existentes...
-*
-* @link http://www.php.net/manual/en/function.setcookie.php#73484
-*
-**/
-	function destruir_cookies() {
-		if ( isset($_SERVER['HTTP_COOKIE']) ) {
-    		$cookies = explode('; ', $_SERVER['HTTP_COOKIE']);
-    		foreach($cookies as $cookie) {
-        		$partes = explode('=', $cookie);
-        		$nombre = trim( current($partes) );
-        		setcookie($nombre, '', time() - 6000);
-        		setcookie($nombre, '', time() - 6000);
-    		}
-		}
 	}
 /**
 *
@@ -112,11 +101,11 @@ class sesiones {
 **/
 	public function destruir() {
 		global $zerdb;
-		$this->destruir_cookies();
 		if( ! $this->sesion_iniciada() )
 			return false;
-
 		$var = $zerdb->eliminar($zerdb->sesiones, array("hash" => $_SESSION['hash'], "id" => $_SESSION['id'] ) );
+		if( isset($_COOKIE['hash']) )
+			setcookie('hash', '', time() - 3600 );
 		session_destroy();
 		session_unset();
 	}

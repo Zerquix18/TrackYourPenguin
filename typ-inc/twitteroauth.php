@@ -6,6 +6,8 @@
  * The first PHP Library to support OAuth for Twitter's REST API.
  */
 
+$preg = sprintf("#%s#", basename(__FILE__) );
+if( preg_match($preg, $_SERVER['PHP_SELF'])) exit();
 
 require_once( PATH . INC . '/OAuth.php');
 
