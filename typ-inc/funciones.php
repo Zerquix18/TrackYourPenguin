@@ -134,13 +134,13 @@ function typ_die_helper( $error = null ) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="<?php echo url() . INC . CSS . 'bootstrap2.css' ?>" rel="stylesheet">
+  <link href="<?php echo url() . INC . CSS . 'cyborg.css' ?>" rel="stylesheet">
   <style type="text/css">
     body { padding-top: 60px; 
       padding-bottom: 40px; 
     }
   </style>
-  <link href="<?php echo url() . INC . CSS . 'bootstrap2.min.css' ?>" rel="stylesheet">
+  <link href="<?php echo url() . INC . CSS . 'cyborg.min.css' ?>" rel="stylesheet">
   <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -248,7 +248,7 @@ function enviar_email($email = null, $asunto = null, $mensaje = null) {
 function url($actual = false) {
 	global $zerdb;
 	if(! comprobar_instalacion() )
-		return false;
+		return 'http://' . $_SERVER['HTTP_HOST'] . dirname( $_SERVER['PHP_SELF'] ) . '/';
 
 	$c = new extraer($zerdb->config, "*");
 	$q = ( !empty($_SERVER['QUERY_STRING'] ) ) ? '?' . $_SERVER['QUERY_STRING'] : '';
