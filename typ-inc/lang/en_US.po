@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Trackyourpenguin 1.0.2\n"
-"POT-Creation-Date: 2014-04-13 22:51-0430\n"
-"PO-Revision-Date: 2014-04-13 23:16-0430\n"
+"POT-Creation-Date: 2014-04-17 23:18-0430\n"
+"PO-Revision-Date: 2014-04-17 23:21-0430\n"
 "Last-Translator: Luis Alberto <malbertoa_11@hotmail.com>\n"
 "Language-Team: TrackYourPenguin <zerquix@gmail.com>\n"
 "Language: Spanish\n"
@@ -67,7 +67,7 @@ msgstr "Empty the log"
 msgid "Limpiar elementos seleccionados"
 msgstr "Delete selected"
 
-#: oauth.php:19 oauth.php:43 instalar.php:189 acceso.php:125 acceso.php:176
+#: oauth.php:19 oauth.php:43 instalar.php:193 acceso.php:125 acceso.php:176
 #: index.php:22 index.php:144 ajustes.php:17 ajustes.php:38 actualizar.php:96
 #: usuarios.php:34 usuarios.php:55 usuarios.php:179 parametros.php:17
 #: tweets.php:19
@@ -116,15 +116,20 @@ msgstr "Access Token Secret"
 msgid "Actualizar"
 msgstr "Update"
 
-#: instalar.php:18
+#: instalar.php:13
+msgid ""
+"¡Lo lamento! TrackYourPenguin necesita de una versión superior a la 5.0 :("
+msgstr "I'm sorry! TrackYourPenguin needs a version higher than 5.0. :("
+
+#: instalar.php:22
 msgid "Instalación"
 msgstr "Instalation"
 
-#: instalar.php:41
+#: instalar.php:45
 msgid "versión"
 msgstr "version"
 
-#: instalar.php:51
+#: instalar.php:55
 msgid ""
 "Hubo un error renombrando el archivo, al parecer tu hosting no lo permite. "
 "Por favor, renómbralo de \"<b>typ-config-sample.php</b>\"  a \"<b>typ-config."
@@ -134,7 +139,7 @@ msgstr ""
 "it. Please, rename it from \"<b>typ-config-sample.php</b>\" to \"<b>typ-"
 "config.php</b>\""
 
-#: instalar.php:57
+#: instalar.php:61
 msgid ""
 "<h2><b>Ya has instalado</b></h2><hr> La instalación de TrackYourPenguin ya "
 "fue completada, por lo que, ¿no piensas hacerla de nuevo, verdad?"
@@ -142,7 +147,7 @@ msgstr ""
 "<h2><b>You have already installed</b></h2><hr> TrackYourPenguin instalation "
 "has been completed, you don't think to do it again, right?"
 
-#: instalar.php:90
+#: instalar.php:94
 msgid ""
 "No se puede abrir el archivo :/, por favor copia este archivo y reemplázalo "
 "por tu <b>typ-config-sample.php</b>\n"
@@ -152,7 +157,7 @@ msgstr ""
 "<b>typ-config-sample.php</b>\n"
 " and change the name to  <b>typ-config.php</b>"
 
-#: instalar.php:100
+#: instalar.php:104
 msgid ""
 "No se puede reescribir el archivo :/, por favor copia este archivo y "
 "reemplázalo por tu <b>typ-config-sample.php</b> y cambia el nombre a <b>typ-"
@@ -162,16 +167,16 @@ msgstr ""
 "<b>typ-config-sample.php</b> and change the name to <b>typ-config.php</b>, "
 "or is already exists <b>typ-config.php</b>, update it with this:"
 
-#: instalar.php:109
+#: instalar.php:113
 #, php-format
 msgid "La conexión no está bien hecha... Error MySQL: %s "
 msgstr "The connection isn't right... MySQL Error: %s"
 
-#: instalar.php:113
+#: instalar.php:117
 msgid "Error conectando a la base de datos"
 msgstr "Error conecting to the database"
 
-#: instalar.php:114
+#: instalar.php:118
 msgid ""
 "Hubo un error conectando a la base de datos, por favor, conecta desde aquí. "
 "Los datos te los dará tu proveedor de hosting."
@@ -179,45 +184,45 @@ msgstr ""
 "There was an error conecting to the database, please, connect from here. The "
 "data will be provided by your hosting."
 
-#: instalar.php:118
+#: instalar.php:122
 msgid "Host"
 msgstr "Host"
 
-#: instalar.php:122
+#: instalar.php:126
 msgid "El host de la base de datos MySQL, a veces suele ser localhost"
 msgstr "The MySQL database host, sometimes it is localhost"
 
-#: instalar.php:127 index.php:118 index.php:181 ajustes.php:57 tweets.php:63
+#: instalar.php:131 index.php:118 index.php:181 ajustes.php:57 tweets.php:63
 #: tweets.php:123
 msgid "Nombre"
 msgstr "Name"
 
-#: instalar.php:131
+#: instalar.php:135
 msgid "Nombre de la base de datos"
 msgstr "Database name"
 
-#: instalar.php:136 instalar.php:217 sesiones.php:60 usuarios.php:80
+#: instalar.php:140 instalar.php:221 sesiones.php:60 usuarios.php:80
 #: usuarios.php:207 usuarios.php:360 usuarios.php:364 usuarios.php:380
 msgid "Usuario"
 msgstr "User"
 
-#: instalar.php:140
+#: instalar.php:144
 msgid "Usuario de la base de datos"
 msgstr "Database user"
 
-#: instalar.php:145 instalar.php:226 usuarios.php:90
+#: instalar.php:149 instalar.php:230 usuarios.php:90
 msgid "Clave"
 msgstr "Password"
 
-#: instalar.php:149
+#: instalar.php:153
 msgid "Clave de la base de datos"
 msgstr "Database password"
 
-#: instalar.php:152
+#: instalar.php:156
 msgid "Conectar"
 msgstr "Connect"
 
-#: instalar.php:161
+#: instalar.php:165
 #, php-format
 msgid ""
 "<h2>Error estableciendo conexión con la base de datos</h2><p>Al parecer, no "
@@ -228,11 +233,11 @@ msgstr ""
 "connect, please, check your <b>typ-config.php</b>, and here is the error "
 "returned by MySQL: <b>%s</b>"
 
-#: instalar.php:177
+#: instalar.php:181
 msgid "Bienvenido a la instalación"
 msgstr "Welcome to the instalation"
 
-#: instalar.php:180
+#: instalar.php:184
 msgid ""
 "Desde esta guía podrás instalar TrackYourPenguin fácilmente, sólo tienes que "
 "llenar los siguientes campos... :)"
@@ -240,30 +245,30 @@ msgstr ""
 "From this guide you will be able to install TrackYourPenguin easily, you "
 "just have to type in the following fields... :)"
 
-#: instalar.php:191 index.php:35 actualizar.php:98 usuarios.php:57
+#: instalar.php:195 index.php:35 actualizar.php:98 usuarios.php:57
 #: usuarios.php:181
 msgid "No puedes dejar datos vacíos"
 msgstr "You can't leave empty fields"
 
-#: instalar.php:193
+#: instalar.php:197
 msgid ""
 "El usuario no parece ser válido. Recuerda que debe ser de 3 a 12 caracteres."
 msgstr ""
 "The user doesn't look valid. Remember it must be from 3 to 12 characters."
 
-#: instalar.php:195
+#: instalar.php:199
 msgid "¿Seguro que tienes un email tan largo?"
 msgstr "Are you sure your email is so long?"
 
-#: instalar.php:197
+#: instalar.php:201
 msgid "El email que ingresas no parece ser válido"
 msgstr "The email you type doesn't look valid"
 
-#: instalar.php:199 acceso.php:180
+#: instalar.php:203 acceso.php:180
 msgid "Las claves no coinciden"
 msgstr "The passwords doesn't match"
 
-#: instalar.php:206
+#: instalar.php:210
 #, php-format
 msgid ""
 "<h2> Instalación completada </h2><br> Has instalado TrackYourPenguin "
@@ -272,32 +277,32 @@ msgstr ""
 "<h2> Instalation completed </h2><br> You have installed TrackYourPenguin "
 "successfully, you can now <a href=\"%s\">log in</a> to continue. :)"
 
-#: instalar.php:221
+#: instalar.php:225
 msgid "Tu nombre de usuario para el sitio"
 msgstr "Your username for the site"
 
-#: instalar.php:230
+#: instalar.php:234
 msgid "Tu clave para el inicio de sesión"
 msgstr "Your password for the login"
 
-#: instalar.php:235 usuarios.php:99
+#: instalar.php:239 usuarios.php:99
 msgid "Confirmar clave"
 msgstr "Re-Type password"
 
-#: instalar.php:239
+#: instalar.php:243
 msgid "Confirma que la clave que pones es la que quieres"
 msgstr "Confirm that the password you typed is what you want"
 
-#: instalar.php:244 usuarios.php:108 usuarios.php:217 usuarios.php:365
+#: instalar.php:248 usuarios.php:108 usuarios.php:217 usuarios.php:365
 #: usuarios.php:381
 msgid "Email"
 msgstr "Email"
 
-#: instalar.php:248
+#: instalar.php:252
 msgid "Tu email, el que más utilices"
 msgstr "Your email, you must have access"
 
-#: instalar.php:251 acceso.php:158 acceso.php:253 index.php:76 tweets.php:80
+#: instalar.php:255 acceso.php:158 acceso.php:253 index.php:76 tweets.php:80
 msgid "Enviar"
 msgstr "Submit"
 
@@ -531,7 +536,7 @@ msgstr "Back to tracker"
 msgid "La fuente del Tracker"
 msgstr "The tracker's font"
 
-#: index.php:137 index.php:183 typ-inc/cuerpo.php:127
+#: index.php:137 index.php:183 typ-inc/cuerpo.php:135
 msgid "Editar parámetros"
 msgstr "Edit parameters"
 
@@ -581,7 +586,7 @@ msgstr "Background image"
 msgid "Imagen"
 msgstr "Image"
 
-#: index.php:193 index.php:224 typ-inc/cuerpo.php:94 typ-inc/cuerpo.php:157
+#: index.php:193 index.php:224 typ-inc/cuerpo.php:102 typ-inc/cuerpo.php:165
 msgid "Trackers"
 msgstr "Trackers"
 
@@ -617,7 +622,7 @@ msgstr ""
 "¿Seguro que quieres eliminar %s trackers? <hr> <a href=\"%s\" class=\"btn "
 "btn-danger\">Yes</a>"
 
-#: index.php:225 usuarios.php:377 typ-inc/cuerpo.php:105
+#: index.php:225 usuarios.php:377 typ-inc/cuerpo.php:113
 msgid "Agregar nuevo"
 msgstr "Add new"
 
@@ -656,7 +661,7 @@ msgstr "There are not more trackers"
 msgid "Eliminar seleccionados"
 msgstr "Delete selected"
 
-#: ajustes.php:19 ajustes.php:25 typ-inc/cuerpo.php:165
+#: ajustes.php:19 ajustes.php:25 typ-inc/cuerpo.php:173
 msgid "Ajustes"
 msgstr "Settings"
 
@@ -813,7 +818,7 @@ msgstr "You have not configured the <a href=\"%s\">Twitter's OAuth</a>."
 msgid "Actualizar tracker"
 msgstr "Update tracker"
 
-#: actualizar.php:212 typ-inc/cuerpo.php:115
+#: actualizar.php:212 typ-inc/cuerpo.php:123
 msgid "Ver imagen"
 msgstr "View image"
 
@@ -833,7 +838,7 @@ msgstr "Close"
 msgid "No hay sesiones para ese usuario"
 msgstr "There are not sessions for this user"
 
-#: sesiones.php:19 sesiones.php:34 typ-inc/cuerpo.php:187
+#: sesiones.php:19 sesiones.php:34 typ-inc/cuerpo.php:195
 msgid "Sesiones"
 msgstr "Sessions"
 
@@ -1058,7 +1063,7 @@ msgstr ""
 msgid "Volver al Inicio"
 msgstr "Back to home"
 
-#: usuarios.php:371 usuarios.php:374 typ-inc/cuerpo.php:161
+#: usuarios.php:371 usuarios.php:374 typ-inc/cuerpo.php:169
 msgid "Usuarios"
 msgstr "Users"
 
@@ -1162,7 +1167,7 @@ msgstr ""
 "Once you click it, you can get back to the tracker and click \"Update "
 "parameters\" to update it."
 
-#: about.php:13 typ-inc/cuerpo.php:87
+#: about.php:13 typ-inc/cuerpo.php:95
 msgid "Acerca de"
 msgstr "About"
 
@@ -1218,7 +1223,7 @@ msgstr ""
 msgid "Wooops! Tranquilo, eh."
 msgstr "Wooops! Quiet, eh."
 
-#: actualizaciones.php:17 typ-inc/cuerpo.php:180
+#: actualizaciones.php:17 typ-inc/cuerpo.php:188
 msgid "Actualizaciones"
 msgstr "Updates"
 
@@ -1322,7 +1327,7 @@ msgstr "Tweet of:"
 msgid "Tweet enviado exitosamente"
 msgstr "Tweet sent successfully"
 
-#: tweets.php:197 typ-inc/cuerpo.php:172
+#: tweets.php:197 typ-inc/cuerpo.php:180
 msgid "Tweets"
 msgstr "Tweets"
 
@@ -1614,7 +1619,7 @@ msgstr "November"
 msgid "Diciembre"
 msgstr "December"
 
-#: typ-inc/funciones.php:448 typ-inc/cuerpo.php:133
+#: typ-inc/funciones.php:448 typ-inc/cuerpo.php:141
 msgid "Códigos cortos"
 msgstr "Short codes"
 
@@ -1750,41 +1755,41 @@ msgid ""
 msgstr ""
 "TrackYourPenguin <b>%s</b> is available, please <a href=\"%s\">update.</a> :)"
 
-#: typ-inc/cuerpo.php:84
+#: typ-inc/cuerpo.php:92
 msgid "Extra"
 msgstr "Extra"
 
-#: typ-inc/cuerpo.php:88
+#: typ-inc/cuerpo.php:96
 msgid "Cerrar sesión"
 msgstr "Log out"
 
-#: typ-inc/cuerpo.php:92
+#: typ-inc/cuerpo.php:100
 msgid "Inicio"
 msgstr "Home"
 
-#: typ-inc/cuerpo.php:111
+#: typ-inc/cuerpo.php:119
 msgid "Herramientas"
 msgstr "Tools"
 
-#: typ-inc/cuerpo.php:121
+#: typ-inc/cuerpo.php:129
 msgid "Compartir"
 msgstr "Share"
 
-#: typ-inc/cuerpo.php:140
+#: typ-inc/cuerpo.php:148
 msgid "Obtener parámetros"
 msgstr "Get parameters"
 
-#: typ-inc/cuerpo.php:148
+#: typ-inc/cuerpo.php:156
 msgid ""
 "Javascript está desactivado, más de la mitad de las funciones del sitio "
 "están destinadas a fallar..."
 msgstr "Javascript is not activated. Some parts of site may fail."
 
-#: typ-inc/cuerpo.php:169
+#: typ-inc/cuerpo.php:177
 msgid "OAuth"
 msgstr "OAuth"
 
-#: typ-inc/cuerpo.php:176
+#: typ-inc/cuerpo.php:184
 msgid "Registro"
 msgstr "Log"
 
