@@ -19,7 +19,7 @@
 function buscadores_activados() {
 	global $zerdb;
 	$q = new extraer($zerdb->config, "robots");
-	return true == ( (int) $q->robots == 1 );
+	return $q->robots == "1";
 }
 
 /**
@@ -30,7 +30,8 @@ function buscadores_activados() {
 function tema() {
 	global $zerdb;
 	$t = new extraer($zerdb->config, "extra");
-	return !empty($t->extra) ? json_decode($t->extra)->tema : 'bootstrap';
+	$ext = json_decode($t->extra)->tema;
+	return !empty($ext) ? $ext : 'bootstrap';
 }
 
 /**
