@@ -24,4 +24,17 @@ fclose($f); //cierra.
 return true;
 }
 
+/** versión 1.0.0 **/
+
+function typ_1_0(){
+	global $zerdb;
+	$x = $zerdb->seleccionar($zerdb->opciones, "*");
+	if( isset($x->extra) )
+		return;
+	$zerdb->query("ALTER TABLE $zerdb->config ADD extra varchar(200)");
+	$zerdb->actualizar($zerdb->config, array("extra" => json_encode(array("tema" => "bootstrap"))));
+	return true;
+}
+
 typ_0_1_1();
+typ_1_0();
