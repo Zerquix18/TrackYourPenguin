@@ -8,6 +8,10 @@
 *
 **/
 require_once( dirname(__FILE__) . "/typ-load.php"); // Requerimos todo.
+
+if( version_compare(PHP_VERSION, '5.0.0', '>' ) )
+  typ_die( __('¡Lo lamento! TrackYourPenguin necesita de una versión superior a la 5.0 :('));
+
 $paso = (isset($_GET['paso']) && is_string($_GET['paso'])) ? $_GET['paso'] : ''; // El paso por el que vamos.
 /* Construye la cabecera */
 function construir_cabecera() {
@@ -201,7 +205,7 @@ $post = 'POST' == getenv('REQUEST_METHOD');
   $path = dirname($_SERVER['PHP_SELF']) !== '/' ? dirname($_SERVER['PHP_SELF']) : '';
   $url = 'http://' . $_SERVER['HTTP_HOST'] . $path;
   $insertar = $zerdb->insertar($zerdb->usuarios, array($usuario, $clave, $email, 1, 1, '') ) or die( $zerdb->ult_err );
-  $insertar2 = $zerdb->insertar($zerdb->config, array("TrackYourPenguin", $url, 1, json_encode( array() ) ) ) or die( $zerdb->ult_err );
+  $insertar2 = $zerdb->insertar($zerdb->config, array("TrackYourPenguin", $url, 1, json_encode( array("tema" => "bootstrap") ) ) ) or die( $zerdb->ult_err );
   agregar_info( sprintf(
     __('<h2> Instalación completada </h2><br> Has instalado TrackYourPenguin correctamente, ya puedes <a href="%s">iniciar sesión</a> para continuar. :)'), 
   url() . 'acceso.php' ) );
