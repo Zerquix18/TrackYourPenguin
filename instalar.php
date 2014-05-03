@@ -9,7 +9,7 @@
 **/
 require_once( dirname(__FILE__) . "/typ-load.php"); // Requerimos todo.
 
-if( version_compare(PHP_VERSION, '5.0.0', '>' ) )
+if( version_compare(PHP_VERSION, '5.0.0', '<' ) )
   typ_die( __('¡Lo lamento! TrackYourPenguin necesita de una versión superior a la 5.0 :('));
 
 $paso = (isset($_GET['paso']) && is_string($_GET['paso'])) ? $_GET['paso'] : ''; // El paso por el que vamos.
