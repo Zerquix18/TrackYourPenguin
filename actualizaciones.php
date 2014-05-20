@@ -25,7 +25,7 @@ if( hay_actualizacion() && isset($_GET['actualizar']) ) {
 if( ! hay_actualizacion() && ! isset($_GET['actualizar']) ) {
 	agregar_info( __("No hay actualizaciones. Tienes la última versión."), false, true); //0,1
 }elseif( hay_actualizacion() && ! isset($_GET['actualizar']) ) {
-	agregar_error( sprintf( __("TrackYourPenguin <b>%s</b> está disponible. :)"), obt_version() ), false, false );
+	agregar_error( sprintf( __("TrackYourPenguin <strong>%s</strong> está disponible. :)"), obt_version() ), false, false );
 	?>
 	<br><div style="text-align:center">
 	<a href="<?php echo url( true ) . '?actualizar=1' ?>" class="btn btn-primary btn-large"><?php _e('Actualizar') ?></a>
