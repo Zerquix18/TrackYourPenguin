@@ -118,8 +118,8 @@ switch( $acc ) {
 	cabecera( __('Clave olvidada'), $mensaje, $error);
 
 	if( $post ) {
-		$email = @$zerdb->proteger( trim($_POST['email']) );
-		$usuario = new extraer($zerdb->usuarios, "*", array("email" => $email) );
+		$email = $zerdb->real_escape( trim($_POST['email']) );
+		$usuario = $zerdb->select($zerdb->usuarios, "*", array("email" => $email) )->_();
 
 		if( ! comprobar_args( @$_POST['email'] ) ) {
 			agregar_error( __("Haciendo trampa, ¿eh?") );
@@ -132,22 +132,22 @@ switch( $acc ) {
 		}else{
 			if( empty($usuario->hash) ) {
 				$hash = md5( uniqid() );
-				$zerdb->actualizar($zerdb->usuarios, array("hash" => $hash), array("email" => $email) );
+				$x = $zerdb->update($zerdb->usuarios, "hash", $hash )->where("email", $email )->_();
 			}else{
 				$hash = $usuario->hash;
 			}
 			$asunto = sprintf( __('Clave olvidada [%s]'), titulo() );
 			$texto = sprintf( __("<html><body>
-					¡Hola, <b>%s</b>! \n\n
+					¡Hola, <strong>%s</strong>! \n\n
 					Se ha enviado una solicitud para cambiar la clave de tu usuario, si t&uacute; la enviaste, haz
-					<a href=\"%s\"><b>clic aqu&iacute;</b></a>\n\n
+					<a href=\"%s\"><strong>clic aqu&iacute;</strong></a>\n\n
 					Si no la hiciste, d&eacute;jalo todo como est&aacute; y no pasar&aacute; nada. :)</body></html>"), 
 			$usuario->usuario, url() . 'acceso.php?accion=rc&hash=' . $hash . '&usuario=' . $usuario->usuario);
 			$mail = enviar_email($email, $asunto, $texto);
 			if( $mail )
 				agregar_info( __("Ha sido enviado un email a tu correo electrónico, por favor revísalo.") );
 			else
-				agregar_error( __("Lamentablemente no se pudo enviar el email, por favor revisa que tu hosting tenga la función <b>mail()</b> activa.") );
+				agregar_error( __("Lamentablemente no se pudo enviar el email, por favor revisa que tu hosting tenga la función <strong>mail()</strong> activa.") );
 		}
 	}
 	?>
@@ -165,11 +165,11 @@ break;
 	if( empty($usuario_) || empty($hash_) ) 
 		exit( header("Location: acceso.php?accion=co&error=1") );
 
-	$usuario = $zerdb->proteger( $_GET['usuario'] );
-	$hash = $zerdb->proteger( $_GET['hash'] );
-	$u = new extraer($zerdb->usuarios, "*", array("hash" => $hash, "usuario" => $usuario) );
+	$usuario = $zerdb->real_escape( $_GET['usuario'] );
+	$hash = $zerdb->real_escape( $_GET['hash'] );
+	$u = $zerdb->select($zerdb->usuarios, "*", array("hash" => $hash, "usuario" => $usuario) )->_();
 	if( ! $u  || !$u->nums > 0)
-		exit( header("Location: acceso.php?accion=co&error=1" ) );
+		exit( header("Location: acceso.php?accion=co&error=1&" ) );
 	cabecera( __('Cambiar clave'), (!$post) ? __('Ya puedes poner tu nueva clave para actualizarla') : false, false );
 	if( $post ) {
 		if( ! comprobar_args(@$_POST['clave'], @$_POST['clave2']) ) {
@@ -179,8 +179,8 @@ break;
 		}elseif( ! ($_POST['clave'] == $_POST['clave2']) ) {
 			agregar_error( __("Las claves no coinciden"));
 		}else{
-			$clave = md5( $zerdb->proteger($_POST['clave']) );
-			$zerdb->actualizar($zerdb->usuarios, array("clave" => $clave, "hash" => "") );
+			$clave = md5( $zerdb->real_escape($_POST['clave']) );
+			$zerdb->update($zerdb->usuarios, array("clave" => $clave, "hash" => "") )->where("id", $u->id )->_(); // bug fixed ;)
 			agregar_info( __("Tu clave ha sido actualizada"));
 		}
 	}
@@ -210,18 +210,18 @@ break;
 	cabecera( __('Acceder' ), $mensaje, $error );
 
 	if( $post ) {
-		$usuario = @$zerdb->proteger( strtolower( trim($_POST['usuario']) ) );
-		$clave = md5( @$zerdb->proteger( $_POST['clave']) );
-		$query = new extraer($zerdb->usuarios, "*", array("usuario" => $usuario, "clave" => $clave) );
+		$usuario = @$zerdb->real_escape( strtolower( trim($_POST['usuario']) ) );
+		$clave = md5( @$zerdb->real_escape( $_POST['clave']) );
+		$query = $zerdb->select($zerdb->usuarios, "*", array("usuario" => $usuario, "clave" => $clave) )->_();
 		$recordar = isset($_POST['recuerdame']) ? true : false;
-
+		
 		if( ! comprobar_args( @$_POST['usuario'], @$_POST['clave'] ) ) {
 			agregar_error( __("¿Haciendo trampa, eh?") );
 		}elseif( vacios($_POST['usuario'], $_POST['clave']) ) {
 			agregar_error( __("No puedes dejar campos vacíos") );
 		}elseif( ! $query || ! $query->nums > 0) {
 			agregar_error( __("El usuario o la clave no coinciden"), true, true);
-		}elseif( 1 !== (int) $query->estado ) {
+		}elseif( 1 != $query->estado ) {
 			agregar_error( __("Este usuario se encuentra suspendido") );
 		}else{
 		$sesion->crear( $usuario, $recordar );
@@ -232,7 +232,7 @@ break;
         else
           header("Location: " . url() );
 		}
-	}elseif( isset($_GET['salir']) && 1 == (int) $_GET['salir']) {
+	}elseif( isset($_GET['salir']) && 1 == $_GET['salir']) {
 		$sesion->destruir();
 		agregar_info( __("Has cerrado sesión") );
 	}elseif( sesion_iniciada() ) {
