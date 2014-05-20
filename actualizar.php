@@ -16,12 +16,12 @@ comprobar( false );
 if( ! isset($_GET['id'] ) || ! is_numeric($_GET['id'] ) ) 
 	typ_die( __("Necesito un ID correcto") );
 
-$t = obt_tracker( $zerdb->proteger($_GET['id'] ) );
+$t = obt_tracker( $_GET['id'] );
 
-if( ! ($t && $t->nums > 0) )
+if( false == $t )
 	typ_die( __("El tracker que especificas no existe") );
 
-construir('cabecera', sprintf( __("Actualizar el tracker %s"), ucwords($t->personaje) ), false );
+construir('cabecera', sprintf( __("Actualizar el tracker de: %s"), ucwords($t->personaje) ), false );
 $post = "POST" == getenv('REQUEST_METHOD');
 // seguridad...
 if( ! file_exists( IMG . $t->img ) ) {
@@ -34,6 +34,35 @@ if( ! file_exists( IMG . $t->img ) ) {
 	agregar_error( __("La fuente no existe") );
 	exit( construir('pies') );
 }
+function arreglar_imagen( $img, $imgbg, $ext ) {
+	global $zerdb;
+	$img_ = $img;
+	$imgbg_ = $imgbg;
+	if( 'png' == $ext ) {
+		$imgbg = preg_replace("/(png)$/", "jpg", $imgbg);
+		$img = preg_replace("/(png)$/", "jpg", $img);
+	}else{
+		$imgbg = preg_replace("/(jpeg|jpg)$/",  "png", $imgbg);
+		$img = preg_replace("/(jpeg|jpg)$/",  "png", $img);
+	}
+	$zerdb->update( $zerdb->trackers, array('img' => $img, 'imgbg' => $imgbg) )->where('id', $GLOBALS['t']->id )->_();
+	$z = rename( PATH .  IMG .  $img_,  PATH . IMG . $img ) && rename( PATH . IMG . $imgbg_, PATH . IMG . $imgbg );
+	if( !$z )
+		typ_die( 
+			sprintf( 
+				__('Lo lamento. Tu archivo no es una imagen de formato <strong>%1$s</strong>, por lo que he de cambiar el formato a <strong>%$2s</strong> para que sí funcione. Por favor cambia el formato de %3$s y de %4$s a %2$s en el directorio de imágenes (img/). :)'),
+				end( explode('.', $img_ ) ),
+				$ext,
+				$img_,
+				$imgbg_
+		 ) );
+	else
+		typ_die(
+				sprintf(
+						__('Tus imágenes no tenían el formato correcto. He decidido cambiarlos, por favor recarga la página e intenta de nuevo')
+					)
+			);
+}
 function actualizar_imagen( $tracker_id, $datos ) {
 	global $zerdb;
 	$t = obt_tracker( $tracker_id );
@@ -44,27 +73,16 @@ function actualizar_imagen( $tracker_id, $datos ) {
 	$estado = $datos['estado'];
 	$servidor = $datos['servidor'];
 	$sala = $datos['sala'];
-	if( es_png( $t->imgbg ) )
-		if( false == ($im = @imagecreatefrompng( IMG . $t->imgbg ) ) )
-			exit( agregar_error( 
-				sprintf(
-					__('La imagen PNG no es una imagen válida en PNG. Por favor abre la imagen en Photoshop/GIMP/Paint y guárdala nuevamente para validar su formato. Luego, súbela nuevamente.
-						<a href="%s">más ayuda</a>'),
-					'//trackyourpenguin.com/ayuda/errores-img/'
-					)
-				 ) );
-	elseif( es_jpeg( $t->imgbg ) )
-		if( false == ($im = @imagecreatefromjpeg( IMG . $t->imgbg ) ) )
-		exit( agregar_error( 
-				sprintf( 
-				__('La imagen JPG/JPEG no es una imagen válida en JPG/JPEG. Por favor abre la imagen en Photoshop/GIMP/Paint y guárdala nuevamente para validar su formato. Luego, súbela nuevamente.
-					 <a href="%s">más ayuda</a>')
-					),
-				'//trackyourpenguin.com/ayuda/errores-img/'
-				)
-			);
-	else
-		exit(0); // fgt... .i.
+	if( es_png( $t->imgbg ) && 'png' == getf( $t->imgbg ) )
+		$im = @imagecreatefrompng( IMG . $t->imgbg );
+	elseif( es_jpeg( $t->imgbg ) and 'jpeg' == getf( $t->imgbg ) || 'jpg' ==getf( $t->imgbg ) )
+		$im = @imagecreatefromjpeg( IMG . $t->imgbg );
+	elseif( es_png( $t->imgbg ) && 'jpeg'  == getf(  $t->imgbg ) || 'jpg' == getf( $t->imgbg ) )
+		arreglar_imagen( $t->img, $t->imgbg, '.png' ); // el binario dice que es .jpeg, no png , then, cambiamos... 
+	elseif( es_jpeg( $t->imgbg ) && 'png' == getf( $t->imgbg ) )
+		arreglar_imagen( $t->img, $t->imgbg, '.jpg');
+ 	else
+		return 0; // .l.
 
 	$color = imagecolorallocate($im, 255, 255, 255);
 	imagettftext($im, (int) $status['size'], (int) $status['angulo'], (int) $status['x'], (int) $status['y'], $color, $fuente, $estado );
@@ -93,7 +111,7 @@ function actualizar_imagen( $tracker_id, $datos ) {
 		$args = ! comprobar_args( @$_POST['estado'], @$_POST['servidor'], @$_POST['sala'] );
 		$vacios = vacios( @$_POST['estado'], @$_POST['servidor'], @$_POST['sala'] );
 		if( $args ) {
-			agregar_error( __("Haciendo trampa, ¿eh?") );
+			typ_die( __("Haciendo trampa, ¿eh?") );
 		}elseif( $vacios ) {
 			agregar_error( __("No puedes dejar datos vacíos") );
 		}else{
@@ -118,7 +136,7 @@ function actualizar_imagen( $tracker_id, $datos ) {
 				else
 					$tuit = 0;
 				if( $tuit )
-					$log['tweet'] = reemplazar_tweet( $zerdb->proteger($tuit), $datos );
+					$log['tweet'] = reemplazar_tweet( $zerdb->real_escape($tuit), $datos );
 			}
 			$log = json_encode( $log );
 			agregar_log( $log, time() );
@@ -126,7 +144,7 @@ function actualizar_imagen( $tracker_id, $datos ) {
 		}
 	}
 ?>
-<form method="post" action="<?php echo url() . sprintf('actualizar.php?id=%d', (int) $_GET['id']) ?>" class="form-horizontal">
+<form method="post" action="<?php echo url() . sprintf('actualizar.php?id=%s', $_GET['id']) ?>" class="form-horizontal">
 	<div class="control-group">
 		<label class="control-label">
 			<?php _e("Estado")?>
@@ -152,7 +170,7 @@ function actualizar_imagen( $tracker_id, $datos ) {
 		</div>
 	</div>
 <?php if( isset($_SESSION['ult_act_' . $t->id]) ) : ?>
-	<b><?php _e("Última actualización") ?></b>: <?php echo mostrar_fecha($_SESSION['ult_act_' . $t->id]) ?>
+	<strong><?php _e("Última actualización") ?></strong>: <?php echo mostrar_fecha($_SESSION['ult_act_' . $t->id]) ?>
 <?php endif ?>
 <hr>
 <?php
@@ -162,7 +180,6 @@ if(  oauth_configurado() ) : ?>
 </div>
 <?php
 	$tuits = obt_tweets();
-	$q = mysql_query( $tuits->query );
 	$o = obt_oauth();
 	if( $post ) {
 		if( true == ( isset($_POST['tweet']) && is_numeric( $_POST['tweet']) ) ||
@@ -175,19 +192,19 @@ if(  oauth_configurado() ) : ?>
 
 			$tw = $twitter->tuitear( reemplazar_tweet( stripslashes($tuit), $datos ) );
 			if( $tw )
-				agregar_info( sprintf( __('El tweet ha sido enviado. <b><a href="%s" target="_blank">Ver</a></b>'), $twitter->url ), true, true );
+				agregar_info( sprintf( __('El tweet ha sido enviado. <strong><a href="%s" target="_blank">Ver</a></strong>'), $twitter->url ), true, true );
 			else
 				agregar_error( $twitter->error );
 		}else{
-			agregar_error( __("No has seleccionado/escrito ningún tweet") );
+			agregar_error( __("No has seleccionado/escrito ningún tweet"), false, false );
 		}
 	}
-	if( ! tiene_tweets() && ! $post  )
+	if( false == $tuits && ! $post  )
 		_e('No tienes tuits. Aun así, puedes enviar un tweet personalizado.');
 	?>
 	<hr><textarea name="tweetp" class="redo input-xxlarge" cols="2" placeholder="<?php _e('Envía tu tweet personalizado...') ?>"></textarea><hr>
 	<?php
-	while($tw_ = mysql_fetch_array($q) ) {
+	while($tuits !== false && $tw_ = $tuits->r->fetch_array() ) {
 		?>
 	<label class="radio">
 		<input type="radio" name="tweet" value="<?php echo $tw_['id'] ?>"><?php echo ucwords($tw_['nombre']) ?>
