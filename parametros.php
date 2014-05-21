@@ -19,9 +19,9 @@ if( ! es_admin() )
 if( ! isset($_GET['id'] ) || empty($_GET['id'] ) || ! is_numeric( $_GET['id']) )
 	typ_die( __("Necesito un ID correcto para especificar") );
 
-$t = obt_tracker( $zerdb->proteger( $_GET['id'] ) );
+$t = obt_tracker($_GET['id']);
 
-if( ! $t or ! $t->nums > 0 )
+if( false == $t )
 	typ_die( __("El tracker no existe") );
 
 $p = array(
@@ -87,10 +87,10 @@ navegacion();
 if( 'estado' == $_GET['posicion'] ) :
 	if( "POST" == $_SERVER['REQUEST_METHOD'] ) {
 		$data = array(
-				"x" => @$zerdb->proteger( $_POST['x'] ),
-				"y" => @$zerdb->proteger( $_POST['y'] ),
-				"angulo" => @$zerdb->proteger( $_POST['angulo'] ),
-				"size" => @$zerdb->proteger( $_POST['size'] )
+				"x" => @$zerdb->real_escape( $_POST['x'] ),
+				"y" => @$zerdb->real_escape( $_POST['y'] ),
+				"angulo" => @$zerdb->real_escape( $_POST['angulo'] ),
+				"size" => @$zerdb->real_escape( $_POST['size'] )
 			);
 		$actualizar = new actualizar_parametros( $t->id, 1, $data );
 		if( $actualizar->comp_error ) :
@@ -145,10 +145,10 @@ if( 'estado' == $_GET['posicion'] ) :
 <?php elseif( 'servidor' == $_GET['posicion'] ) :
 	if( "POST" == $_SERVER['REQUEST_METHOD'] ) {
 		$data = array(
-				"x" => @$zerdb->proteger( $_POST['x'] ),
-				"y" => @$zerdb->proteger( $_POST['y'] ),
-				"angulo" => @$zerdb->proteger( $_POST['angulo'] ),
-				"size" => @$zerdb->proteger( $_POST['size'] )
+				"x" => @$zerdb->real_escape( $_POST['x'] ),
+				"y" => @$zerdb->real_escape( $_POST['y'] ),
+				"angulo" => @$zerdb->real_escape( $_POST['angulo'] ),
+				"size" => @$zerdb->real_escape( $_POST['size'] )
 			);
 
 		$actualizar = @new actualizar_parametros( $t->id, 2, $data ); // 2 =  'servidor'
@@ -205,10 +205,10 @@ if( 'estado' == $_GET['posicion'] ) :
 
 	if( "POST" == $_SERVER['REQUEST_METHOD'] ) {
 		$data = array(
-				"x" => @$zerdb->proteger( $_POST['x'] ),
-				"y" => @$zerdb->proteger( $_POST['y'] ),
-				"angulo" => @$zerdb->proteger( $_POST['angulo'] ),
-				"size" => @$zerdb->proteger( $_POST['size'] )
+				"x" => @$zerdb->real_escape( $_POST['x'] ),
+				"y" => @$zerdb->real_escape( $_POST['y'] ),
+				"angulo" => @$zerdb->real_escape( $_POST['angulo'] ),
+				"size" => @$zerdb->real_escape( $_POST['size'] )
 			);
 
 		$actualizar = @new actualizar_parametros( $t->id, 3, $data ); // 3 = sala
@@ -303,8 +303,8 @@ function GetCoordinates(e)
     }
   PosX = PosX - ImgPos[0];
   PosY = PosY - ImgPos[1];
-  $("#y_").html("<?php _e('<b>Posición X</b>') ?>: " + PosX);
-  $("#x_").html("<?php _e('<b>Posición Y</b>') ?>: " + PosY);
+  $("#y_").html("<?php _e('<strong>Posición X</strong>') ?>: " + PosX);
+  $("#x_").html("<?php _e('<strong>Posición Y</strong>') ?>: " + PosY);
   $("input[name='x']").val(PosX);
   $("input[name='y']").val(PosY);
 }
