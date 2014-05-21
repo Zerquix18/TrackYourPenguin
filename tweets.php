@@ -20,7 +20,7 @@ if( ! es_admin() )
 
 $accion = isset($_GET['accion']) && !empty($_GET['accion']) && is_string($_GET['accion']) ? $_GET['accion'] : '';
 
-$post = ( "POST" == $_SERVER['REQUEST_METHOD'] );
+$post = 'POST' == getenv('REQUEST_METHOD');
 
 if( ! oauth_configurado() ) {
 	construir('cabecera');
@@ -35,27 +35,23 @@ switch( $accion ) {
 	case "agregar":
 
 	construir( 'cabecera', __('Agregar tweet'), true );
-
 	if( $post ) {
-
-		$nombre = $zerdb->proteger(  @$_POST['nombre']);
-		$texto = trim( $zerdb->proteger( @$_POST['texto']) );
-
+		$nombre = trim( $zerdb->real_escape(  @$_POST['nombre']) );
+		$texto = trim( $zerdb->real_escape( @$_POST['texto']) );
 		if( ! comprobar_args( @$_POST['nombre'], @$_POST['texto'] ) ) {
-			agregar_error( __("Error en los datos HTML.") );
+			typ_die( __("Haciendo trampa, ¿eh?") );
 		}elseif( vacio($nombre) || vacio($texto) ) {
 			agregar_error( __("No puedes dejar campos vacíos") );
 		}elseif( strlen($nombre) > 10 || strlen($texto) > 140 ) {
 			agregar_error( __("No puedes sobrepasar los límites") );
 		}else{
-			$agregar = agregar_tweet( $nombre, $texto );
+			$zerdb->insert( $zerdb->tweets, array($nombre, $texto) );
 			agregar_info( __("Tweet agregado") );
 			echo redireccion(url() . 'tweets.php', 2);
 		}
 	}
-
 ?>
-<h3> <?php _e("Agregar tweet") ?> </h3><a href="<?php echo url() . 'tweets.php' ?>" class="btn btn-link pull-right">
+<h3> <?php _e("Agregar tweet") ?> </h3><a href="<?php echo url() . 'tweets.php?accion=agregar' ?>" class="btn btn-link pull-right">
 <?php _e("Volver a los tweets") ?> &rarr;</a><hr>
 <form action="<?php echo url() . 'tweets.php?accion=agregar' ?>" method="POST" class="form-horizontal">
 		<div class="control-group">
@@ -86,12 +82,10 @@ case "editar":
 case "actualizar":
 
 
-if( ! isset($_GET['id']) || empty($_GET['id']) ||  ! is_numeric($_GET['id'] ) )
+if( ! isset($_GET['id']) || ! is_numeric($_GET['id']) )
 	typ_die( __("Debes especificar un ID válido") );
-
 $t = obt_tweet( $_GET['id'] );
-
-if( ! $t || ! $t->nums > 0 )
+if( false == $t )
 	typ_die( __("Este tweet no existe") );
 
 construir( 'cabecera', sprintf( __("Editar el tweet: %s"), $t->nombre ), true );
@@ -102,22 +96,25 @@ construir( 'cabecera', sprintf( __("Editar el tweet: %s"), $t->nombre ), true );
 <hr>
 <?php
 	if( $post ) {
-		$nombre = trim( $zerdb->proteger( @$_POST['nombre'] ) );
-		$tweet = trim( $zerdb->proteger( @$_POST['texto'] ) );
+		$nombre = trim( $zerdb->real_escape( @$_POST['nombre'] ) );
+		$tweet = trim( $zerdb->real_escape( @$_POST['texto'] ) );
 
 		if( ! comprobar_args(@$_POST['nombre'], @$_POST['texto'] ) ) {
-			agregar_error( _("Error en los datos HTML") );
+			typ_die( __("Haciendo trampa, ¿eh?") );
 		}elseif( vacios($_POST['nombre'], $_POST['texto']) ) {
 			agregar_error( __("No puedes dejar campos vacíos") );
 		}elseif( strlen($nombre) > 10 || strlen($tweet) > 140 ) {
 			agregar_error( __("No puedes sobrepasar los límites") );
 		}else{
-			$actualizar = actualizar_tweet( $t->id, array($nombre, $tweet) );
+			$zerdb->update($zerdb->tweets, array(
+					"nombre" => $nombre,
+					"tweet" => $texto,
+				) )->where("id", $t->id )->_();
 			agregar_info( __("Actualizado :)") );
 		}
 	}
 ?>
-<form action="<?php echo url( true ) ?>" method="POST" class="form-horizontal">
+<form action="<?php echo url() . 'tweets.php?accion=editar&id=' . $_GET['id'] ?>" method="POST" class="form-horizontal">
 	<div class="control-group">
 		<label class="control-label">
 			<?php _e("Nombre") ?>
@@ -149,9 +146,7 @@ case "eliminar":
 if( ! isset($_GET['ids'] ) || ! is_string($_GET['ids']) || ! preg_match('/^[\d]+$/', @$_GET['id']) ) /* Je, je, je, fail (?) */
 	typ_die( __("Mala forma de borrar, mala.") );
 
-$id = $zerdb->proteger($_GET['id'] );
-
-eliminar_tweet($id);
+$zerdb->delete( $zerdb->twitter ) -> where("id", $_GET['id'] )->_();
 
 construir('cabecera', __('Eliminar tweets') );
 
@@ -200,26 +195,25 @@ $id = isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id']) ? tru
 
 		?>
 		<h3>Tweets</h3>
-		<?php if( tiene_tweets() ): ?>
+		<?php if( false !== $t ): ?>
 		<a class="btn btn-link pull-right" href="<?php echo url() ?>tweets.php?accion=agregar"><i class="icon-plus"></i>&nbsp;Agregar nuevo</a><hr>
 		<?php
 		endif;
-		if( $t->nums == 0) {
+		if( false == $t) {
 			agregar_error( sprintf( __("No tienes tweets... <a href=\"%s\">agregar uno</a>"), url() . 'tweets.php?accion=agregar' ) );
 			construir('pies');
 			exit();
 		}
-		$tweets = mysql_query( $t->query );
-		while( $t->fetch = mysql_fetch_array($tweets) ) { ?>
-			<p class="lead"><u><?php echo $t->fetch['nombre'] ?></u></p>
-			<div class="well"><?php echo $t->fetch['tweet'] ?></div>
-			<a href="<?php echo url() . 'tweets.php?id=' . $t->fetch['id'] ?>" class="btn btn-link text-center">
+		while( $r = $t->r->fetch_array() ) { ?>
+			<p class="lead"><u><?php echo $r['nombre'] ?></u></p>
+			<div class="well"><?php echo $r['tweet'] ?></div>
+			<a href="<?php echo url() . 'tweets.php?id=' . $r['id'] ?>" class="btn btn-link text-center">
 				<i class="icon-eye-open"></i>&nbsp;<?php _e("Ver") ?>
 			</a> |
-			<a href="<?php echo url() . 'tweets.php?accion=editar&id=' . $t->fetch['id'] ?>" class="btn btn-link text-center">
+			<a href="<?php echo url() . 'tweets.php?accion=editar&id=' . $r['id'] ?>" class="btn btn-link text-center">
 				<i class="icon-pencil"></i>&nbsp;<?php _e("Editar") ?>
 			</a> |
-			<a href="<?php echo url() . 'tweets.php?accion=eliminar&ids='. $t->fetch['id'] ?>" class="btn btn-link text-center">
+			<a href="<?php echo url() . 'tweets.php?accion=eliminar&ids='. $r['id'] ?>" class="btn btn-link text-center">
 				<i class="icon-trash"></i>&nbsp;<?php _e("Eliminar") ?>
 			</a>
 			<hr>
@@ -227,4 +221,5 @@ $id = isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id']) ? tru
 		}
 	}
 }
+modal_tweets();
 construir('pies');
