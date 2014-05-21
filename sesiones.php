@@ -1,28 +1,41 @@
 <?php
+/**
+*
+* Archivo de las sesiones
+*
+* Cierra y visualiza las sesiones abiertas
+*
+* @author Zerquix18
+* @link http://trackyourpenguin.com/
+* @since 0.1
+*
+**/
 
 require_once( dirname(__FILE__) . '/typ-load.php');
 
 comprobar( false );
 
 if( ! es_super_admin() )
-	$dnd = array("id" => $_SESSION['id']);
+	$dnd = array("id" => $id = $_SESSION['id']);
 elseif( es_super_admin() && isset($_GET['id']) && is_numeric($_GET['id']) )
-	$dnd = array("id" => $zerdb->proteger($_GET['id'] ) );
+	$dnd = array("id" => $id = $_GET['id'] ); // don't worry bro, if it's not a number, "is_numeric" will return false. ;)
 elseif( es_super_admin() )
-	$dnd = false;
+	$dnd = null;
 
-$s = new extraer($zerdb->sesiones, "*", $dnd);
+construir('cabecera', __('Sesiones'), true );
+
+if( es_super_admin() )
+	$id = $_SESSION['id'];
+
+$u = obt_id( $id );
+$s = $zerdb->select($zerdb->sesiones, "*", $dnd)->_();
 
 if( isset($_GET['id']) && !$s->nums > 0)
 	typ_die( __("No hay sesiones para ese usuario") );
 
-construir('cabecera', __('Sesiones'), true );
-
-$u = obt_id( $s->id );
-
 $pagina = isset($_GET['p']) && is_numeric($_GET['p']) ? $_GET['p'] : 1;
 $limit = 'LIMIT '. ($pagina-1) * 5 . ',' . 5;
-$fetch = mysql_query( $s->query . ' ' . $limit );
+$fetch = $zerdb->query( $zerdb->query . ' ' . $limit );
 $paginas = ceil( $s->nums / 5 );
 
 if( $pagina > $paginas ) {
@@ -36,7 +49,6 @@ $del = __(' del usuario: ');
 if( es_super_admin() && isset($_GET['id']) )
 	echo  $del . ucfirst($u->usuario);
 ?></h3><hr>
-
 <?php if( isset($_POST['borrar']) ) {
 	if( isset($_POST['eliminar']) && !is_array($_POST['eliminar']) or empty($_POST['eliminar']) ) {
 		agregar_error( __("Debes seleccionar una sesión para cerrar") );
@@ -49,7 +61,7 @@ if( es_super_admin() && isset($_GET['id']) )
 		echo redireccion( url( true ), 2);
 	}
 }elseif( isset($_POST['eliminar_todo'] ) ) {
-	$zerdb->eliminar($zerdb->sesiones, array("id" => $s->id) );
+	$zerdb->delete($zerdb->sesiones, array("id" => $s->id) )->_();
 	echo redireccion( url( true ), 0);
 }
 ?>
@@ -61,8 +73,8 @@ if( es_super_admin() && isset($_GET['id']) )
 		<th><?php _e("Fecha") ?></th>
 	</tr>
 <?php
-$actual = __(" <b>(sesión actual)</b>");
-while($sesion = mysql_fetch_array($fetch) ) {
+$actual = __(" <strong>(sesión actual)</strong>");
+while($sesion = $fetch->r->fetch_array() ) {
 	?>
 	<tr>
 		<td><input type="checkbox" name="eliminar[]" value="<?php echo $sesion['hash'] ?>"></td>
@@ -92,7 +104,7 @@ while($sesion = mysql_fetch_array($fetch) ) {
 	</ul>
 </div>
 
-<?php $este_tu = ($u->id == $s->id) ? __('tu') : __('este') ?>
+<?php $este_tu = ($u->id == $id) ? __('tu') : __('este') ?>
 	<button type="submit" name="eliminar_todo" class="btn btn-danger text-right">
 		<i class="icon-trash"></i>&nbsp;<?php echo sprintf( __("Cerrar todas las sesiones de %s usuario"), $este_tu) ?>
 	</button> |
