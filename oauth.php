@@ -31,23 +31,29 @@ $datos = array(
 <h3><?php _e("Configurar OAuth de Twitter") ?></h3>
 <?php
 	if( "POST" == $_SERVER['REQUEST_METHOD']) {
-		$consumer_key = @$zerdb->proteger( $_POST['consumer_key'] );
-		$consumer_secret = @$zerdb->proteger( $_POST['consumer_secret'] );
-		$access_token = @$zerdb->proteger( $_POST['access_token'] );
-		$access_token_secret = @$zerdb->proteger( $_POST['access_token_secret'] );
+		$consumer_key = @$zerdb->real_escape( $_POST['consumer_key'] );
+		$consumer_secret = @$zerdb->real_escape( $_POST['consumer_secret'] );
+		$access_token = @$zerdb->real_escape( $_POST['access_token'] );
+		$access_token_secret = @$zerdb->real_escape( $_POST['access_token_secret'] );
 
 		$args = ! comprobar_args( @$_POST['consumer_key'], @$_POST['consumer_secret'], @$_POST['access_token'], @$_POST['access_token_secret']);
 		$args2 = vacios(@$_POST['consumer_key'], @$_POST['consumer_secret'], @$_POST['access_token'], @$_POST['access_token_secret']);
 
 		if( $args ) {
-			agregar_error( __("Haciendo trampa, ¿eh?") );
+			typ_die( __("Haciendo trampa, ¿eh?") );
 		}elseif( $args2 ) {
 			agregar_error( __("No puedes dejar campos vacíos") );
 		}else{
 			if( ! oauth_configurado() )
-				insertar_oauth($consumer_key, $consumer_secret, $access_token, $access_token_secret);
+				$zerdb->insert($zerdb->twitter, array($consumer_key, $consumer_secret, $access_token, $access_token_secret ) );
 			else
-				actualizar_oauth($consumer_key, $consumer_secret, $access_token, $access_token_secret);
+				$zerdb->update($zerdb->twitter, array(
+					"consumer_key" => $consumer_key,
+					"consumer_secret" => $consumer_secret,
+					"access_token" => $access_token,
+					"access_token_secret" => $access_token_secret
+					)
+				)->execute();
 
 			agregar_info( __("Datos de conexión a Twitter actualizados") );
 			echo redireccion( url( true ), 2);
