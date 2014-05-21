@@ -25,4 +25,8 @@ define("DB_USUARIO", "defineaquituusuario");
 
 define("DB_CLAVE", "defineaquituclave");
 
+/* Agrega el lenguaje para el sistema */
+
+define("TYP_LANG", "es_ES");
+
 /* Listo ! */
