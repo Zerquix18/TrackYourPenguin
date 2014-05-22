@@ -32,7 +32,7 @@ class subir {
 	public $archivo = '';
 
 	function __construct( $archivo ) {
-		if( empty($_FILES[ $archivo ]['name'] ) ) {
+		if( ! isset($_FILES[$archivo]) || empty($_FILES[ $archivo ]['name'] ) ) {
 			$this->comp_error = true;
 			$this->error = __("No se ha seleccionado ningún archivo");
 			return false;
@@ -48,10 +48,10 @@ class subir {
 		if( !( ($this->tipo == "image/png")  || ($this->tipo == "image/jpeg") || ($this->tipo == "image/jpg") ) || 
 			! in_array($this->formato, $this->tipos) ) {
 			$this->comp_error = true;
-			$this->error = __("El tipo de archivo no es <b>png</b>, <b>jpg</b>, o <b>jpeg</b>");
+			$this->error = __("El tipo de archivo no es <strong>png</strong>, <strong>jpg</strong>, o <strong>jpeg</strong>");
 		}elseif( ($this->size / 1024 ) / 1024 > 2 ) {
 			$this->comp_error = true;
-			$this->error = __('El tamaño de la imagen no puede pasar de 2 <b>MB</b>');
+			$this->error = __('El tamaño de la imagen no puede pasar de 2 <strong>MB</strong>');
 		}else{
 			$this->nuevo_nombre = md5( uniqid() . $this->nombre );
 			$this->ext = '.' . $this->formato;
@@ -74,7 +74,6 @@ class subir {
 				$this->comp_error = true;
 				return false;
 			}
-
 			@chmod( IMG . $this->archivo2, 0777 );
 			}else{
 				switch( $this->_error ) {
@@ -88,11 +87,11 @@ class subir {
 					break;
 					case "3":
 					$this->comp_error = true;
-					$this->error = __("El archivo subido fue solamente parcialmente cargado");
+					$this->error = __("El archivo fue sólo parcialmente cargado");
 					break;
 					case "4":
 					$this->comp_error = true;
-					$this->error = __("No hay archivo a subir");
+					$this->error = __("No hay archivo a subir. -.-");
 					break;
 					case "6":
 					$this->comp_error = true;
@@ -105,15 +104,13 @@ class subir {
 					case "8":
 					$this->comp_error = true;
 					$this->error = __("Una extensión de PHP ha impedido que el archivo subiera. PHP no tiene una manera de saber cuál 
-					extensión fue; puedes examinar la lista con <b>phpinfo()</b>");
+					extensión fue; puedes examinar la lista con <strong>phpinfo()</strong>");
 					break;
 				}
 			}
-
 		}
 	}
 }
-
 class eliminar {
 
 	public $comp_error = false;
@@ -133,17 +130,12 @@ class eliminar {
 		return true;
 	}
 }
-
 function es_jpeg( $archivo ) {
-	if( ! file_exists( IMG . $archivo) )
-		return false;
-	$formato = end( explode('.', $archivo) );
-	$formatos = array('jpeg', 'jpg');
-	return in_array( strtolower($formato), $formatos );
+	return 2 == exif_imagetype( PATH . IMG . $archivo );
 }
 function es_png($archivo) {
-	if( ! file_exists( IMG . $archivo) )
-		return false;
-	$formato = end( explode('.', $archivo) );
-	return 'png' == strtolower($formato);
+	return 3 == exif_imagetype( PATH . IMG . $archivo );
+}
+function getf( $archivo ) {
+	return strtolower( end( explode('.', $archivo) ) );
 }
