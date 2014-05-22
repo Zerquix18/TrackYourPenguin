@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Trackyourpenguin 1.0.2\n"
-"POT-Creation-Date: 2014-04-17 23:18-0430\n"
-"PO-Revision-Date: 2014-04-17 23:21-0430\n"
+"POT-Creation-Date: 2014-05-18 20:19-0430\n"
+"PO-Revision-Date: 2014-05-19 16:48-0430\n"
 "Last-Translator: Luis Alberto <malbertoa_11@hotmail.com>\n"
 "Language-Team: TrackYourPenguin <zerquix@gmail.com>\n"
 "Language: Spanish\n"
@@ -15,104 +15,108 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: log.php:18 log.php:46
+#: log.php:18 log.php:47
 msgid "Registro de cambios"
 msgstr "Log"
 
-#: log.php:30
+#: log.php:31
 msgid "No existe ese ID en el log"
 msgstr "That ID doesn't exist in the log"
 
-#: log.php:34
+#: log.php:35
 msgid "Log ID"
 msgstr "Log ID"
 
-#: log.php:38 log.php:82 sesiones.php:61
+#: log.php:39 log.php:83 sesiones.php:73
 msgid "Fecha"
 msgstr "Date"
 
-#: log.php:40
+#: log.php:41
 msgid "Volver al log"
 msgstr "Back to log"
 
-#: log.php:49
-msgid "No se ha registrado nada aún en el registro, vuelve más tarde. :)"
+#: log.php:50
+#, fuzzy
+msgid ""
+"No se ha registrado nada aún en el registro o los registros han sido "
+"borrados."
 msgstr "There's still nothing registered in the log, come back later. :)"
 
-#: log.php:57
+#: log.php:58
 msgid "No existen más registros"
 msgstr "There are not more logs"
 
-#: log.php:65
+#: log.php:66
 msgid "Debes seleccionar un log para borrar"
 msgstr "You must select a log to delete"
 
-#: log.php:70
+#: log.php:71
 msgid "Los registros seleccionados han sido eliminados"
-msgstr "The selected logs have been deleted"
+msgstr "Selected logs have been deleted"
 
-#: log.php:81
+#: log.php:82
 msgid "Acción"
 msgstr "Action"
 
-#: log.php:91
+#: log.php:92
 msgid "más"
 msgstr "more"
 
-#: log.php:114
+#: log.php:115
 msgid "Vaciar el log"
 msgstr "Empty the log"
 
-#: log.php:117
+#: log.php:118
 msgid "Limpiar elementos seleccionados"
-msgstr "Delete selected"
+msgstr "Clean selected elements"
 
-#: oauth.php:19 oauth.php:43 instalar.php:193 acceso.php:125 acceso.php:176
-#: index.php:22 index.php:144 ajustes.php:17 ajustes.php:38 actualizar.php:96
-#: usuarios.php:34 usuarios.php:55 usuarios.php:179 parametros.php:17
-#: tweets.php:19
+#: oauth.php:19 oauth.php:43 instalar.php:194 acceso.php:125 acceso.php:176
+#: index.php:22 index.php:33 index.php:144 ajustes.php:17 ajustes.php:37
+#: actualizar.php:114 usuarios.php:32 usuarios.php:51 usuarios.php:163
+#: usuarios.php:240 parametros.php:17 tweets.php:19 tweets.php:42
+#: tweets.php:103
 msgid "Haciendo trampa, ¿eh?"
 msgstr "Cheating, uh?"
 
 #: oauth.php:21
 msgid "Configurar OAuth"
-msgstr "Configure OAuth"
+msgstr "Set up OAuth"
 
 #: oauth.php:31
 msgid "Configurar OAuth de Twitter"
 msgstr "Configure Twitter's OAuth"
 
-#: oauth.php:45 acceso.php:178 acceso.php:221 index.php:101 ajustes.php:40
-#: tweets.php:47 tweets.php:111 typ-inc/params.php:135
+#: oauth.php:45 acceso.php:178 acceso.php:221 index.php:101 ajustes.php:39
+#: tweets.php:44 tweets.php:105 typ-inc/params.php:95
 msgid "No puedes dejar campos vacíos"
 msgstr "You can not leave blank fields"
 
-#: oauth.php:52
+#: oauth.php:58
 msgid "Datos de conexión a Twitter actualizados"
 msgstr "Connection data to Twitter updated"
 
-#: oauth.php:60
+#: oauth.php:66
 msgid "Consumer Key"
 msgstr "Consumer Key"
 
-#: oauth.php:64 oauth.php:73 oauth.php:82 oauth.php:91
+#: oauth.php:70 oauth.php:79 oauth.php:88 oauth.php:97
 msgid "de tu aplicación de Twitter"
-msgstr "(of your Twitter app)"
+msgstr "(from your Twitter app)"
 
-#: oauth.php:69
+#: oauth.php:75
 msgid "Consumer Secret"
 msgstr "Consumer Secret"
 
-#: oauth.php:78
+#: oauth.php:84
 msgid "Access Token"
 msgstr "Access Token"
 
-#: oauth.php:87
+#: oauth.php:93
 msgid "Access Token Secret"
 msgstr "Access Token Secret"
 
-#: oauth.php:94 index.php:134 index.php:249 ajustes.php:99 actualizar.php:88
-#: usuarios.php:250 actualizaciones.php:31 tweets.php:143
+#: oauth.php:100 index.php:134 index.php:248 ajustes.php:89 actualizar.php:106
+#: usuarios.php:231 actualizaciones.php:31 tweets.php:140
 msgid "Actualizar"
 msgstr "Update"
 
@@ -132,40 +136,43 @@ msgstr "version"
 #: instalar.php:55
 msgid ""
 "Hubo un error renombrando el archivo, al parecer tu hosting no lo permite. "
-"Por favor, renómbralo de \"<b>typ-config-sample.php</b>\"  a \"<b>typ-config."
-"php</b>\""
+"Por favor, renómbralo de \"<strong>typ-config-sample.php</strong>\"  a "
+"\"<strong>typ-config.php</strong>\""
 msgstr ""
 "There was an error renaming the file, apparently your hosting doesn't allow "
-"it. Please, rename it from \"<b>typ-config-sample.php</b>\" to \"<b>typ-"
-"config.php</b>\""
+"it. Please, rename it from \"<strong>typ-config-sample.php</strong>\" to "
+"\"<strong>typ-config.php</strong>\""
 
 #: instalar.php:61
 msgid ""
-"<h2><b>Ya has instalado</b></h2><hr> La instalación de TrackYourPenguin ya "
-"fue completada, por lo que, ¿no piensas hacerla de nuevo, verdad?"
+"<h2><strong>Ya has instalado</strong></h2><hr> La instalación de "
+"TrackYourPenguin ya fue completada, por lo que, ¿no piensas hacerla de "
+"nuevo, verdad?"
 msgstr ""
-"<h2><b>You have already installed</b></h2><hr> TrackYourPenguin instalation "
-"has been completed, you don't think to do it again, right?"
+"<h2><strong>You have already installed</strong></h2><hr> TrackYourPenguin "
+"instalation has been completed, you don't think to do it again, right?"
 
 #: instalar.php:94
 msgid ""
 "No se puede abrir el archivo :/, por favor copia este archivo y reemplázalo "
-"por tu <b>typ-config-sample.php</b>\n"
-"              y cambia el nombre a <b>typ-config.php</b>"
+"por tu <strong>typ-config-sample.php</strong>\n"
+"              y cambia el nombre a <strong>typ-config.php</strong>"
 msgstr ""
 "It cannot open the file :/, please copy this file and replace it for your "
-"<b>typ-config-sample.php</b>\n"
-" and change the name to  <b>typ-config.php</b>"
+"<strong>typ-config-sample.php</strong>\n"
+" and change the name to  <strong>typ-config.php</strong>"
 
 #: instalar.php:104
 msgid ""
 "No se puede reescribir el archivo :/, por favor copia este archivo y "
-"reemplázalo por tu <b>typ-config-sample.php</b> y cambia el nombre a <b>typ-"
-"config.php</b>, ó, si ya existe <b>typ-config.php</b>, actualizálo con esto:"
+"reemplázalo por tu <strong>typ-config-sample.php</strong> y cambia el nombre "
+"a <strong>typ-config.php</strong>, ó, si ya existe <strong>typ-config.php</"
+"strong>, actualizálo con esto:"
 msgstr ""
 "It can't rewrite the file :/, please copy this file and replace it for your "
-"<b>typ-config-sample.php</b> and change the name to <b>typ-config.php</b>, "
-"or is already exists <b>typ-config.php</b>, update it with this:"
+"<strong>typ-config-sample.php</strong> and change the name to <strong>typ-"
+"config.php</strong>, or is already exists <strong>typ-config.php</strong>, "
+"update it with this:"
 
 #: instalar.php:113
 #, php-format
@@ -174,15 +181,15 @@ msgstr "The connection isn't right... MySQL Error: %s"
 
 #: instalar.php:117
 msgid "Error conectando a la base de datos"
-msgstr "Error conecting to the database"
+msgstr "Error establishing a database connection"
 
 #: instalar.php:118
 msgid ""
 "Hubo un error conectando a la base de datos, por favor, conecta desde aquí. "
 "Los datos te los dará tu proveedor de hosting."
 msgstr ""
-"There was an error conecting to the database, please, connect from here. The "
-"data will be provided by your hosting."
+"There was an error establishing a database connection, please, connect it "
+"from here. Data will be provided by your hosting."
 
 #: instalar.php:122
 msgid "Host"
@@ -192,8 +199,8 @@ msgstr "Host"
 msgid "El host de la base de datos MySQL, a veces suele ser localhost"
 msgstr "The MySQL database host, sometimes it is localhost"
 
-#: instalar.php:131 index.php:118 index.php:181 ajustes.php:57 tweets.php:63
-#: tweets.php:123
+#: instalar.php:131 index.php:118 index.php:178 ajustes.php:56 tweets.php:59
+#: tweets.php:120
 msgid "Nombre"
 msgstr "Name"
 
@@ -201,8 +208,8 @@ msgstr "Name"
 msgid "Nombre de la base de datos"
 msgstr "Database name"
 
-#: instalar.php:140 instalar.php:221 sesiones.php:60 usuarios.php:80
-#: usuarios.php:207 usuarios.php:360 usuarios.php:364 usuarios.php:380
+#: instalar.php:140 instalar.php:222 sesiones.php:72 usuarios.php:76
+#: usuarios.php:188 usuarios.php:320 usuarios.php:324 usuarios.php:350
 msgid "Usuario"
 msgstr "User"
 
@@ -210,7 +217,7 @@ msgstr "User"
 msgid "Usuario de la base de datos"
 msgstr "Database user"
 
-#: instalar.php:149 instalar.php:230 usuarios.php:90
+#: instalar.php:149 instalar.php:231 usuarios.php:86
 msgid "Clave"
 msgstr "Password"
 
@@ -226,18 +233,18 @@ msgstr "Connect"
 #, php-format
 msgid ""
 "<h2>Error estableciendo conexión con la base de datos</h2><p>Al parecer, no "
-"se puede conectar, por favor revisa tu <b>typ-config.php</b>, y he aquí el "
-"error devuelto por MySQL: <b>%s</b>"
+"se puede conectar, por favor revisa tu <strong>typ-config.php</strong>, y he "
+"aquí el error devuelto por MySQL: <strong>%s</strong>"
 msgstr ""
 "<h2>Error establishing a database connection<h2><p>Apparently, it can't "
-"connect, please, check your <b>typ-config.php</b>, and here is the error "
-"returned by MySQL: <b>%s</b>"
+"connect, please, check your <strong>typ-config.php</strong>, and here is the "
+"error returned by MySQL: <strong>%s</strong>"
 
-#: instalar.php:181
+#: instalar.php:182
 msgid "Bienvenido a la instalación"
-msgstr "Welcome to the instalation"
+msgstr "Welcome to the installation"
 
-#: instalar.php:184
+#: instalar.php:185
 msgid ""
 "Desde esta guía podrás instalar TrackYourPenguin fácilmente, sólo tienes que "
 "llenar los siguientes campos... :)"
@@ -245,30 +252,29 @@ msgstr ""
 "From this guide you will be able to install TrackYourPenguin easily, you "
 "just have to type in the following fields... :)"
 
-#: instalar.php:195 index.php:35 actualizar.php:98 usuarios.php:57
-#: usuarios.php:181
+#: instalar.php:196 index.php:35 actualizar.php:116 usuarios.php:53
+#: usuarios.php:165
 msgid "No puedes dejar datos vacíos"
 msgstr "You can't leave empty fields"
 
-#: instalar.php:197
+#: instalar.php:198
 msgid ""
 "El usuario no parece ser válido. Recuerda que debe ser de 3 a 12 caracteres."
-msgstr ""
-"The user doesn't look valid. Remember it must be from 3 to 12 characters."
+msgstr "User doesn't look valid. Remember it must be from 3 to 12 characters."
 
-#: instalar.php:199
+#: instalar.php:200
 msgid "¿Seguro que tienes un email tan largo?"
 msgstr "Are you sure your email is so long?"
 
-#: instalar.php:201
+#: instalar.php:202
 msgid "El email que ingresas no parece ser válido"
-msgstr "The email you type doesn't look valid"
+msgstr "Invaild email"
 
-#: instalar.php:203 acceso.php:180
+#: instalar.php:204 acceso.php:180
 msgid "Las claves no coinciden"
-msgstr "The passwords doesn't match"
+msgstr "Passwords doesn't match"
 
-#: instalar.php:210
+#: instalar.php:211
 #, php-format
 msgid ""
 "<h2> Instalación completada </h2><br> Has instalado TrackYourPenguin "
@@ -277,32 +283,32 @@ msgstr ""
 "<h2> Instalation completed </h2><br> You have installed TrackYourPenguin "
 "successfully, you can now <a href=\"%s\">log in</a> to continue. :)"
 
-#: instalar.php:225
+#: instalar.php:226
 msgid "Tu nombre de usuario para el sitio"
 msgstr "Your username for the site"
 
-#: instalar.php:234
+#: instalar.php:235
 msgid "Tu clave para el inicio de sesión"
 msgstr "Your password for the login"
 
-#: instalar.php:239 usuarios.php:99
+#: instalar.php:240 usuarios.php:95
 msgid "Confirmar clave"
 msgstr "Re-Type password"
 
-#: instalar.php:243
+#: instalar.php:244
 msgid "Confirma que la clave que pones es la que quieres"
-msgstr "Confirm that the password you typed is what you want"
+msgstr "Confirm that password you typed is what you want"
 
-#: instalar.php:248 usuarios.php:108 usuarios.php:217 usuarios.php:365
-#: usuarios.php:381
+#: instalar.php:249 usuarios.php:104 usuarios.php:198 usuarios.php:325
+#: usuarios.php:351
 msgid "Email"
 msgstr "Email"
 
-#: instalar.php:252
+#: instalar.php:253
 msgid "Tu email, el que más utilices"
 msgstr "Your email, you must have access"
 
-#: instalar.php:255 acceso.php:158 acceso.php:253 index.php:76 tweets.php:80
+#: instalar.php:256 acceso.php:158 acceso.php:253 index.php:76 tweets.php:76
 msgid "Enviar"
 msgstr "Submit"
 
@@ -312,11 +318,11 @@ msgstr "Did you forget your data?"
 
 #: acceso.php:94
 msgid "Volver al acceso"
-msgstr "Get back to login"
+msgstr "Back to login"
 
 #: acceso.php:109
 msgid "El hash o el usuario son incorrectos."
-msgstr "Hash or user doesn't match"
+msgstr "The hash or user doesn't match."
 
 #: acceso.php:112
 msgid "Agrega tu email para recuperar tu clave"
@@ -332,7 +338,7 @@ msgstr "The email cannot be empty"
 
 #: acceso.php:129
 msgid "El email no parece válido"
-msgstr "The email doesn't look valid"
+msgstr "Invaild email"
 
 #: acceso.php:131
 msgid "El email que buscas no está registrado"
@@ -347,24 +353,24 @@ msgstr "Forgotten password [%s]"
 #, php-format
 msgid ""
 "<html><body>\n"
-"\t\t\t\t\t¡Hola, <b>%s</b>! \n"
+"\t\t\t\t\t¡Hola, <strong>%s</strong>! \n"
 "\n"
 "\n"
 "\t\t\t\t\tSe ha enviado una solicitud para cambiar la clave de tu usuario, "
 "si t&uacute; la enviaste, haz\n"
-"\t\t\t\t\t<a href=\"%s\"><b>clic aqu&iacute;</b></a>\n"
+"\t\t\t\t\t<a href=\"%s\"><strong>clic aqu&iacute;</strong></a>\n"
 "\n"
 "\n"
 "\t\t\t\t\tSi no la hiciste, d&eacute;jalo todo como est&aacute; y no "
 "pasar&aacute; nada. :)</body></html>"
 msgstr ""
 "<html><body>\n"
-"\t\t\t\t\tHi, <b>%s</b>! \n"
+"\t\t\t\t\tHi, <strong>%s</strong>! \n"
 "\n"
 "\n"
 "\t\t\t\t\t Someone has sent a request to recover your password, if it was "
 "you\n"
-"\t\t\t\t\t<a href=\"%s\"><b>clic here</b></a>\n"
+"\t\t\t\t\t<a href=\"%s\"><strong>clic here</strong></a>\n"
 "\n"
 "\n"
 "\t\t\t\t\tIf it wasn't you, don't do anything and anything will happen. :)</"
@@ -377,10 +383,10 @@ msgstr "It has been sent an email to your inbox, please check it."
 #: acceso.php:150
 msgid ""
 "Lamentablemente no se pudo enviar el email, por favor revisa que tu hosting "
-"tenga la función <b>mail()</b> activa."
+"tenga la función <strong>mail()</strong> activa."
 msgstr ""
 "Lamentably it couldn't send the email, please check that your hosting has "
-"actived the function <b>mail()</b>."
+"actived the function <strong>mail()</strong>."
 
 #: acceso.php:156
 msgid "Ingresa tu email"
@@ -392,7 +398,7 @@ msgstr "Change password"
 
 #: acceso.php:173
 msgid "Ya puedes poner tu nueva clave para actualizarla"
-msgstr "Now you can type your new password to update"
+msgstr "Now you can type your new password to update it"
 
 #: acceso.php:184
 msgid "Tu clave ha sido actualizada"
@@ -454,17 +460,13 @@ msgstr "Remember me"
 msgid "Agregar tracker"
 msgstr "Add tracker"
 
-#: index.php:25 actualizar.php:84
+#: index.php:25 actualizar.php:102
 msgid "Volver"
 msgstr "Back"
 
-#: index.php:33 index.php:99 tweets.php:109
-msgid "Error en los datos HTML"
-msgstr "Bug in the HTML data"
-
 #: index.php:37
 msgid "Estoy seguro de que la tipografía debe llevar un punto"
-msgstr "I'm surely that font should have a dot"
+msgstr "I'm sure that font should have a dot"
 
 #: index.php:39
 msgid "La fuente no tiene formato correcto"
@@ -490,13 +492,13 @@ msgstr "The name or character of tracker"
 msgid "Imagen del tracker"
 msgstr "Tracker image"
 
-#: index.php:69 index.php:127 index.php:182
+#: index.php:69 index.php:127 index.php:179
 msgid "Fuente"
 msgstr "Font"
 
 #: index.php:73
 msgid "Fuente con la que se escribirá en la imagen"
-msgstr "Font with it will write in the image"
+msgstr "The font with it will write in the image"
 
 #: index.php:85
 msgid "Debes especificar un id correcto"
@@ -511,13 +513,17 @@ msgstr "That tracker doesn't exist"
 msgid "Editar tracker: %s"
 msgstr "Edit tracker: %s"
 
+#: index.php:99
+msgid "Error en los datos HTML"
+msgstr "Bug in the HTML data"
+
 #: index.php:103
 msgid "¿Así que la fuente no lleva punto?"
 msgstr "So doesn't the font have a dot?"
 
 #: index.php:105
 msgid "El archivo de la fuente no existe en el directorio de incluidos"
-msgstr "El font file doesn't exist in the include's directory"
+msgstr "The font file doesn't exist in the include's directory"
 
 #: index.php:108
 msgid "Tracker editado exitosamente"
@@ -526,7 +532,7 @@ msgstr "Tracker edited successfully"
 #: index.php:113
 #, php-format
 msgid "Edita el tracker de <i>%s</i>"
-msgstr "Edit %s's tracker"
+msgstr "Edit %s tracker"
 
 #: index.php:114
 msgid "Volver al tracker"
@@ -536,23 +542,23 @@ msgstr "Back to tracker"
 msgid "La fuente del Tracker"
 msgstr "The tracker's font"
 
-#: index.php:137 index.php:183 typ-inc/cuerpo.php:135
+#: index.php:137 index.php:180 typ-inc/cuerpo.php:116
 msgid "Editar parámetros"
 msgstr "Edit parameters"
 
-#: index.php:147 tweets.php:150
-msgid "Mala forma de borrar, mala."
-msgstr "Bad way of delete, bad way."
-
-#: index.php:157
+#: index.php:146
 msgid "Eliminar trackers"
 msgstr "Delete trackers"
+
+#: index.php:149 tweets.php:147
+msgid "Mala forma de borrar, mala."
+msgstr "Bad way of delete, bad way."
 
 #: index.php:159
 msgid "Han sido eliminados los trackers seleccionados"
 msgstr "The selected trackers has been deleted"
 
-#: index.php:161
+#: index.php:160
 #, php-format
 msgid ""
 "<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr;Volver</a></"
@@ -561,40 +567,44 @@ msgstr ""
 "<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr;Back</a></"
 "li></ul>"
 
-#: index.php:176
+#: index.php:173
 msgid "El ID que especificas no existe"
 msgstr "The ID you specify doesn't exist"
 
-#: index.php:178
+#: index.php:175
 #, php-format
-msgid "Tracker de %s"
-msgstr "Tracker of %s"
+msgid "Tracker de: %s"
+msgstr "%s tracker"
 
-#: index.php:180
+#: index.php:177
 msgid "Detalles del tracker"
 msgstr "Tracker details"
 
-#: index.php:182
+#: index.php:179
 msgid "(no existe)"
 msgstr "(it doesn't exist)"
 
-#: index.php:184
+#: index.php:181
 msgid "Imagen de fondo"
 msgstr "Background image"
 
-#: index.php:186
+#: index.php:183
 msgid "Imagen"
 msgstr "Image"
 
-#: index.php:193 index.php:224 typ-inc/cuerpo.php:102 typ-inc/cuerpo.php:165
+#: index.php:190 index.php:225 typ-inc/cuerpo.php:84 typ-inc/cuerpo.php:148
 msgid "Trackers"
 msgstr "Trackers"
 
-#: index.php:198
+#: index.php:196
 #, php-format
-msgid "No tienes trackers :( <a href=\"%s\">¿Quieres agregar uno?</a> :)"
+msgid "No tienes trackers ... <a href=\"%s\">¿Deseas agregar uno?</a> :)"
 msgstr ""
 "You don't have trackers :( <a href=\"%s\">Do you want to add one?</a> :)"
+
+#: index.php:198
+msgid "No existen trackers...  Notifíciale al administrador. :/"
+msgstr "There are no trackers. Tell to the administrator. :/"
 
 #: index.php:208
 msgid "Debes seleccionar un tracker"
@@ -606,23 +616,20 @@ msgstr "You must select at least one"
 
 #: index.php:213
 #, php-format
-msgid ""
-"¿Seguro que quieres eliminar %s tracker? <hr> <a href=\"%s\" class=\"btn btn-"
-"danger\">Sí</a>"
-msgstr ""
-"Are you sure you want to delete %s tracker? <hr> <a href=\"%s\" class=\"btn "
-"btn-danger\">Yes</a>"
+msgid "¿Seguro que quieres eliminar %s tracker?"
+msgstr "Are you sure you want to delete %s tracker?"
 
 #: index.php:214
 #, php-format
-msgid ""
-"¿Seguro que quieres eliminar %s trackers? <hr> <a href=\"%s\" class=\"btn "
-"btn-danger\">Sí</a>"
-msgstr ""
-"¿Seguro que quieres eliminar %s trackers? <hr> <a href=\"%s\" class=\"btn "
-"btn-danger\">Yes</a>"
+msgid "¿Seguro que quieres eliminar %s trackers?"
+msgstr "Are you sure you want to delete %s trackers?"
 
-#: index.php:225 usuarios.php:377 typ-inc/cuerpo.php:113
+#: index.php:218
+#, fuzzy
+msgid "Confirmación"
+msgstr "Re-Type password"
+
+#: index.php:226 usuarios.php:346 typ-inc/cuerpo.php:93
 msgid "Agregar nuevo"
 msgstr "Add new"
 
@@ -630,82 +637,74 @@ msgstr "Add new"
 msgid "Imagen de "
 msgstr "Image of"
 
-#: index.php:249 actualizar.php:82
+#: index.php:248 actualizar.php:100
 #, php-format
 msgid "Actualizar el tracker de %s"
-msgstr "Update the tracker of %s"
+msgstr "Update %s tracker"
 
-#: index.php:250
+#: index.php:249
 #, php-format
 msgid "Ver detalles del tracker de %s"
-msgstr "See details of tracker of %s"
+msgstr "See details of %s tracker"
 
-#: index.php:250
+#: index.php:249
 msgid "Detalles"
 msgstr "Details"
 
-#: index.php:252
+#: index.php:251
 #, php-format
 msgid "Editar el tracker de %s"
-msgstr "Edit the tracker of %s"
+msgstr "Edit %s tracker"
 
-#: index.php:252 usuarios.php:396 tweets.php:220
+#: index.php:251 usuarios.php:370 tweets.php:214
 msgid "Editar"
 msgstr "Edit"
 
-#: index.php:258
+#: index.php:257
 msgid "No existen más trackers..."
 msgstr "There are not more trackers"
 
-#: index.php:279
+#: index.php:278
 msgid "Eliminar seleccionados"
 msgstr "Delete selected"
 
-#: ajustes.php:19 ajustes.php:25 typ-inc/cuerpo.php:173
+#: ajustes.php:19 ajustes.php:25 typ-inc/cuerpo.php:155
 msgid "Ajustes"
 msgstr "Settings"
 
-#: ajustes.php:42
+#: ajustes.php:41
 msgid "No puedes sobrepasar los caracteres"
 msgstr "You can't overpass the limits"
 
-#: ajustes.php:44
+#: ajustes.php:43
 msgid "El URL no parece ser válido"
 msgstr "The URL doesn't look valid"
 
-#: ajustes.php:49
+#: ajustes.php:48
 msgid "La configuración ha sido actualizada"
 msgstr "The settings has been updated"
 
-#: ajustes.php:61
+#: ajustes.php:60
 msgid "Título del sitio :)"
 msgstr "Site title :)"
 
-#: ajustes.php:66
+#: ajustes.php:65
 msgid "URL"
 msgstr "URL"
 
-#: ajustes.php:71
+#: ajustes.php:70
 msgid "URL del sitio, no es necesario cambiarla"
-msgstr "Site URL, it's not necessary to change"
+msgstr "Site URL, it's not necessary to change this"
 
-#: ajustes.php:76
-msgid "Buscadores"
-msgstr "Search engines"
-
-#: ajustes.php:80
-msgid "¿Pueden los buscadores indexar esta administración?"
-msgstr "Can search engines find this administration?"
-
-#: ajustes.php:85
+#: ajustes.php:75
 msgid "Tema"
 msgstr "Theme"
 
-#: ajustes.php:96
+#: ajustes.php:86
 msgid "¿Qué tema te gusta más?"
 msgstr "Which theme do you like more?"
 
-#: actualizar.php:17 usuarios.php:134
+#: actualizar.php:17 usuarios.php:130
 msgid "Necesito un ID correcto"
 msgstr "I need a valid ID"
 
@@ -715,8 +714,8 @@ msgstr "The tracker you specify doesn't exist"
 
 #: actualizar.php:24
 #, php-format
-msgid "Actualizar el tracker %s"
-msgstr "Update the tracker %s"
+msgid "Actualizar el tracker de: %s"
+msgstr "Update %s tracker"
 
 #: actualizar.php:28
 msgid "La imagen final no existe en el directorio de imágenes"
@@ -734,286 +733,282 @@ msgstr ""
 msgid "La fuente no existe"
 msgstr "The font doesn't exist"
 
-#: actualizar.php:51
-#, php-format
+#: actualizar.php:53
 msgid ""
-"La imagen PNG no es una imagen válida en PNG. Por favor abre la imagen en "
-"Photoshop/GIMP/Paint y guárdala nuevamente para validar su formato. Luego, "
-"súbela nuevamente.\n"
-"\t\t\t\t\t\t<a href=\"%s\">más ayuda</a>"
+"Lo lamento. Tu archivo no es una imagen de formato <strong>%1$s</strong>, "
+"por lo que he de cambiar el formato a <strong>%$2s</strong> para que sí "
+"funcione. Por favor cambia el formato de %3$s y de %4$s a %2$s en el "
+"directorio de imágenes (img/). :)"
 msgstr ""
-"The PNG Image is not a valid PNG image. Please open the image with Photoshop/"
-"GIMP/Paint and save it newly for validating its format. Next, upload it "
-"again. <a href=\"%s\">read more</a>"
+"i'm sorry. Your file <strong>%1%s</strong> hasn't a correct extension, then "
+"you have to change the extension to <strong>%$s2</strong> to get it to work. "
+"Please, change format from %3$s and %4$s to %2$s in your img dir. (img/). ;)"
 
-#: actualizar.php:60
-#, php-format
+#: actualizar.php:62
 msgid ""
-"La imagen JPG/JPEG no es una imagen válida en JPG/JPEG. Por favor abre la "
-"imagen en Photoshop/GIMP/Paint y guárdala nuevamente para validar su "
-"formato. Luego, súbela nuevamente.\n"
-"\t\t\t\t\t <a href=\"%s\">más ayuda</a>"
+"Tus imágenes no tenían el formato correcto. He decidido cambiarlos, por "
+"favor recarga la página e intenta de nuevo"
 msgstr ""
-"The JPG/JPEG Image is not a valid JPEG image. Please open the image with "
-"Photoshop/GIMP/Paint and save it newly for validating its format. Next, "
-"upload it again. <a href=\"%s\">read more</a>"
+"Your images didn't have the correct format. I've decided to change them, "
+"please reload the page and try again."
 
-#: actualizar.php:88
+#: actualizar.php:106
 msgid "Actualiza el tracker"
-msgstr "Update the tracker"
+msgstr "Update tracker"
 
-#: actualizar.php:125
+#: actualizar.php:143
 msgid "El tracker ha sido actualizado..."
 msgstr "The tracker has been updated"
 
-#: actualizar.php:132 usuarios.php:366 usuarios.php:383
+#: actualizar.php:150 usuarios.php:326 usuarios.php:353
 msgid "Estado"
 msgstr "Status"
 
-#: actualizar.php:140
+#: actualizar.php:158
 msgid "Servidor"
 msgstr "Server"
 
-#: actualizar.php:148
+#: actualizar.php:166
 msgid "Sala"
 msgstr "Room"
 
-#: actualizar.php:155
+#: actualizar.php:173
 msgid "Última actualización"
 msgstr "Last update"
 
-#: actualizar.php:161 tweets.php:191
+#: actualizar.php:179 tweets.php:186
 msgid "Tuitear"
 msgstr "Tweet"
 
-#: actualizar.php:161
+#: actualizar.php:179
 msgid "Envía lo que actualices a Twitter"
 msgstr "Send what you update to Twitter"
 
-#: actualizar.php:178
+#: actualizar.php:195
 #, php-format
 msgid ""
-"El tweet ha sido enviado. <b><a href=\"%s\" target=\"_blank\">Ver</a></b>"
+"El tweet ha sido enviado. <strong><a href=\"%s\" target=\"_blank\">Ver</a></"
+"strong>"
 msgstr ""
-"The tweet has been sent. <b><a href=\"%s\" target=\"_blank\">View</a></b>"
+"The tweet has been sent. <strong><a href=\"%s\" target=\"_blank\">View</a></"
+"strong>"
 
-#: actualizar.php:182
+#: actualizar.php:199
 msgid "No has seleccionado/escrito ningún tweet"
 msgstr "You have not selected/written any tweet"
 
-#: actualizar.php:186
+#: actualizar.php:203
 msgid "No tienes tuits. Aun así, puedes enviar un tweet personalizado."
 msgstr "You don't have tweets. Even so you can send a custom tweet."
 
-#: actualizar.php:188
+#: actualizar.php:205
 msgid "Envía tu tweet personalizado..."
 msgstr "Send your custom tweet..."
 
-#: actualizar.php:200
+#: actualizar.php:217
 #, php-format
 msgid "No has configurado el <a href=\"%s\">OAuth de Twitter</a>."
-msgstr "You have not configured the <a href=\"%s\">Twitter's OAuth</a>."
+msgstr "You have not configured the <a href=\"%s\">Twitter OAuth</a>."
 
-#: actualizar.php:203
+#: actualizar.php:220
 msgid "Actualizar tracker"
 msgstr "Update tracker"
 
-#: actualizar.php:212 typ-inc/cuerpo.php:123
+#: actualizar.php:229 typ-inc/cuerpo.php:104
 msgid "Ver imagen"
 msgstr "View image"
 
-#: actualizar.php:222
+#: actualizar.php:239
 msgid "Compartir imagen"
 msgstr "Share image"
 
-#: actualizar.php:225
+#: actualizar.php:242
 msgid "Comparte la imagen en tu sitio web copiando el siguiente HTML"
 msgstr "Share the image in your website by copying the following HTML"
 
-#: actualizar.php:230 parametros.php:332
+#: actualizar.php:247 parametros.php:332
 msgid "Cerrar"
 msgstr "Close"
 
-#: sesiones.php:17
-msgid "No hay sesiones para ese usuario"
-msgstr "There are not sessions for this user"
-
-#: sesiones.php:19 sesiones.php:34 typ-inc/cuerpo.php:195
+#: sesiones.php:25 sesiones.php:47 typ-inc/cuerpo.php:178
 msgid "Sesiones"
 msgstr "Sessions"
 
-#: sesiones.php:29
+#: sesiones.php:34
+msgid "No hay sesiones para ese usuario"
+msgstr "There are not sessions for this user"
+
+#: sesiones.php:42
 msgid "No existen más sesiones"
 msgstr "There are not more sessions"
 
-#: sesiones.php:35
+#: sesiones.php:48
 msgid " del usuario: "
 msgstr " of user:"
 
-#: sesiones.php:42
+#: sesiones.php:54
 msgid "Debes seleccionar una sesión para cerrar"
 msgstr "You must select a session for closing"
 
-#: sesiones.php:48
+#: sesiones.php:60
 msgid "Las sesiones que seleccionaste han sido eliminadas (de ser existentes)"
 msgstr "The sessions you selected have been deleted (if they existed)"
 
-#: sesiones.php:64
-msgid " <b>(sesión actual)</b>"
-msgstr " <b>(current session)</b>"
+#: sesiones.php:76
+msgid " <strong>(sesión actual)</strong>"
+msgstr " <strong>(current session)</strong>"
 
-#: sesiones.php:95
+#: sesiones.php:107
 msgid "tu"
 msgstr "your"
 
-#: sesiones.php:95
+#: sesiones.php:107
 msgid "este"
 msgstr "this"
 
-#: sesiones.php:97
+#: sesiones.php:109
 #, php-format
 msgid "Cerrar todas las sesiones de %s usuario"
 msgstr "Close all sessions for %s user"
 
-#: sesiones.php:100
+#: sesiones.php:112
 msgid "Cerrar sesiones seleccionadas"
 msgstr "Close sessions selected"
 
-#: usuarios.php:25
-msgid "Haciendo trampa ¿eh?"
-msgstr "Cheating, uh?"
-
-#: usuarios.php:36 usuarios.php:39
+#: usuarios.php:34 usuarios.php:37
 msgid "Agregar usuario"
 msgstr "Add user"
 
-#: usuarios.php:41 usuarios.php:152
+#: usuarios.php:39 usuarios.php:147
 msgid "Volver al usuario"
 msgstr "Back to user"
 
-#: usuarios.php:59 usuarios.php:183
+#: usuarios.php:55 usuarios.php:167
 msgid "¿Haciendo trampa para obtener un mejor rango?"
 msgstr "Cheating for getting a better rank?"
 
-#: usuarios.php:61
+#: usuarios.php:57
 msgid "Necesito un usuario válido. De 3 a 12 caracteres."
 msgstr "I need a valid username. From 3 to 12 characters."
 
-#: usuarios.php:63 usuarios.php:187
+#: usuarios.php:59 usuarios.php:171
 msgid "El email ingresado no parece ser válido"
-msgstr "The email typed doesn't look valid"
+msgstr "The typed email doesn't look valid"
 
-#: usuarios.php:65 usuarios.php:189
+#: usuarios.php:61 usuarios.php:173
 msgid "El usuario ingresado ya existe"
-msgstr "The username typed already exists"
+msgstr "The typed usernmae already exists"
 
-#: usuarios.php:67 usuarios.php:191
+#: usuarios.php:63 usuarios.php:175
 msgid "El email ingresado ya existe"
 msgstr "El email typed already exists"
 
-#: usuarios.php:69
+#: usuarios.php:65
 msgid "No puede ser super administrador"
 msgstr "You can't be super admin"
 
-#: usuarios.php:72
+#: usuarios.php:68
 msgid "El usuario ha sido ingresado"
 msgstr "The user has been added"
 
-#: usuarios.php:85 usuarios.php:212
+#: usuarios.php:81 usuarios.php:193
 msgid "El nombre de usuario"
 msgstr "The username"
 
-#: usuarios.php:94
+#: usuarios.php:90
 msgid "La clave para el usuario"
 msgstr "The password for the user"
 
-#: usuarios.php:103
+#: usuarios.php:99
 msgid "Confirma la clave para el usuario"
 msgstr "Confirm the password for the user"
 
-#: usuarios.php:112 usuarios.php:221
+#: usuarios.php:108 usuarios.php:202
 msgid "Email para el usuario"
 msgstr "Email for the user"
 
-#: usuarios.php:121 usuarios.php:233 usuarios.php:237 typ-inc/usuarios.php:124
+#: usuarios.php:117 usuarios.php:214 usuarios.php:218 typ-inc/usuarios.php:114
 msgid "Administrador"
 msgstr "Admin"
 
-#: usuarios.php:122 usuarios.php:234 usuarios.php:236 usuarios.php:239
-#: typ-inc/usuarios.php:127
+#: usuarios.php:118 usuarios.php:215 usuarios.php:217 usuarios.php:220
+#: typ-inc/usuarios.php:117
 msgid "Actualizador"
 msgstr "Updater"
 
-#: usuarios.php:124 usuarios.php:242
+#: usuarios.php:120 usuarios.php:223
 msgid "¿Qué le vamos a permitir a este usuario?"
 msgstr "What are we going to allow to this user?"
 
-#: usuarios.php:128
+#: usuarios.php:124
 msgid "Agregar"
 msgstr "Add"
 
-#: usuarios.php:140
+#: usuarios.php:135
 msgid "El usuario que especificas no existe"
 msgstr "The user you specify doesn't exist"
 
-#: usuarios.php:143
+#: usuarios.php:138
 msgid "No tienes los premisos suficientes para acceder aquí"
-msgstr "You don't have enough permissions for accessing here"
+msgstr "You don't have enough permissions to access here"
 
-#: usuarios.php:146
+#: usuarios.php:141
 msgid "No puedes editar a alguien que tenga tu mismo rango o mayor"
 msgstr "You can't edit to anyone that has your rank or greater"
 
-#: usuarios.php:148
+#: usuarios.php:143
 #, php-format
-msgid "Editar el usuario %s"
-msgstr "Edit the user %s"
+msgid "Editar el usuario: %s"
+msgstr "Edit user: %s"
 
-#: usuarios.php:150
+#: usuarios.php:145
 msgid "Editar el usuario"
-msgstr "Edit the user"
+msgstr "Edit user"
 
-#: usuarios.php:185
+#: usuarios.php:169
 msgid "Pon un nombre de usuario válido, de 3 a 12 caracteres"
 msgstr "Type a valid username, from 3 to 12 characters"
 
-#: usuarios.php:193
+#: usuarios.php:177
 msgid "No puedes ser super administrador"
 msgstr "You cannot be admin"
 
-#: usuarios.php:200
+#: usuarios.php:180
 msgid "El usuario ha sido actualizado"
 msgstr "The user has been updated"
 
-#: usuarios.php:227 usuarios.php:367 usuarios.php:382
+#: usuarios.php:208 usuarios.php:327 usuarios.php:352
 msgid "Rango"
-msgstr "Rank"
+msgstr "Role"
 
-#: usuarios.php:244
+#: usuarios.php:225
 msgid "No puedes cambiar tu propio rango"
-msgstr "You can't change your own rank"
+msgstr "You can't change your own role"
 
-#: usuarios.php:256 usuarios.php:283 usuarios.php:316
-msgid "Debes especificar un ID"
-msgstr "You should specify a valid ID"
+#: usuarios.php:237
+#, fuzzy
+msgid "Debes especificar un ID correcto"
+msgstr "You must specify a valid ID"
 
-#: usuarios.php:259 usuarios.php:319
-msgid "No tienes rango suficiente"
-msgstr "You don't have enough permissions"
-
-#: usuarios.php:264 usuarios.php:291 usuarios.php:324
+#: usuarios.php:243 usuarios.php:263 usuarios.php:290
 msgid "El usuario seleccionado no existe"
 msgstr "The user selected doesn't exist"
 
-#: usuarios.php:267
+#: usuarios.php:246
 msgid "No puedes eliminar tu propio usuario"
 msgstr "You can't delete your own user"
 
-#: usuarios.php:275
-msgid "El usuario seleccionado ha sido eliminado"
-msgstr "The selected user has been deleted"
+#: usuarios.php:248
+#, php-format
+msgid "Eliminar al usuario: %s"
+msgstr "Delete user: %s"
 
-#: usuarios.php:277 usuarios.php:307 usuarios.php:338 tweets.php:160
+#: usuarios.php:252
+#, php-format
+msgid "El usuario %s ha sido eliminado"
+msgstr "User %s has been deleted"
+
+#: usuarios.php:253 usuarios.php:278 usuarios.php:303 tweets.php:155
 #, php-format
 msgid ""
 "<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr; Volver</a></"
@@ -1022,60 +1017,80 @@ msgstr ""
 "<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr; Back</a></"
 "li></ul>"
 
-#: usuarios.php:294 usuarios.php:327
+#: usuarios.php:257 usuarios.php:282
+msgid "Debes especificar un ID"
+msgstr "You should specify a valid ID"
+
+#: usuarios.php:266
 msgid "No puedes suspender tu propio usuario"
 msgstr "You can't ban your own user"
 
-#: usuarios.php:297
+#: usuarios.php:269
 msgid "Este usuario ya está suspendido"
 msgstr "The user is already banned"
 
-#: usuarios.php:301
+#: usuarios.php:271
 #, php-format
-msgid "Suspender al usuario %s"
+msgid "Suspender al usuario: %s"
 msgstr "Ban to user %s"
 
-#: usuarios.php:305
+#: usuarios.php:275
 #, php-format
-msgid "El usuario <b>%s</b> ha sido suspendido"
-msgstr "The user <b>%s</b> has been banned"
+msgid "El usuario <strong>%s</strong> ha sido suspendido"
+msgstr "The user <strong>%s</strong> has been banned"
 
-#: usuarios.php:330
+#: usuarios.php:285
+msgid "No tienes rango suficiente"
+msgstr "You don't have enough permissions"
+
+#: usuarios.php:295
 msgid "Este usuario no se encuentra suspendido"
 msgstr "This user is not banned"
 
-#: usuarios.php:332
+#: usuarios.php:297
 #, php-format
-msgid "Quitar suspensión al usuario %s"
-msgstr "Unban to user %s"
+msgid "Quitar suspensión al usuario: %s"
+msgstr "Unban user: %s"
 
-#: usuarios.php:336
+#: usuarios.php:300
 #, php-format
-msgid "Al usuario <b>%s</b> se le ha removido la suspensión"
-msgstr "User <b%s</b> has been unbanned"
+msgid "Al usuario <strong>%s</strong> se le ha removido la suspensión"
+msgstr "User <b%s</strong> has been unbanned"
 
-#: usuarios.php:356
+#: usuarios.php:317
 msgid "Este usuario no existe o tienes permiso de ver sus datos"
 msgstr ""
 "This user doesn't exist or you don't have permissions for viewing his data"
 
-#: usuarios.php:362
+#: usuarios.php:322
 msgid "Volver al Inicio"
 msgstr "Back to home"
 
-#: usuarios.php:371 usuarios.php:374 typ-inc/cuerpo.php:169
+#: usuarios.php:328
+msgid "Última actualización hecha"
+msgstr "Last update done"
+
+#: usuarios.php:333
+msgid "Tracker desconocido"
+msgstr "Unknow tracker"
+
+#: usuarios.php:336
+msgid "No se encontraron actualizaciones recientes"
+msgstr "There are no recent updates"
+
+#: usuarios.php:341 usuarios.php:343 typ-inc/cuerpo.php:151
 msgid "Usuarios"
 msgstr "Users"
 
-#: usuarios.php:400 tweets.php:223
+#: usuarios.php:374 tweets.php:217
 msgid "Eliminar"
 msgstr "Delete"
 
-#: usuarios.php:403
+#: usuarios.php:377
 msgid "Suspender"
 msgstr "Ban"
 
-#: usuarios.php:405
+#: usuarios.php:379
 msgid "Quitar suspensión"
 msgstr "Unban"
 
@@ -1083,7 +1098,7 @@ msgstr "Unban"
 msgid "Necesito un ID correcto para especificar"
 msgstr "I need a correct ID for specifying"
 
-#: parametros.php:25 typ-inc/params.php:122
+#: parametros.php:25
 msgid "El tracker no existe"
 msgstr "The tracker doesn't exist"
 
@@ -1141,12 +1156,12 @@ msgid "Actualizar parámetros"
 msgstr "Update parameters"
 
 #: parametros.php:306
-msgid "<b>Posición X</b>"
-msgstr "<b>X Position</b>"
+msgid "<strong>Posición X</strong>"
+msgstr "<strong>X Position</strong>"
 
 #: parametros.php:307
-msgid "<b>Posición Y</b>"
-msgstr "<b>Y Position</b>"
+msgid "<strong>Posición Y</strong>"
+msgstr "<strong>Y Position</strong>"
 
 #: parametros.php:316
 msgid "Obtener parámetros X y Y"
@@ -1167,7 +1182,7 @@ msgstr ""
 "Once you click it, you can get back to the tracker and click \"Update "
 "parameters\" to update it."
 
-#: about.php:13 typ-inc/cuerpo.php:95
+#: about.php:13 typ-inc/cuerpo.php:76
 msgid "Acerca de"
 msgstr "About"
 
@@ -1178,19 +1193,19 @@ msgstr "About TrackYourPenguin..."
 #: about.php:19
 #, php-format
 msgid ""
-"Bienvenido a <b>TrackYourPenguin %s</b>. TrackYourPenguin (<i>abreviado como "
-"TYP</i>) es un sistema de trackers en PHP y MySQL desarrollado actualmente "
-"por <a href=\"%s\" target\"_blank\">Zerquix18</a>. El objetivo es que puedas "
-"tracker fácilmente con múltiples trackers, tuits, usuarios y otras "
-"cualidades sin la necesidad de tocar código constantemente o poner varios "
-"códigos para varios trackers. Todo en uno. :)"
+"Bienvenido a <strong>TrackYourPenguin %s</strong>. TrackYourPenguin "
+"(<i>abreviado como TYP</i>) es un sistema de trackers en PHP y MySQL "
+"desarrollado actualmente por <a href=\"%s\" target\"_blank\">Zerquix18</a>. "
+"El objetivo es que puedas tracker fácilmente con múltiples trackers, tuits, "
+"usuarios y otras cualidades sin la necesidad de tocar código constantemente "
+"o poner varios códigos para varios trackers. Todo en uno. :)"
 msgstr ""
-"Welcome to <b>TrackYourPenguin %s</b>. TrackYourPenguin (<i>abbreviated TYP</"
-"i>) is a tracker system written in PHP and MySQL developed currently by <a "
-"href=\"%s\" target=\"_blank\">Zerquix18</a>. The purpose is that you can "
-"track easily with multiple trackers, tweets, users and other quialities "
-"without the need of touching code constantly or putting several codes for "
-"several trackers. All in one. :)"
+"Welcome to <strong>TrackYourPenguin %s</strong>. TrackYourPenguin "
+"(<i>abbreviated TYP</i>) is a tracker system written in PHP and MySQL "
+"developed currently by <a href=\"%s\" target=\"_blank\">Zerquix18</a>. The "
+"purpose is that you can track easily with multiple trackers, tweets, users "
+"and other quialities without the need of touching code constantly or putting "
+"several codes for several trackers. All in one. :)"
 
 #: about.php:21
 #, php-format
@@ -1199,7 +1214,7 @@ msgid ""
 "si alguien la cierra desde otro lado.</li><li>Cambios de tema desde la <a "
 "href=\"%s\">configuración</a>.</li><li>Ahora los parámetros los coge el "
 "formulario a penas cliqueas.</li><li>Actualización en la tabla de <a href="
-"\"%s\">usuarios</a>.</li><li>Ésta página. :)</li></ul>"
+"\"%s\">usuarios</a>.</li><li>Esta página. :)</li></ul>"
 msgstr ""
 "<h3>News of %s</h3><hr><ul><li>Log out automatic if someone closes your "
 "session from another side.</li><li>Theme changes from the <a href=\"%s"
@@ -1209,21 +1224,21 @@ msgstr ""
 
 #: about.php:22
 msgid ""
-"<h3>Créditos</h3><ul><li><b>Bootstrap</b>. <i>Todo el diseño y plugins "
-"javascript del sitio</i>.</li><li><b>Bootswatch</b>. <i>Temas adicionales de "
-"bootstrap</i>.</Li><li><b>Zerquix18</b>. <i>Todo lo demás que ves aquí. :)</"
-"i></li></ul>"
+"<h3>Créditos</h3><ul><li><strong>Bootstrap</strong>. <i>Todo el diseño y "
+"plugins javascript del sitio</i>.</li><li><strong>Bootswatch</strong>. "
+"<i>Temas adicionales de bootstrap</i>.</li><li><li><strong>Zerquix18</"
+"strong>. <i>Todo lo demás que ves aquí. :)</i></li></ul>"
 msgstr ""
-"<h3>Credits</h3><ul><li><b>Bootstrap</b>. <i>All the design and javascript "
-"plugins of the site</i>.</li><li><b>Bootswatch</b>. <i>Adicional bootstrap "
-"themes</i>.</li><li><b>Zerquix18</b>. <i>Everything else you see here. :)</"
-"i></li></ul>"
+"<h3>Credits</h3><ul><li><strong>Bootstrap</strong>. <i>All design and "
+"javascript plugins of the site</i>.</li><li><strong>Bootswatch</strong>. "
+"<i>Adicional bootstrap themes</i>.</li><li><strong>Zerquix18</strong>. "
+"<i>Everything else you see here. :)</i></li></ul>"
 
 #: actualizaciones.php:14
 msgid "Wooops! Tranquilo, eh."
 msgstr "Wooops! Quiet, eh."
 
-#: actualizaciones.php:17 typ-inc/cuerpo.php:188
+#: actualizaciones.php:17 typ-inc/cuerpo.php:171
 msgid "Actualizaciones"
 msgstr "Updates"
 
@@ -1237,8 +1252,8 @@ msgstr "There are no updates. You have the lastest version."
 
 #: actualizaciones.php:28
 #, php-format
-msgid "TrackYourPenguin <b>%s</b> está disponible. :)"
-msgstr "TrackYourPenguin <b>%s</b> is available. :)"
+msgid "TrackYourPenguin <strong>%s</strong> está disponible. :)"
+msgstr "TrackYourPenguin <strong>%s</strong> is available. :)"
 
 #: tweets.php:28
 #, php-format
@@ -1249,94 +1264,90 @@ msgstr ""
 "Before configuring tweets, you must configure a <a href=\"%s\">Twitter</a>'s "
 "OAuth connection"
 
-#: tweets.php:37 tweets.php:58
+#: tweets.php:37 tweets.php:54
 msgid "Agregar tweet"
 msgstr "Add tweet"
 
-#: tweets.php:45
-msgid "Error en los datos HTML."
-msgstr "BUG in the HTML data."
-
-#: tweets.php:49 tweets.php:113
+#: tweets.php:46 tweets.php:107
 msgid "No puedes sobrepasar los límites"
 msgstr "You can't overpass the limits"
 
-#: tweets.php:52
+#: tweets.php:49
 msgid "Tweet agregado"
 msgstr "Tweet added"
 
-#: tweets.php:59 tweets.php:101 tweets.php:177
+#: tweets.php:55 tweets.php:95 tweets.php:172
 msgid "Volver a los tweets"
 msgstr "Back to tweets"
 
-#: tweets.php:68
+#: tweets.php:64
 msgid "Nombre del tweet a ser elegido"
 msgstr "Tweet name to be choosen"
 
-#: tweets.php:73 tweets.php:132
+#: tweets.php:69 tweets.php:129
 msgid "Texto"
 msgstr "Text"
 
-#: tweets.php:77
+#: tweets.php:73
 msgid "El texto que se publicará en el tweet"
 msgstr "The text that will be published in the tweet"
 
-#: tweets.php:90
+#: tweets.php:86
 msgid "Debes especificar un ID válido"
 msgstr "You should specify a valid ID"
 
-#: tweets.php:95 tweets.php:172
+#: tweets.php:89 tweets.php:167
 msgid "Este tweet no existe"
 msgstr "This tweet doesn't exist"
 
-#: tweets.php:97
+#: tweets.php:91
 #, php-format
 msgid "Editar el tweet: %s"
 msgstr "Edit the tweet: %s"
 
-#: tweets.php:100
+#: tweets.php:94
 msgid "Editar el tweet"
 msgstr "Edit the tweet"
 
-#: tweets.php:116
+#: tweets.php:113
 msgid "Actualizado :)"
 msgstr "Updated :)"
 
-#: tweets.php:127
+#: tweets.php:124
 msgid "El nombre del tweet a editar"
 msgstr "Tweet's name to edit"
 
-#: tweets.php:156
+#: tweets.php:151
 msgid "Eliminar tweets"
 msgstr "Delete tweets"
 
-#: tweets.php:158
+#: tweets.php:153
 msgid "Han sido eliminados los tweets seleccionados."
 msgstr "The tweets selected has been deleted"
 
-#: tweets.php:174
+#: tweets.php:169
 #, php-format
 msgid "Tweet de %s"
 msgstr "Tweet of %s"
 
-#: tweets.php:176
+#: tweets.php:171
 msgid "Tweet de:"
 msgstr "Tweet of:"
 
-#: tweets.php:185
+#: tweets.php:180
 msgid "Tweet enviado exitosamente"
 msgstr "Tweet sent successfully"
 
-#: tweets.php:197 typ-inc/cuerpo.php:180
+#: tweets.php:192 typ-inc/cuerpo.php:163
 msgid "Tweets"
 msgstr "Tweets"
 
-#: tweets.php:208
+#: tweets.php:203
 #, php-format
 msgid "No tienes tweets... <a href=\"%s\">agregar uno</a>"
 msgstr "You don't have tweets... <a href=\"%s\">add one</a>"
 
-#: tweets.php:217
+#: tweets.php:211
 msgid "Ver"
 msgstr "View"
 
@@ -1519,111 +1530,44 @@ msgid " a la(s) "
 msgstr " at "
 
 #: typ-inc/log.php:67
+msgid "Tú actualizaste "
+msgstr "You updated"
+
+#: typ-inc/log.php:67
 #, php-format
-msgid "<b>%s</b> actualizó el tracker de <b>%s</b> \n"
-msgstr "<b>%s</b> updated the tracker of <b>%s</b> \n"
+msgid "<strong>%s</strong> actualizó "
+msgstr "<strong>%s</strong> updated "
 
 #: typ-inc/log.php:68
+#, php-format
+msgid "el tracker de <strong>%s</strong> \n"
+msgstr "<strong>%s</strong> tracker \n"
+
+#: typ-inc/log.php:69
 #, php-format
 msgid "Estado: %s \n"
 msgstr "Status: %s \n"
 
-#: typ-inc/log.php:69
+#: typ-inc/log.php:70
 #, php-format
 msgid "Servidor: %s \n"
 msgstr "Server: %s \n"
 
-#: typ-inc/log.php:70
+#: typ-inc/log.php:71
 #, php-format
 msgid "Sala: %s \n"
 msgstr "Room: %s \n"
 
-#: typ-inc/log.php:71
+#: typ-inc/log.php:72
 #, php-format
 msgid "Tweet elegido: %s"
 msgstr "Tweet selected: %s"
 
-#: typ-inc/funciones.php:324 typ-inc/hora.php:88
-msgid "Domingo"
-msgstr "Sunday"
-
-#: typ-inc/funciones.php:325 typ-inc/hora.php:89
-msgid "Lunes"
-msgstr "Monday"
-
-#: typ-inc/funciones.php:326 typ-inc/hora.php:90
-msgid "Martes"
-msgstr "Tuesday"
-
-#: typ-inc/funciones.php:327 typ-inc/hora.php:91
-msgid "Miércoles"
-msgstr "Wednesday"
-
-#: typ-inc/funciones.php:328 typ-inc/hora.php:92
-msgid "Jueves"
-msgstr "Thursday"
-
-#: typ-inc/funciones.php:329 typ-inc/hora.php:93
-msgid "Viernes"
-msgstr "Friday"
-
-#: typ-inc/funciones.php:330 typ-inc/hora.php:94
-msgid "Sábado"
-msgstr "Saturday"
-
-#: typ-inc/funciones.php:334 typ-inc/hora.php:97
-msgid "Enero"
-msgstr "January"
-
-#: typ-inc/funciones.php:335 typ-inc/hora.php:98
-msgid "Febrero"
-msgstr "February"
-
-#: typ-inc/funciones.php:336 typ-inc/hora.php:99
-msgid "Marzo"
-msgstr "March"
-
-#: typ-inc/funciones.php:337 typ-inc/hora.php:100
-msgid "Abril"
-msgstr "April"
-
-#: typ-inc/funciones.php:338 typ-inc/hora.php:101
-msgid "Mayo"
-msgstr "May"
-
-#: typ-inc/funciones.php:339 typ-inc/hora.php:102
-msgid "Junio"
-msgstr "June"
-
-#: typ-inc/funciones.php:340 typ-inc/hora.php:103
-msgid "Julio"
-msgstr "July"
-
-#: typ-inc/funciones.php:341 typ-inc/hora.php:104
-msgid "Agosto"
-msgstr "August"
-
-#: typ-inc/funciones.php:342 typ-inc/hora.php:105
-msgid "Septiembre"
-msgstr "September"
-
-#: typ-inc/funciones.php:343 typ-inc/hora.php:106
-msgid "Octubre"
-msgstr "October"
-
-#: typ-inc/funciones.php:344 typ-inc/hora.php:107
-msgid "Noviembre"
-msgstr "November"
-
-#: typ-inc/funciones.php:345 typ-inc/hora.php:108
-msgid "Diciembre"
-msgstr "December"
-
-#: typ-inc/funciones.php:448 typ-inc/cuerpo.php:141
+#: typ-inc/funciones.php:378 typ-inc/cuerpo.php:122 typ-inc/cuerpo.php:131
 msgid "Códigos cortos"
 msgstr "Short codes"
 
-#: typ-inc/funciones.php:451
+#: typ-inc/funciones.php:381
 msgid ""
 "Son pequeños códigos que puedes usar para enviar al tweet cosas como la "
 "sala, servidor, estado, etc. Sólo tienes que añadirlos en los tweets"
@@ -1631,22 +1575,22 @@ msgstr ""
 "They are short codes that you can use for sending to tweet things like room, "
 "server, status, etc. You just have to add it in the tweets."
 
-#: typ-inc/funciones.php:452
+#: typ-inc/funciones.php:382
 #, php-format
 msgid "Esto imprime el estado. Ejemplo: El estado ahora es %es"
 msgstr "This prints the status. Example: The status now is %es"
 
-#: typ-inc/funciones.php:453
+#: typ-inc/funciones.php:383
 #, php-format
 msgid "Esto imprime el servidor. Ejemplo: #Alguien está en el servidor: %se"
 msgstr "This prints the server. Example: #Somebody is in the server: %se"
 
-#: typ-inc/funciones.php:454
+#: typ-inc/funciones.php:384
 #, php-format
 msgid "Esto imprime la sala. Ejemplo: #Alguien está en la sala %sa"
 msgstr "This prints the room. Example: #Somebody is in the room %sa"
 
-#: typ-inc/funciones.php:455
+#: typ-inc/funciones.php:385
 msgid ""
 "Esto imprime \"#ClubPenguin\", sirve para indicar que tus tuits están "
 "relacionados con ello"
@@ -1654,11 +1598,11 @@ msgstr ""
 "This prints \"Club Penguin\", it serves to indicate that your tweets are "
 "related with that"
 
-#: typ-inc/funciones.php:456
+#: typ-inc/funciones.php:386
 msgid "Esto imprime un número del 1 al 100, para que los tweets no se repitan."
 msgstr "This prints a number from 1 to 100, for what tweets don't repeat."
 
-#: typ-inc/funciones.php:457
+#: typ-inc/funciones.php:387
 msgid ""
 "Esto imprime el personaje (nombre del tracker) que asignaste. Ejemplo: #%pe "
 "ha sido encontrado en [...]"
@@ -1666,47 +1610,36 @@ msgstr ""
 "This prints the character (tracker name) that you assigned. Example: #%pe "
 "has been found in [...]"
 
-#: typ-inc/funciones.php:458
+#: typ-inc/funciones.php:388
 msgid ""
-"<b>Ejemplo normal</b><br>\n"
+"<strong>Ejemplo normal</strong><br>\n"
 "\t<i>#%pe ha sido encontrado en la sala %sa (%r) %cp</i> = "
 "#*nombredeltracker* ha sido encontrado en la sala *sala enviada* (*número "
 "del 1 al 100*) #ClubPenguin</i>"
 msgstr ""
-"<b>Normal example</b><br><i>#%pe has been found in the room %sa (%r) %cp</i> "
-"= #*tracker name* has been found in the room *room sent* (*number from 1 to "
-"100*) #ClubPenguin</i>"
+"<strong>Normal example</strong><br><i>#%pe has been found in the room %sa "
+"(%r) %cp</i> = #*tracker name* has been found in the room *room sent* "
+"(*number from 1 to 100*) #ClubPenguin</i>"
 
-#: typ-inc/params.php:102
-msgid "El tracker debe ser un ID"
-msgstr "The tracker must be an ID"
-
-#: typ-inc/params.php:108
-msgid "La posición debe ser un número del 1 al 3"
-msgstr "The position must be an number of 1 to 3"
-
-#: typ-inc/params.php:114
-msgid "Los parámetros deben ir en matriz"
-msgstr "The parameters must be in array"
-
-#: typ-inc/params.php:131
+#: typ-inc/params.php:91
 msgid "Los parámetros enviados son incorrectos"
 msgstr "The parameters sent are not valids"
 
 #: typ-inc/class-actualizar.php:20
 msgid ""
-"No existe la clase <b>ZipArchive</b> para la descompresión de los archivos. "
-"No se puede actualizar :("
+"No existe la clase <strong>ZipArchive</strong> para la descompresión de los "
+"archivos. No se puede actualizar :("
 msgstr ""
-"The class <b>ZipArchive</b> doesn't exist for the file uncompression. It "
-"can't update. :("
+"The class <strong>ZipArchive</strong> doesn't exist for the file "
+"uncompression. It can't update. :("
 
 #: typ-inc/class-actualizar.php:24
 msgid ""
-"No existe <b>curl_init</b> para la descarga de los archivos. No se puede "
-"actualizar. :("
+"No existe <strong>curl_init</strong> para la descarga de los archivos. No se "
+"puede actualizar. :("
 msgstr ""
-"<b>curl_int</b> doesn't exist for the download of files. It can't update. :("
+"<strong>curl_int</strong> doesn't exist for the download of files. It can't "
+"update. :("
 
 #: typ-inc/class-actualizar.php:39
 msgid "Creando archivo temporal...<br>"
@@ -1718,106 +1651,175 @@ msgstr "It can't make the temporal file. Probably for permissions."
 
 #: typ-inc/class-actualizar.php:75
 #, php-format
-msgid "Descargando archivos desde <b>%s</b><br><br>"
-msgstr "Downloading files from <b>%s</b><br><br>"
+msgid "Descargando archivos desde <strong>%s</strong><br><br>"
+msgstr "Downloading files from <strong>%s</strong><br><br>"
 
-#: typ-inc/class-actualizar.php:93
-msgid "Descomprimiendo <b>zip</b> ya descargado... <br>"
-msgstr "Uncompressing <b>zip</b> already downloaded... <br>"
+#: typ-inc/class-actualizar.php:92
+msgid "Descomprimiendo <strong>zip</strong> ya descargado... <br>"
+msgstr "Uncompressing <strong>zip</strong> already downloaded... <br>"
 
-#: typ-inc/class-actualizar.php:96
+#: typ-inc/class-actualizar.php:95
 msgid "No se pudo descomprimir el paquete descargado :("
 msgstr "It couldn't uncompress the zip downloaded. :("
 
-#: typ-inc/class-actualizar.php:104
+#: typ-inc/class-actualizar.php:103
 msgid "Borrando archivo temporal...<br><br>"
 msgstr "Deleting temporal file...<br><br>"
 
-#: typ-inc/class-actualizar.php:108
+#: typ-inc/class-actualizar.php:107
 msgid "Actualizando TrackYourPenguin...<br>"
 msgstr "Updating TrackYourPenguin...<br>"
 
-#: typ-inc/class-actualizar.php:118
+#: typ-inc/class-actualizar.php:117
 #, php-format
-msgid "Bienvenido a TrackYourPenguin <b>%s</b> :)"
-msgstr "Welcome to TrackYourPenguin <b>%s</b> :)"
+msgid "Bienvenido a TrackYourPenguin <strong>%s</strong> :)"
+msgstr "Welcome to TrackYourPenguin <strong>%s</strong> :)"
 
-#: typ-inc/class-actualizar.php:124
+#: typ-inc/class-actualizar.php:123
 #, php-format
 msgid "No se puede abrir el archivo: %s"
 msgstr "It can't open the file: %s"
 
-#: typ-inc/class-actualizar.php:197
+#: typ-inc/class-actualizar.php:196
 #, php-format
 msgid ""
-"TrackYourPenguin <b>%s</b> ya está disponible, por favor <a href=\"%s"
-"\">actualiza.</a> :)"
+"TrackYourPenguin <strong>%s</strong> ya está disponible, por favor <a href="
+"\"%s\">actualiza.</a> :)"
 msgstr ""
-"TrackYourPenguin <b>%s</b> is available, please <a href=\"%s\">update.</a> :)"
+"TrackYourPenguin <strong>%s</strong> is available, please <a href=\"%s"
+"\">update.</a> :)"
 
-#: typ-inc/cuerpo.php:92
+#: typ-inc/cuerpo.php:73
 msgid "Extra"
 msgstr "Extra"
 
-#: typ-inc/cuerpo.php:96
+#: typ-inc/cuerpo.php:77
 msgid "Cerrar sesión"
 msgstr "Log out"
 
-#: typ-inc/cuerpo.php:100
+#: typ-inc/cuerpo.php:81
 msgid "Inicio"
 msgstr "Home"
 
-#: typ-inc/cuerpo.php:119
+#: typ-inc/cuerpo.php:100
 msgid "Herramientas"
 msgstr "Tools"
 
-#: typ-inc/cuerpo.php:129
+#: typ-inc/cuerpo.php:110
 msgid "Compartir"
 msgstr "Share"
 
-#: typ-inc/cuerpo.php:148
+#: typ-inc/cuerpo.php:129
 msgid "Obtener parámetros"
 msgstr "Get parameters"
 
-#: typ-inc/cuerpo.php:156
+#: typ-inc/cuerpo.php:139
 msgid ""
 "Javascript está desactivado, más de la mitad de las funciones del sitio "
 "están destinadas a fallar..."
 msgstr "Javascript is not activated. Some parts of site may fail."
 
-#: typ-inc/cuerpo.php:177
+#: typ-inc/cuerpo.php:160
 msgid "OAuth"
 msgstr "OAuth"
 
-#: typ-inc/cuerpo.php:184
+#: typ-inc/cuerpo.php:167
 msgid "Registro"
 msgstr "Log"
 
-#: typ-inc/hora.php:115
+#: typ-inc/hora.php:85
+msgid "Domingo"
+msgstr "Sunday"
+
+#: typ-inc/hora.php:86
+msgid "Lunes"
+msgstr "Monday"
+
+#: typ-inc/hora.php:87
+msgid "Martes"
+msgstr "Tuesday"
+
+#: typ-inc/hora.php:88
+msgid "Miércoles"
+msgstr "Wednesday"
+
+#: typ-inc/hora.php:89
+msgid "Jueves"
+msgstr "Thursday"
+
+#: typ-inc/hora.php:90
+msgid "Viernes"
+msgstr "Friday"
+
+#: typ-inc/hora.php:91
+msgid "Sábado"
+msgstr "Saturday"
+
+#: typ-inc/hora.php:94
+msgid "Enero"
+msgstr "January"
+
+#: typ-inc/hora.php:95
+msgid "Febrero"
+msgstr "February"
+
+#: typ-inc/hora.php:96
+msgid "Marzo"
+msgstr "March"
+
+#: typ-inc/hora.php:97
+msgid "Abril"
+msgstr "April"
+
+#: typ-inc/hora.php:98
+msgid "Mayo"
+msgstr "May"
+
+#: typ-inc/hora.php:99
+msgid "Junio"
+msgstr "June"
+
+#: typ-inc/hora.php:100
+msgid "Julio"
+msgstr "July"
+
+#: typ-inc/hora.php:101
+msgid "Agosto"
+msgstr "August"
+
+#: typ-inc/hora.php:102
+msgid "Septiembre"
+msgstr "September"
+
+#: typ-inc/hora.php:103
+msgid "Octubre"
+msgstr "October"
+
+#: typ-inc/hora.php:104
+msgid "Noviembre"
+msgstr "November"
+
+#: typ-inc/hora.php:105
+msgid "Diciembre"
+msgstr "December"
+
+#: typ-inc/hora.php:111
 msgid "Hoy es "
 msgstr "Today is"
 
-#: typ-inc/hora.php:118
-msgid " de "
-msgstr " of "
-
-#: typ-inc/hora.php:118
-msgid " del "
-msgstr " of "
-
-#: typ-inc/usuarios.php:121
+#: typ-inc/usuarios.php:111
 msgid "Super Administrador"
 msgstr "Super admin"
 
-#: typ-inc/usuarios.php:130
+#: typ-inc/usuarios.php:120
 msgid "No tiene rango .-. ):"
 msgstr "Doesn't have rank .-."
 
-#: typ-inc/usuarios.php:170
+#: typ-inc/usuarios.php:159
 msgid "Activo"
 msgstr "Active"
 
-#: typ-inc/usuarios.php:170
+#: typ-inc/usuarios.php:159
 msgid "Suspendido"
 msgstr "Banned"
 
@@ -1830,12 +1832,14 @@ msgid "No se ha seleccionado ningún archivo"
 msgstr "You haven't select a file"
 
 #: typ-inc/class-archivos.php:51
-msgid "El tipo de archivo no es <b>png</b>, <b>jpg</b>, o <b>jpeg</b>"
+msgid ""
+"El tipo de archivo no es <strong>png</strong>, <strong>jpg</strong>, o "
+"<strong>jpeg</strong>"
 msgstr "The file is not png."
 
 #: typ-inc/class-archivos.php:54
-msgid "El tamaño de la imagen no puede pasar de 2 <b>MB</b>"
-msgstr "The file size can't be greater than 2 <b>MB</b>"
+msgid "El tamaño de la imagen no puede pasar de 2 <strong>MB</strong>"
+msgstr "The file size can't be greater than 2 <strong>MB</strong>"
 
 #: typ-inc/class-archivos.php:62
 msgid ""
@@ -1847,51 +1851,117 @@ msgstr ""
 msgid "No se pudo duplicar el archivo de imagen. Por favor cambia los permisos"
 msgstr "It couldn't duplicate the image's file. Please change the permissions"
 
-#: typ-inc/class-archivos.php:83
+#: typ-inc/class-archivos.php:82
 msgid "El archivo excede el límite de 'upload_max_filesize' del php.ini"
 msgstr ""
 "The uploaded file exceeds the upload_max_filesize directive in php.ini."
 
-#: typ-inc/class-archivos.php:87
+#: typ-inc/class-archivos.php:86
 msgid ""
 "El archivo excede el límite MAX_FILE_SIZE especificado en el formulario HTML"
 msgstr ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form"
 
-#: typ-inc/class-archivos.php:91
-msgid "El archivo subido fue solamente parcialmente cargado"
+#: typ-inc/class-archivos.php:90
+msgid "El archivo fue sólo parcialmente cargado"
 msgstr "The uploaded file was only partially uploaded"
 
-#: typ-inc/class-archivos.php:95
-msgid "No hay archivo a subir"
+#: typ-inc/class-archivos.php:94
+#, fuzzy
+msgid "No hay archivo a subir. -.-"
 msgstr "No file was uploaded"
 
-#: typ-inc/class-archivos.php:99
+#: typ-inc/class-archivos.php:98
 msgid "No existe carpeta de archivos temporal"
 msgstr "Missing a temporary folder"
 
-#: typ-inc/class-archivos.php:103
+#: typ-inc/class-archivos.php:102
 msgid "Error al escribir el archivo en el disco"
 msgstr " Failed to write file to disk"
 
-#: typ-inc/class-archivos.php:107
+#: typ-inc/class-archivos.php:106
 msgid ""
 "Una extensión de PHP ha impedido que el archivo subiera. PHP no tiene una "
 "manera de saber cuál \n"
-"\t\t\t\t\textensión fue; puedes examinar la lista con <b>phpinfo()</b>"
+"\t\t\t\t\textensión fue; puedes examinar la lista con <strong>phpinfo()</"
+"strong>"
 msgstr ""
 " A PHP extension stopped the file upload. PHP does not provide a way to "
 "ascertain which extension caused the file upload to stop; examining the list "
-"of loaded extensions with <b>phpinfo()</b> may help"
+"of loaded extensions with <strong>phpinfo()</strong> may help"
 
-#: typ-inc/class-archivos.php:125
+#: typ-inc/class-archivos.php:122
 msgid "El archivo no existe"
 msgstr "The file doesn't exist"
 
-#: typ-inc/class-archivos.php:131
+#: typ-inc/class-archivos.php:128
 msgid "No se pudo eliminar el archivo, probablemente falta de permisos."
 msgstr "It coudn't delete the file, probably permissions."
+
+#~ msgid ""
+#~ "¿Seguro que quieres eliminar %s tracker? <hr> <a href=\"%s\" class=\"btn "
+#~ "btn-danger\">Sí</a>"
+#~ msgstr ""
+#~ "Are you sure you want to delete %s tracker? <hr> <a href=\"%s\" class="
+#~ "\"btn btn-danger\">Yes</a>"
+
+#~ msgid ""
+#~ "¿Seguro que quieres eliminar %s trackers? <hr> <a href=\"%s\" class=\"btn "
+#~ "btn-danger\">Sí</a>"
+#~ msgstr ""
+#~ "¿Seguro que quieres eliminar %s trackers? <hr> <a href=\"%s\" class=\"btn "
+#~ "btn-danger\">Yes</a>"
+
+#~ msgid "Buscadores"
+#~ msgstr "Search engines"
+
+#~ msgid "¿Pueden los buscadores indexar esta administración?"
+#~ msgstr "Can search engines find this administration?"
+
+#~ msgid "Actualizar el tracker %s"
+#~ msgstr "Update the tracker %s"
+
+#~ msgid ""
+#~ "La imagen PNG no es una imagen válida en PNG. Por favor abre la imagen en "
+#~ "Photoshop/GIMP/Paint y guárdala nuevamente para validar su formato. "
+#~ "Luego, súbela nuevamente.\n"
+#~ "\t\t\t\t\t\t<a href=\"%s\">más ayuda</a>"
+#~ msgstr ""
+#~ "The PNG Image is not a valid PNG image. Please open the image with "
+#~ "Photoshop/GIMP/Paint and save it newly for validating its format. Next, "
+#~ "upload it again. <a href=\"%s\">read more</a>"
+
+#~ msgid ""
+#~ "La imagen JPG/JPEG no es una imagen válida en JPG/JPEG. Por favor abre la "
+#~ "imagen en Photoshop/GIMP/Paint y guárdala nuevamente para validar su "
+#~ "formato. Luego, súbela nuevamente.\n"
+#~ "\t\t\t\t\t <a href=\"%s\">más ayuda</a>"
+#~ msgstr ""
+#~ "The JPG/JPEG Image is not a valid JPEG image. Please open the image with "
+#~ "Photoshop/GIMP/Paint and save it newly for validating its format. Next, "
+#~ "upload it again. <a href=\"%s\">read more</a>"
+
+#~ msgid "Haciendo trampa ¿eh?"
+#~ msgstr "Cheating, uh?"
+
+#~ msgid "Error en los datos HTML."
+#~ msgstr "BUG in the HTML data."
+
+#~ msgid "El tracker debe ser un ID"
+#~ msgstr "The tracker must be an ID"
+
+#~ msgid "La posición debe ser un número del 1 al 3"
+#~ msgstr "The position must be an number of 1 to 3"
+
+#~ msgid "Los parámetros deben ir en matriz"
+#~ msgstr "The parameters must be in array"
+
+#~ msgid " de "
+#~ msgstr " of "
+
+#~ msgid " del "
+#~ msgstr " of "
 
 #, fuzzy
 #~ msgid "Buscar: %s"
@@ -1910,9 +1980,6 @@ msgstr "It coudn't delete the file, probably permissions."
 
 #~ msgid "Acciones"
 #~ msgstr "Actions"
-
-#~ msgid "Eliminar el usuario"
-#~ msgstr "Delete user"
 
 #~ msgid "No existen permisos suficientes"
 #~ msgstr "Doesn't exist enough permissions"
