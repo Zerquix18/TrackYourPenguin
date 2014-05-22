@@ -49,12 +49,9 @@ function obt_hora($time = '', $segundos = false) {
 **/
 function obt_geo() {
 	$ip = obt_ip();
-	$ch = curl_init( sprintf("http://www.geoplugin.net/json.gp?ip=%s", $ip) );
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$pais = curl_exec($ch);
+	$pais = file_get_contents( sprintf("http://www.geoplugin.net/json.gp?ip=%s", $ip) );
 	if( false == $pais )
 		return false;
-	curl_close($ch);
 	$resultado = json_decode($pais);
 	if( (int) $resultado->geoplugin_status !== 200 )
 		return false;
@@ -82,7 +79,7 @@ function obt_ciudad() {
 *
 **/
 function obt_fecha($time = '', $hoy_es = false) {
-	if( empty($time) || is_null($time) )
+	if( empty($time) )
 		$time = time();
         $dias = array(
         	__('Domingo'),
@@ -107,15 +104,14 @@ function obt_fecha($time = '', $hoy_es = false) {
             __('Noviembre'),
             __('Diciembre')
          );
-
         $dia_de_la_semana = $dias[ date('w', $time) ];
         $dia_del_mes = date('d', $time);
         $mes = $meses[ date('n', $time) - 1 ];
         $anio = date('Y', $time);
         $hoy = (false == $hoy_es ) ? '' : __('Hoy es ');
-        if( 'en_US' == obt_lenguaje() )
-        	return $hoy . $dia_de_la_semana . ', ' . $mes . ' ' . $dia_del_mes . ' of ' . $anio;
-        return $hoy . $dia_de_la_semana . ' ' . $dia_del_mes . __(' de ') . $mes . __(' del ') . $anio;
+        if( 'en_US' == obt_lenguaje() ) // english: Today is April 29, 2014
+        	return $hoy . $dia_de_la_semana . ', ' . $mes . ' ' . $dia_del_mes . ', ' . $anio;
+        return $hoy . $dia_de_la_semana . ' ' . $dia_del_mes . ' de ' . $mes . ' del ' . $anio;
 }
 /**
 *
@@ -136,7 +132,7 @@ function obt_zonahoraria_automatica() {
 		elseif( in_array($europa, $haystack) )
 			return $europa;
 		else
-			return "America/Santo_Domingo";
+			return "America/Santo_Domingo"; // La mía pues :3
 }
 /**
 *
