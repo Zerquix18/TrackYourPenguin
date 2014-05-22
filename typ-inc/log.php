@@ -22,7 +22,7 @@
 function agregar_log( $accion, $fecha = '' ) {
 	global $zerdb;
 	$fecha = vacio($fecha) ? time() : $fecha;
-	return $zerdb->insertar( $zerdb->log, array($accion, $fecha ) );
+	return $zerdb->insert( $zerdb->log, array($accion, $fecha ) );
 }
 /**
 *
@@ -34,7 +34,7 @@ function agregar_log( $accion, $fecha = '' ) {
 **/
 function eliminar_log( $id ) {
 	global $zerdb;
-	return $zerdb->eliminar( $zerdb->log, array("id" => $zerdb->proteger( $id ) ) );
+	return $zerdb->delete( $zerdb->log, array("id" => $zerdb->real_escape( $id ) ) )->_();
 }
 /**
 *
@@ -48,7 +48,7 @@ function eliminar_log( $id ) {
 **/
 function mostrar_fecha( $fecha, $segs = false ) {
 	if( ! is_numeric($fecha) )
-		return $fecha;
+		return $fecha; // Por actualizaciones anteriores :p ^-^
 	return obt_fecha( $fecha, false ) . __(' a la(s) ') . obt_hora( $fecha, $segs );
 }
 /**
@@ -63,8 +63,9 @@ function mostrar_fecha( $fecha, $segs = false ) {
 **/
 function mostrar_log( $log ) {
 	if( is_string($r = @json_decode( $log ) ) )
-		return $log;
-	$texto = isset($r->usuario, $r->tracker) ? sprintf( __("<b>%s</b> actualizó el tracker de <b>%s</b> \n"), ucfirst($r->usuario), is_numeric($r->tracker) ? obt_tracker($r->tracker)->personaje : $r->tracker ) : '';
+		return $log; // actualizaciones anteriores, no pierdas la estabilidad :o
+	$usuario = isset($r->usuario) && $r->usuario == $_SESSION['usuario'] ? __('Tú actualizaste ') : sprintf( __('<strong>%s</strong> actualizó ') );
+	$texto = isset($r->usuario, $r->tracker) ? $usuario  . sprintf( __("el tracker de <strong>%s</strong> \n"), is_numeric($r->tracker) ? obt_tracker($r->tracker)->personaje : $r->tracker ) : '';
 	$texto .= isset($r->estado) ? sprintf( __("Estado: %s \n"), $r->estado) : '';
 	$texto .= isset($r->servidor) ? sprintf( __("Servidor: %s \n"), $r->servidor ) : '';
 	$texto .= isset($r->sala) ? sprintf( __("Sala: %s \n"), $r->sala ) : '';
