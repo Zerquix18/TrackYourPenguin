@@ -8,19 +8,6 @@
 * @package TrackYourPenguin
 *
 **/
-/**
-*
-* Comprueba si los buscadores están activados
-*
-* @return bool
-*
-**/
-
-function buscadores_activados() {
-	global $zerdb;
-	$q = new extraer($zerdb->config, "robots");
-	return $q->robots == "1";
-}
 
 /**
 *
@@ -29,7 +16,7 @@ function buscadores_activados() {
 **/
 function tema() {
 	global $zerdb;
-	$t = new extraer($zerdb->config, "extra");
+	$t = $zerdb->select($zerdb->config, "extra")->_();
 	$ext = json_decode($t->extra)->tema;
 	return !empty($ext) ? $ext : 'bootstrap';
 }
@@ -47,8 +34,7 @@ function tema() {
 function construir( $a_construir, $titulo = "", $barra = true ) {
 	global $zerdb, $v;
 	$a_construir = strtolower($a_construir);
-	$t = new extraer($zerdb->trackers, "*");
-	$trackers = mysql_query($t->query);
+	$t = $zerdb->select($zerdb->trackers, "*")->_();
 	switch($a_construir) {
 		case "cabecera":
 		?>
@@ -60,13 +46,8 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 			<link rel="stylesheet" id="estilo_r" href="<?php echo url() . INC . CSS . tema() . '.min.css' ?>" />
 			<link rel="stylesheet" href="<?php echo url() . INC . CSS . 'typ.css' ?>" />
 			<meta charset="utf-8">
-			<meta name="title" content="<?php if(!empty($titulo)) echo $titulo . ' - '; echo titulo() ?>" />
-		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<?php if( buscadores_activados() ) : ?>
-		    <meta name="robots" content="index, follow">
-		<?php else: ?>
 			<meta name="robots" content="noindex, nofollow">
-		<?php endif ?>
+		    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<style type="text/css">
 			body{
 				padding: 60px;
@@ -98,15 +79,14 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 			</div>
             <ul class="nav">
               <li <?php if(es('index.php')) echo 'class="active"' ?>><a href="<?php echo url() ?>index.php"><?php _e('Inicio') ?></a></li>
+              <?php if( $t->nums > 0 || es_admin() ): ?>
 		              <li class="dropdown">
 		              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php _e("Trackers") ?> <b class="caret"></b></a>
 		              	<ul class="dropdown-menu">
 		              <?php
-		              while($t->fetch = mysql_fetch_array($trackers) ) {
-		              	$tracker_nombre = $t->fetch['personaje'];
-		              	$id = $t->fetch['id'];
-		              	$class = isset($_GET['id']) && $_GET['id'] == $id ? 'class="active"' : '';
-		              	echo sprintf('<li %3$s><a href="%s">%s</a><li>', url() . 'actualizar.php?id=' . $id, $tracker_nombre, $class);
+		              while($r = $t->r->fetch_object() ) {
+		              	$class = isset($_GET['id']) && $_GET['id'] == $r->id ? ' class="active"' : '';
+		              	echo sprintf('<li%3$s><a href="%s">%s</a><li>', url() . 'actualizar.php?id=' . $r->id, $r->personaje, $class);
 		              }
 		              ?>
 		           <?php if( es_admin() ) : ?>
@@ -114,6 +94,7 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 		           <?php endif ?>
 		          	   </ul>
 	          	</li>
+	          <?php endif ?>
 	          <?php if( es('actualizar.php') ) : ?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php _e("Herramientas") ?> <b class="caret"></b></a>
@@ -146,6 +127,8 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 				</li>
 			<?php elseif( es('parametros.php') && isset($_GET['posicion']) ) : ?>
 			<li><a href="#obtparams" data-toggle="modal" role="button"><?php _e("Obtener parámetros") ?></a></li>
+			<?php elseif( es('tweets.php') ): ?>
+			<li><a href="#cc" data-toggle="modal" role="button"><?php _e('Códigos cortos') ?></a></li>
 			<?php endif ?>
             </ul>
           </div><!--/.nav-collapse -->
@@ -164,7 +147,6 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 				<li <?php if( es('index.php' )) echo 'class="active"' ?>>
 					<a href="<?php echo url() ?>index.php"><i class="icon-search"></i>&nbsp;<?php _e("Trackers") ?></a>
 				</li>
-				<?php if( es_admin() ) : ?>
 				<li <?php if( es('usuarios.php') ) echo 'class="active"' ?>>
 					<a href="<?php echo url() ?>usuarios.php"><i class="icon-user"></i>&nbsp;<?php _e("Usuarios") ?></a>
 				</li>
@@ -173,6 +155,7 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 					<a href="<?php echo url() ?>ajustes.php"><i class="icon-cog"></i>&nbsp;<?php _e("Ajustes") ?></a>
 				</li>
 				<?php endif; ?>
+				<?php if( es_admin() ) : ?>
 				<li <?php if( es('oauth.php') ) echo 'class="active"' ?>>
 					<a href="<?php echo url() ?>oauth.php"><i class="icon-flag"></i>&nbsp;<?php _e("OAuth") ?></a>
 				</li>
@@ -222,7 +205,7 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 </div>
 <script type="text/javascript">var uri = "<?php echo url(false) ?>", _tema = "<?php echo tema() ?>";</script>
 	</div><hr>
-				<footer><a target="_blank" href="http://trackyourpenguin.com/">&copy; TrackYourPenguin <b><?php echo $v ?></b></a></footer></div>
+				<footer><a target="_blank" href="http://trackyourpenguin.com/">&copy; TrackYourPenguin <strong><?php echo $v ?></strong></a></footer></div>
 		<?php
 		$js = array("jquery", "html5", "alerta", "dropdown", "modal", "tooltip", "typ");
 		foreach($js as $a)
