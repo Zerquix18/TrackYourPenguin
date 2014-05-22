@@ -22,7 +22,6 @@ if( preg_match($preg, $_SERVER['PHP_SELF'])) exit();
 class sesiones {
 
 	public function __construct() {
-		$this->sesion_iniciada = $this->sesion_iniciada();
 		return true;
 	}
 /**
@@ -40,7 +39,8 @@ class sesiones {
 	public function crear($usuario, $alargar = false) {
 		global $zerdb;
 
-		$data = new extraer($zerdb->usuarios, "id", array("usuario" => $usuario) );
+		$data = $zerdb->select($zerdb->usuarios, "id", array("usuario" => $usuario) );
+		$data = $data->execute();
 
 		if( $this->sesion_iniciada() || !$data->nums > 0 ) //Si ya inició sesión o el usuario no existe.
 			return false;
@@ -56,23 +56,7 @@ class sesiones {
 		$_SESSION['hash'] = $hash;
 		$_SESSION['usuario'] = $usuario;
 		$_SESSION['id'] = $id;
-		return $zerdb->insertar($zerdb->sesiones, array($id, $hash, $ip, $dia ) );
-	}
-/**
-* Inserta la sesión en la base de datos
-*
-* @param $id int|string
-* @param $hash string
-* @param $ip string
-* @param $dia string
-* @return bool
-* @deprecated 1.0
-*
-**/
-	private function insertar($id, $hash, $ip, $dia) {
-		global $zerdb;
-		$var = $zerdb->insertar($zerdb->sesiones, array($id, $hash, $ip, $dia) );
-		return true;
+		return $zerdb->insert($zerdb->sesiones, array($id, $hash, $ip, $dia ) );
 	}
 /**
 *
@@ -87,9 +71,9 @@ class sesiones {
 		if( ! comprobar_instalacion() || empty($_SESSION) )
 			return false;
 
-		$comprobar = new extraer($zerdb->sesiones, "*", array("id" => $_SESSION['id'], "hash" => $_SESSION['hash']) );
+		$comprobar = $zerdb->select($zerdb->sesiones, "*", array("id" => $_SESSION['id'], "hash" => $_SESSION['hash']) )->_();
 		
-		if( isset($comprobar) && (int) $comprobar->nums > 0) //si existe en la db...
+		if( isset($comprobar) && $comprobar->nums > 0) //si existe en la db...
 			return true;
 
 		return false;
@@ -103,7 +87,8 @@ class sesiones {
 		global $zerdb;
 		if( ! $this->sesion_iniciada() )
 			return false;
-		$var = $zerdb->eliminar($zerdb->sesiones, array("hash" => $_SESSION['hash'], "id" => $_SESSION['id'] ) );
+		$var = $zerdb->delete($zerdb->sesiones, array("hash" => $_SESSION['hash'], "id" => $_SESSION['id'] ) );
+		$var->execute();
 		if( isset($_COOKIE['hash']) )
 			setcookie('hash', '', time() - 3600 );
 		session_destroy();
@@ -116,8 +101,8 @@ class sesiones {
 **/
 	public function destruir_id( $id ) {
 		global $zerdb;
-		$id = $zerdb->proteger($id);
-		$comprobar = new extraer($zerdb->sesiones, "*", array("id" => $id ) );
+		$id = $zerdb->real_escape($id);
+		$comprobar = $zerdb->select($zerdb->sesiones, "*", array("id" => $id ) )->_();
 		if( ! $comprobar || ! $comprobar->nums > 0)
 			return false;
 
@@ -131,12 +116,12 @@ class sesiones {
 **/
 	public function destruir_hash( $hash ) {
 		global $zerdb;
-		$hash = $zerdb->proteger( $hash );
-		$comprobar = new extraer($zerdb->sesiones, "*", array("hash" => $hash ) );
+		$hash = $zerdb->real_escape( $hash );
+		$comprobar = $zerdb->select($zerdb->sesiones, "*", array("hash" => $hash ) )->_();
 		if( ! $comprobar || ! $comprobar->nums > 0)
 			return false;
 
-		return $zerdb->eliminar($zerdb->sesiones, array("hash" => $hash ) );
+		return $zerdb->delete($zerdb->sesiones, array("hash" => $hash ) )->_();
 	}
 
 	/* fin de la clase */
@@ -145,10 +130,10 @@ class sesiones {
 /* Abre la sesión si existe la cookie y si existe el hash en la base de datos */
 
 if( comprobar_instalacion() && isset($_COOKIE['hash'] ) ) {
-	$s = new extraer($zerdb->sesiones, "*", array("hash" => $zerdb->proteger($_COOKIE['hash']), "ip" => $_SERVER['REMOTE_ADDR'] ) );
+	$s = $zerdb->select($zerdb->sesiones, "*", array("hash" => $zerdb->real_escape($_COOKIE['hash']), "ip" => obt_ip() ) )->_();
 
 	if( $s && $s->nums > 0) {
-		$u = new extraer($zerdb->usuarios, "*", array("id" => $s->id) );
+		$u = $zerdb->select($zerdb->usuarios, "*", array("id" => $s->id) )->_();
 		if( $u && $u->nums > 0):
 		$_SESSION['hash'] = $_COOKIE['hash'];
 		$_SESSION['id'] = $s->id;
