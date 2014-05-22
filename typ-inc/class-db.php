@@ -1,16 +1,20 @@
 <?php
 /**
-* Clase para la base de datos
+*
+* MySQLi Database Class (ZerDB)
 *
 * @author Zerquix18
-* @version 0.1
-* @package TrackYourPenguin
-* @subpackage ZerDB
-* @link http://github.com/Zerquix18/ZerDB
+* @version 1.0
+* @link http://github.com/zerquix18/zerdb
+* @copyright Copyright (c) 2014, Zerquix18
 *
 **/
+
+if( ! class_exists('mysqli') )
+	exit("Class MySQLi doesn't exist'");
+
 class zerdb {
-/** todas las tablas... */
+
 	public $tablas = array(
 			"usuarios" => array(
 					"usuario", "clave", "email", "estado", "rango", "hash"
@@ -37,398 +41,651 @@ class zerdb {
 					"tracker", "posicion", "size", "angulo", "x", "y"
 				)
 		);
-	/**
-	* @since 0.1
-	**/
+
+  /**
+  *
+  * Database username
+  *
+  * @since 1.0
+  * @access private
+  * @var string
+  *
+  **/
 	private $dbhost;
-	/**
-	* @since 0.1
-	**/
-	private $dbusuario;
-	/**
-	* @since 0.1
-	**/
-	private $dbclave;
-	/**
-	* @since 0.1
-	**/
-	private $dbnombre;
-	/**
-	* Guarda la última solicitud
-	*
-	* @since 0.1
-	* @access public
-	*
-	**/
-	public $ult_sol = '';
-	/**
-	* Guarda el último error
-	*
-	* @since 0.1
-	* @access public
-	*
-	**/
-	public $ult_err = '';
-	/**
-	* Comprueba si la conexión está lista
-	* 
-	* @since 0.1
-	* @access public
-	*
-	**/
-	public $listo = false;
-	/**
-	* Comprueba si se puede añadir error tracking
-	*
-	* @since 0.1
-	*
-	**/
-	public $err_track = false;
-	/**
-	*
-	* Construye la clase
-	*
-	* @access public
-	* @since 0.1
-	*
-	**/
-	public $charset = 'utf8';
-	public function __construct($dbhost, $dbusuario, $dbclave, $dbnombre) {
-		$this->dbhost = $dbhost;
-		$this->dbusuario = $dbusuario;
-		$this->dbclave = $dbclave;
-		$this->dbnombre = $dbnombre;
-		if( ! empty($this->tablas ) ) {
-			foreach($this->tablas as $a => $b) {
-				$this->$a = $a;
-			}
-		}
 
-		$this->conectar();
-		$this->set_charset();
-	}
+  /**
+  *
+  * Database user
+  *
+  * @since 1.0
+  * @access private
+  * @var string
+  *
+  **/
+	private $dbuser;
 
-	/**
-	* Hace la conexión a la base de datos
-	*
-	* @access private
-	* @since 0.1
-	*
-	**/
-	private	function conectar() {
+  /**
+  *
+  * Database password
+  *
+  * @since 1.0
+  * @access private
+  * @var string
+  *
+  **/
 
-		if( $this->err_track ) // error tracking
-		$this->conexion = mysql_connect($this->dbhost, $this->dbusuario, $this->dbclave);
-		else
-		$this->conexion = @mysql_connect($this->dbhost, $this->dbusuario, $this->dbclave);
+	private $dbpass;
 
-		if( $this->conexion ) {
-			$this->seleccionar_db();
-		}else{
-			$this->ult_err = mysql_error();
-		}
+  /**
+  *
+  * Database name
+  *
+  * @since 1.0
+  * @access private
+  * @var string
+  *
+  **/
+	private $dbname;
 
-	}
-	/**
-	*
-	* Selecciona la base de datos
-	*
-	* @access public
-	* @since 0.1
-	*
-	**/
-	public function seleccionar_db() {
+  /**
+  *
+  * Database port
+  *
+  * @since 1.0
+  * @access private
+  * @var string
+  *
+  **/
+	private $port;
 
-		if( $this->err_track )
-		$this->seleccionar_db = mysql_select_db($this->dbnombre, $this->conexion);
-		else
-		$this->seleccionar_db = @mysql_select_db($this->dbnombre, $this->conexion);
+  /**
+  *
+  * Affected rows of the last query OR the nums of rows selected in the last query.
+  *
+  * @since 1.0
+  * @access public
+  * @var int
+  *
+  **/
+	public $nums = null;
 
+  /**
+  *
+  * Is the connection done and right?
+  *
+  * @since 1.0
+  * @access public
+  * @var bool
+  *
+  **/
+	public $ready = false;
 
-		if( $this->seleccionar_db )
-			$this->listo = true;
-		else
-			$this->ult_err = mysql_error();
+  /**
+  *
+  * Access to MySQLi resource
+  *
+  * @since 1.0
+  * @access public
+  * @var object
+  *
+  **/
+	public $mysqli;
 
-		if( $this->listo )
-			return true;
-	}
-	/**
-	*
-	* Pone el charset el UTF-8
-	* @return bool
-	* @access private
-	* @since 0.1
-	*
-	**/
-	private function set_charset() {
-		if( ! $this->listo )
-			return false;
-
-		return mysql_set_charset($this->charset, $this->conexion);
-	}
-	/**
-	*
-	* Limpia las variables que guardan algunos datos
-	*
-	**/
-	function flushear() {
-		$this->ult_err = '';
-		$this->ult_sol = '';
-		return true;
-	}
-	/**
-	*
-	* Hace una solicitud
-	*
-	* @access public
-	* @since 0.1
-	* @param $query string
-	*
-	**/
-	function query( $query = null ) {
-
-		if( is_null($query) )
-			return false;
-
-		if( $this->err_track )
-			$this->resultado = mysql_query($query, $this->conexion);
-		else
-			$this->resultado = @mysql_query($query, $this->conexion);
-
-		$this->flushear();
-
-		$this->ult_sol = $query;
-
-		if( ! $this->resultado )
-			$this->ult_err = mysql_error();
-
-		return $this->resultado;
-	}
-	/**
-	*
-	* Crea una tabla
-	*
-	* @access public
-	* @since 0.1
-	* @param $nombre string
-	* @param $data array
-	* @param $add string
-	*
-	**/
-	function crear_tabla( $nombre = null, $data = false, $add = '' ) {
-
-		if( ! is_null($nombre) || ! is_array($data) )
-			return false;
-
-		$query = "CREATE TABLE IF NOT EXISTS `$nombre` (\n";
-
-		foreach($data as $a => $b){
-			$cols[] = "`$a` $b";
-		}
-
-		$query .= implode( ",\n", $cols );
-
-		if( ! empty($add) ) {
-			$query .= $add;
-		}
-
-		$query .= "\n )";
-
-		return $this->query($query);
-
-	}
-	/**
-	*
-	* Ayuda a las funciones insert o replace
-	*
-	* @access public
-	* @since 0.1
-	* @param $tabla string
-	* @param $datos array
-	* @param $accion string
-	* 
-	**/
-	function _insertar_y_reemplazar($tabla = null, $datos = false, $accion = null) {
-
-		if( !in_array( strtoupper($accion), array("INSERT", "REPLACE") ) or !is_array($datos) ) {
-			return FALSE;
-		}
-
-		$tablas = $this->tablas[ $tabla ];
-
-		$acc = strtoupper($accion);
-
-		$query = "{$acc} INTO {$tabla} (" . implode(', ', $tablas) . ") VALUES ('" . implode("','", $datos) . 
-			"')";
-
-		return $this->query($query);
-
-	}
-	/**
-	*
-	* Inserta una tabla...
-	* @param $tabla string
-	* @param $datos array
-	* @since 0.1
-	* @access public
-	*
-	**/
-	function insertar($tabla, $datos) {
-		return $this->_insertar_y_reemplazar($tabla, $datos, "INSERT");
-	}
-	/**
-	*
-	* Selecciona un dato
-	*
-	* @since 0.1
-	* @param $tabla string
-	* @param $dato string
-	* @param $donde bool | string
-	* @param $extra bool | string
-	* @access public
-	*
-	**/
-	function seleccionar( $tabla = null, $dato = "*", $donde = false, $extra = false) {
-		return new extraer($tabla, $dato, $donde, $extra);
-	}
-	/**
-	*
-	* Reemplaza una tabla...
-	* @param $tabla string
-	* @param $datos array
-	* @since 0.1
-	* @access public
-	*
-	**/
-	function reemplazar($tabla, $datos) {
-		return $this->_insertar_y_reemplazar($tabla, $datos, "REPLACE");
-	}
-	/**
-	*
-	* Actualiza una tabla
-	*
-	* @param $tabla string
-	* @param $datos array
-	* @param $donde bool
-	* @access public
-	* 
-	*
-	**/
-	function actualizar($tabla = null, $datos = false, $donde = false ) {
-		if( !is_array($datos) || is_null($tabla) ) 
-			return false;
-
-		$tablas = $this->tablas[ $tabla ];
-
-		foreach($datos as $a => $b)
-			$set[] = "$a = '$b'";
-
-		$query = "UPDATE {$tabla} SET " . implode(", ", $set);
-
-		if( isset($donde) && is_array($donde) ) {
-			foreach($donde as $a => $b)
-				$where[] = "$a = '$b'";
-
-			$query .= " WHERE " . implode(" AND ", $where);
-		}
-
-		return $this->query($query);
-
-
-	}
-	/**
-	*
-	* Elimina una tabla
-	*
-	* @access public
-	* @since 0.1
-	* @param $tabla string
-	* @param $donde array
-	*
-	**/
-	function eliminar($tabla = null, $donde = null) {
-		if( is_null($tabla) )
-			return false;
-
-		$query = "DELETE FROM {$tabla}";
-
-		if( isset($donde) && is_array($donde) ) {
-			foreach($donde as $a => $b)
-				$where[] = "$a = '$b'";
-
-			$query .= " WHERE " . implode(" AND ", $where);
-		}
-
-		$this->query($query);
-	}
-	/**
-	*
-	* Protege la string ante las comillas
-	*
-	* @param $string string
-	*
-	**/
-	function proteger( $string ) {
-		if( ! is_string($string) )
-			return false;
-		
-		if( $this->listo )
-			return mysql_real_escape_string( $string );
-		else
-			return addslashes( $string );
-	}
-}
-
-class extraer {
-
+  /**
+  *
+  * Last query you made or the current query you're making.
+  *
+  * @since 1.0
+  * @access public
+  * @var string|null
+  *
+  **/
 	public $query;
 
-	public $obt_error;
-
+  /**
+  *
+  * Last error
+  *
+  * @since 1.0
+  * @access public
+  * @var string
+  *
+  **/
 	public $error;
 
-	public function __construct($tabla = null, $dato = null, $donde = false, $extra = false) {
-		global $zerdb;
+  /**
+  *
+  * Last error number
+  *
+  * @since 1.0
+  * @access public
+  * @var string
+  *
+  **/
+	public $errno;
 
-		if( is_null($tabla) || is_null($dato) ){
-			return;
-		}
+  /**
+  *
+  * Database charset
+  *
+  * @since 1.0
+  * @access public
+  * @var string
+  *
+  **/
+	public $charset;
 
-		if($dato = "todo")
-			$dato = "*";
+  /**
+  *
+  * Last ID inserted (if there's one).
+  *
+  * @since 1.0
+  * @access public
+  * @var public
+  *
+  **/
+	public $id;
 
-		$query = "SELECT {$dato} FROM {$tabla}";
+  /**
+  *
+  * Class constructor.
+  *
+  * @param string $dbhost
+  * @param string $dbuser
+  * @param string $dbpass
+  * @param string $dbname
+  * @param string $charset
+  * @param integer $port
+  *
+  **/
+	public function __construct($dbhost, $dbuser, $dbpass, $dbname, $charset = null, $port = null ) {
 
-		if( isset($donde) && is_array($donde) ) {
-			foreach($donde as $a => $b) 
-					$where[] = "$a = '$b'";
-				
-			$query.= " WHERE " . implode(" AND ", $where);
-		}
-		if( isset($extra) ) {
-			$query .= " " . $extra;
-		}
-	if($zerdb->err_track){
-		$this->resultado = mysql_query($query);
-	}else{
-		$this->resultado = @mysql_query($query);
+		$this->dbhost = $dbhost;
+		$this->dbuser = $dbuser;
+		$this->dbpass = $dbpass;
+		$this->dbname = $dbname;
+		$this->charset = ! is_null($charset) ? $charset : 'utf8';
+		$this->port = is_null($port) ? ini_get('mysqli.default_port') : $port;
+
+		return $this->connect();
 	}
 
-	$this->query = $query;
-
-		if( $this->resultado ) {
-			$this->fetch = mysql_fetch_array($this->resultado);
-			$this->nums = mysql_num_rows($this->resultado);
-
-			if( $this->nums > 0 ) {
-				foreach($this->fetch as $a => $b )
-					$this->$a = $b;
-			}
-			$this->error = false;
-		}else{
-			$this->error = true;
-			$this->obt_error = mysql_error();
+  /**
+  *
+  * It connects to the database.
+  *
+  * @access private
+  * @return bool true if everything is done and false if there was an error
+  *
+  **/
+	private function connect() {
+		$this->mysqli = new mysqli( $this->dbhost, $this->dbuser, $this->dbpass, $this->dbname, $this->port);
+		if( $this->mysqli->connect_error ) {
+			$this->error = $this->mysqli->connect_error;
+			$this->errno = $this->mysqli->connect_errno;
+			return false;
 		}
+		foreach($this->tablas as $a => $b)
+				$this->$a = $a;
+
+		$this->mysqli->set_charset( $this->charset );
+		$this->ready = true;
+		return true;
 	}
+  /**
+  *
+  * It closes the connection
+  *
+  * @return bool
+  *
+  **/
+	public function close() {
+		if( $this->ready )
+			return $this->mysqli->close();
+		return false;
+	}
+
+  /**
+  *
+  * It cleans some vars to use it again
+  *
+  * @return bool
+  *
+  **/
+	public function flush() {
+		$this->query = null;
+		$this->error = null;
+		$this->errno = null;
+		$this->nums = null;
+		return true;
+	}
+
+  /**
+  *
+  * It scapes the special characters in a string
+  *
+  * @access public
+  * @param string $string
+  * @return string
+  *
+  **/
+	public function real_escape( $string ) {
+    if( ! is_string( $string ) )
+      return $string; // If it's integer or float there's nothing we have to do.
+    $string = stripslashes($string); // if you added slashes...
+    if( $this->ready )
+      return $this->mysqli->real_escape_string( $string );
+    else
+      return addslashes( $string );
+	}
+
+  /**
+  *
+  * It makes a query.
+  *
+  * @param string $query
+  * @param mixed $args
+  * @return bool|object
+  *
+  **/
+  public function query( $query = null, $args = '' ) {
+    if( is_null($query) )
+      return false;
+    if( ! empty($args) && ! preg_match("/(\%)(s|d|f)|[\?]/", $query ) )
+      return false;
+
+    $this->flush();
+
+      if( ! empty($args) ) {
+      $args = func_get_args();
+      array_shift($args);
+      if( is_array($args[0]) )
+        $args = $args[0];
+      array_walk($args, array($this, "real_escape") );
+      $rplc = array("%s", "%d", "%f", "'?'", "'%s'", "'%d'", "'%f'"); // deletes mistakes
+      $query = str_replace($rplc, "?", $query); // replace all that by: ? :)
+      if( preg_match_all("!\?!", $query) !== count($args) )
+      return false;
+    }
+
+    if( ! empty($args) )
+      foreach($args as $a) {
+        $a = is_string($a) ? "'$a'" : $a; // if it's string it will pass it like an string eh... be careful.
+        $query = preg_replace("/\?/", $a, $query, 1); // Replaces all ? by args in order... that's why the count have to be the same
+      }
+
+    $this->query = $query;
+
+    return $this->execute();
+  }
+
+  /**
+  *
+  * It executes the query loaded in $this->query
+  *
+  * @return bool|object
+  *
+  **/
+  public function execute() {
+    if( empty($this->query ) )
+      return false;
+  	$q = $this->mysqli->query( $this->query );
+  	if( !$q ) {
+  		$this->error = $this->mysqli->error;
+  		$this->errno = $this->mysqli->errno;
+      return false;
+  	}
+  	$this->id = $this->mysqli->insert_id; // dw if it's null...
+    $this->nums = $this->mysqli->affected_rows;
+    if( preg_match('/(select)/i', $this->query) ) {
+      $lol = new stdClass();
+      $this->nums = $lol->nums = $q->num_rows;
+      $lol->r = $q;
+      if( $this->nums == 1):
+        foreach($q->fetch_array() as $a => $b)
+          $lol->$a = stripslashes($b);
+        $q->data_seek(0);
+        endif;
+      return $lol;
+    }
+  	return $q;
+  }
+
+  /**
+  *
+  * Alias for $this->execute()
+  *
+  **/
+  public function _() {
+  	return $this->execute();
+  }
+
+  /**
+  *
+  * It selects something from the database
+  *
+  * @param string $table
+  * @param string $data
+  * @param array|null
+  * @return bool|object
+  *
+  **/
+  public function select( $table,  $data = "*", $where = null ) {
+    if( ! $this->ready )
+      return false;
+
+  	$this->flush();
+  	$this->query = "SELECT $data FROM $table";
+
+    if( ! is_null($where) )
+      $this->where( $where );
+
+  	return $this;
+  }
+
+  /**
+  *
+  * It updates something in the database
+  *
+  * @param string $table
+  * @param string|array $arg1
+  * @param string $arg2
+  * @return bool|object
+  *
+  **/
+  function update( $table, $arg1, $arg2 = '') {
+    if( ! $this->ready )
+      return false;
+
+    if( ! is_array($arg1) && count( func_get_args() ) !== 3 )
+      return false;
+    $this->flush();
+    $this->query = "UPDATE {$table}";
+    $set = array();
+  if( empty($arg2) ) 
+    foreach($arg1 as $a => $b)
+      $set[] = "{$a} = '{$b}'";
+  else
+    $set = array("{$arg1} = '{$arg2}'");
+    $this->query .= " SET " . implode(', ', $set);
+
+    return $this;
+  }
+
+  /**
+  *
+  * It deletes something in the database
+  *
+  * @param string $table
+  * @param null|array $arg2
+  * @return object
+  *
+  **/
+  public function delete( $table, $arg2 = null) {
+    if( ! $this->ready )
+      return false;
+
+    $this->flush();
+    $this->query .= "DELETE FROM {$table}";
+    if( is_array($arg2) )
+      $this->where( $arg2 );
+
+    return $this;
+  }
+
+  /**
+  *
+  * It inserts something in the database
+  *
+  * @param string $table
+  * @param array $t_data
+  * @param array $data
+  * @return bool
+  *
+  **/
+  public function insert( $table, $data) {
+    $data = array_slice( func_get_args(), 1 );
+    return $this->insert_replace("INSERT", $table, $data );
+  }
+  /**
+  *
+  * It replaces something in the database
+  *
+  * @param string $table
+  * @param array $t_data
+  * @param array $data
+  * @return bool
+  *
+  **/
+  public function replace( $table, $data ) {
+    $data = array_slice( func_get_args(), 1 );
+    return $this->insert_replace("REPLACE", $table, $data );
+  }
+  /**
+  *
+  * Helper for insert and replace
+  *
+  **/
+  private function insert_replace($action, $table, $data) {
+    if( ! $this->ready )
+      return false;
+    if( empty($data) )
+      return false;
+    if( ! in_array( strtoupper($action), array("INSERT", "REPLACE") ) ) 
+      return false;
+    //then
+  	$t_data = $this->tablas[$table];
+    $this->query = "{$action} INTO {$table} (" . implode(', ', $t_data) . ") VALUES ";
+    $v = array();
+    foreach($data as $a)
+        $v[] = "('" . implode("','", $a) . "')";
+
+      $this->query .= implode(', ', $v);
+      
+      return $this->execute();
+  }
+  /**
+  *
+  * It alters some table in the database
+  *
+  * @param string $table
+  * @param string $action
+  * @param null|string|array $values
+  * @return bool|object
+  *
+  **/
+  function alter( $table, $action, $values = null) {
+    $this->flush();
+    $action = strtoupper($action);
+    if( ! in_array($action, array('ADD', 'DROP', 'MODIFY') ) )
+      return false;
+    $action = ($check = in_array($action, array("DROP", "MODIFY") ) ) ? $action . " COLUMN" : $action;
+    $this->query = "ALTER TABLE {$table} {$action} ";
+    if("ADD" == $action || "MODIFY COLUMN" == $action)  {
+      if( ! is_array($values) )
+        return false;
+      foreach($values as $a => $b) {
+        $this->query .= "`{$a}` {$b}";
+
+        break; // just one...
+      }
+     }elseif( "DROP COLUMN" == $action ) {
+      if( ! is_string($values) )
+        return false;
+      $this->query .= $values;
+    }
+    return $this->execute();
+  }
+  /**
+  *
+  * It adds WHERE to the loaded query. 
+  *
+  * @param array|string $arg1
+  * @param string $arg2
+  * @param string $arg3
+  * @return bool|object
+  *
+  **/
+  public function where( $arg1, $arg2 = '', $and = "AND") {
+    $args = func_get_args();
+    if( ! is_array($arg1) && empty($arg2) )
+      return false;
+      $ops = array(">", "<", "!=", "=");
+      if( in_array($arg2, $ops) )
+        $op = $arg2;
+      else
+        $op = "=";
+
+    if( is_array($arg1) ) {
+      $wh = array();
+      foreach($arg1 as $a => $b){
+        $b = is_int($b) ? "{$b}" : "'{$b}'";
+        $wh[] = "{$a} {$op} {$b}";
+      }
+      $this->query .= " WHERE " . implode(" {$and} ", $wh);
+    }else{
+      $this->query .= " WHERE {$args[0]} {$op} '{$args[1]}'";
+    }
+
+    return $this;
+  }
+
+  /**
+  *
+  * This is the same that where() but this adds "WHRE something != 'somethin'"
+  *
+  * @param array $where
+  *
+  **/
+  public function wherenot( $where ) {
+    return $this->where($where, "!=");
+  }
+
+  /**
+  *
+  * This is the same that where() but this adds "WHRE something > number"
+  *
+  * @param array $where
+  *
+  **/
+  public function wheremt( $where ) {
+    return $this->where($where, ">");
+  }
+
+  /**
+  *
+  * This is the same that where() but this adds "WHRE something < number"
+  *
+  * @param array $where
+  *
+  **/
+  public function wherelt( $where ) {
+    return $this->where($where, "<");
+  }
+  /** 
+  *
+  * LIKE statement
+  *
+  * @param string|array $arg1
+  * @param string|bool $arg2
+  * @param string $and
+  * @param bool $not
+  * @return bool|object
+  *
+  **/
+  public function like($arg1, $arg2 = false, $and = "AND", $not = false) {
+  if( ! is_array($arg1) && empty($arg2) )
+    return false;
+    $args = func_get_args();
+    $like = array();
+    $not = (!$not) ? '' : 'NOT ';
+    if( is_array($arg1) ) {
+      foreach($arg1 as $a => $b)
+        $like[] = "$a {$not} LIKE %" . $b . "%";
+    }else{
+      $like[] = "{$args[0]} {$not}LIKE '%{$args[1]}%'";
+    }
+    $this->query .= " WHERE " . implode(' {$and} ', $like );
+
+    return $this;
+  }
+  /**
+  *
+  * LIKE statement, but just starting ("WHERE something LIKE test%")
+  *
+  * @param string|array $arg1
+  * @param string|bool $arg2
+  * @param string $and
+  * @param bool $not
+  * @return bool|object
+  *
+  **/
+  public function slike( $arg1, $arg2 = false, $and = "AND", $not = false) {
+    if( ! is_array($arg1) && empty($arg2) )
+      return false;
+    $args = func_get_args();
+    $like = array();
+    $not = (!$not) ? '' : 'NOT ';
+    if( is_array($arg1) ) {
+      foreach($arg1 as $a => $b)
+        $like[] = "$a $not LIKE %" . $b;
+    }else{
+      $like[] = "{$args[0]} {$not}LIKE '%{$args[1]}'";
+    }
+    $this->query .= " WHERE " . implode(' {$and} ', $like );
+    return $this;
+  }
+  /**
+  *
+  * NOT like statement, it has the same use that $this->like()
+  *
+  **/
+  public function notlike( $arg1, $arg2 = false, $and = "AND" ) {
+    return $this->like($arg1, $arg2, $and, true );
+  }
+  /**
+  *
+  * NOT LIKE statement, it has the same use that $this->slike()
+  *
+  */
+  public function notslike($arg1, $arg2 = false, $and = "AND") {
+    return $this->slike($arg1, $arg2, $and, true);
+  }
+  /**
+  *
+  * LIMIT statement
+  *
+  * @param string|int $l1
+  * @param string|int $l2
+  * @return object
+  *
+  **/
+  public function limit($l1, $l2 = '') {
+    if( ! is_numeric($l1) )
+      return false;
+    $this->query .= " LIMIT {$l1}";
+    if( is_numeric($l2) )
+      $this->query .= ",{$l2}";
+
+    return $this->execute();
+  }
+  /**
+  *
+  * It returns the Query
+  *
+  **/
+  public function getQuery() {
+    return $this->query;
+  }
+  /**
+  *
+  * It adds something to the current query
+  *
+  **/
+  public function add( $add ) {
+    $this->query .= " " . $add;
+    return $this;
+  }
+  
+  /** End class! **/
 }
