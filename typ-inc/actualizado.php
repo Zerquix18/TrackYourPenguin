@@ -24,15 +24,18 @@ fclose($f); //cierra.
 return true;
 }
 
-/** versión 1.0.0 **/
+/** versión 1.0 **/
 
 function typ_1_0(){
 	global $zerdb;
 	$x = $zerdb->seleccionar($zerdb->opciones, "*");
-	if( isset($x->extra) )
-		return;
+	if( ! isset($x->extra)  ):
 	$zerdb->query("ALTER TABLE $zerdb->config ADD extra varchar(200)");
-	$zerdb->actualizar($zerdb->config, array("extra" => json_encode(array("tema" => "bootstrap"))));
+	$sql = sprintf("UPDATE $zerdb->config SET 'extra'  = '%s'", json_encode(array("tema" => "bootstrap") ) );
+	$zerdb->query($sql);
+	endif;
+	if( isset($x->robots) )
+	$zerdb->query("ALTER TABLE $zerdb->config DROP robots");
 	return true;
 }
 
