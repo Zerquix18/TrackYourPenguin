@@ -8,10 +8,10 @@
 
 function existe_usuario( $usuario ) {
 	global $zerdb;
-	$usuario = $zerdb->proteger( $usuario );
-	$u = new extraer($zerdb->usuarios, "*", array("usuario" => $usuario) );
+	$usuario = $zerdb->real_escape( $usuario );
+	$u = $zerdb->select($zerdb->usuarios, "*", array("usuario" => $usuario) )->_();
 
-	return true == ( $u && (int) $u->nums > 0 );
+	return $u && (int) $u->nums > 0 ? $u : false;
 }
 
 
@@ -24,24 +24,21 @@ function existe_usuario( $usuario ) {
 
 function obt_id( $id ) {
 	global $zerdb;
-	return @new extraer($zerdb->usuarios, "*", array("id" => $id ) );
+	$u = $zerdb->select($zerdb->usuarios, "*", array("id" => $id) )->_();
+	return ($u && $u->nums > 0) ? $u : false;
 }
 
 /**
 *
 * Obtiene el usuario de la sesión actual
-* Si $array es true, lo devolverá en un array y no en objeto.
 * 
 **/
 
-function obt_usuario_actual( $array = false ) {
+function obt_usuario_actual() {
 	global $zerdb;
 	if( ! sesion_iniciada() )
 		return false;
-
-	$u = obt_id( $_SESSION['id'] );
-	unset($u->clave);
-	return ($array) ? (array) $u : $u;
+	return obt_id( $_SESSION['id'] );
 }
 
 /**
@@ -52,15 +49,13 @@ function obt_usuario_actual( $array = false ) {
 
 function es_super_admin() {
 	global $zerdb;
-	if( ! sesion_iniciada() )
+
+	if( false == ($u = obt_usuario_actual() ) ) //removí la doble comprobación de sesiión iniciada...
 		return false;
 
-	$u = obt_usuario_actual();
-	$id = $u->id;
+	$u = $zerdb->select($zerdb->usuarios, "rango", array("id" => $u->id) )->_();
 
-	$u = new extraer($zerdb->usuarios, "rango", array("id" => $id) );
-
-	return true == ( (int) $u->rango == 1);
+	return 1 == $u->rango;
 }
 
 /**
@@ -72,15 +67,12 @@ function es_super_admin() {
 function es_admin() {
 	global $zerdb;
 
-	if( ! sesion_iniciada() )
-		return;
+	if( false == ($u = obt_usuario_actual() ) ) //removí la doble comprobación de sesiión iniciada...
+		return false;
 
-	$u = obt_usuario_actual();
-	$id = $u->id;
+	$u = $zerdb->select($zerdb->usuarios, "rango", array("id" => $u->id) )->_();
 
-	$u = @new extraer($zerdb->usuarios, "rango", array("id" => $id) );
-
-	return true == ( (int) $u->rango == 2 || es_super_admin() );
+	return 2 == $u->rango || es_super_admin();
 }
 
 
@@ -92,15 +84,13 @@ function es_admin() {
 
 function es_actualizador() {
 	global $zerdb;
-	if( ! sesion_iniciada() )
-		return;
 
-	$u = obt_usuario_actual();
-	$id = $u->id;
+	if( false == ($u = obt_usuario_actual() ) ) //removí la doble comprobación de sesiión iniciada...
+		return false;
 
-	$u = @new extraer($zerdb->usuarios, "rango", array("id" => $id) );
+	$u = $zerdb->select($zerdb->usuarios, "rango", array("id" => $u->id) )->_();
 
-	return true == ( (int) $u->rango == 3 || es_admin() );
+	return 3 == $u->rango || es_admin();
 }
 
 /**
@@ -113,9 +103,9 @@ function es_actualizador() {
 
 function rango( $id = null ) {
 	global $zerdb;
-	$u = new extraer($zerdb->usuarios, "*", array("id" => $zerdb->proteger($id)) );
-	if( false == ($u && $u->nums > 0 ) )
-		return false;
+	$u = obt_id($id);
+	if( false == $u )
+		return $u;
 	switch( $u->id ) {
 		case "1":
 		return __("Super Administrador");
@@ -132,9 +122,8 @@ function rango( $id = null ) {
 }
 function existe_usuario_id( $id ) {
 	global $zerdb;
-	$id = $zerdb->proteger( $id );
-	$u = new extraer($zerdb->usuarios, "*", array("id" => $id) );
-	return true == ($u && (int) $u->nums > 0 );
+	$u = obt_id($u);
+	return false !== $u;
 }
 
 function comprobar_rangos( $rango1, $rango2 = '') {
@@ -143,7 +132,7 @@ function comprobar_rangos( $rango1, $rango2 = '') {
 
 	$rango1 = (int) $rango1;
 
-	if( $rango1 !== 1 || 2 || 3)
+	if( $rango1 !== 1 || $rango1 !== 2 || $rango1 !== 3)
 		return false;
 
 	$u = obt_usuario_actual();
@@ -160,51 +149,12 @@ function existe_email( $email ) {
 	if( ! is_string($email) )
 		return false;
 
-	$q = new extraer($zerdb->usuarios, "*", array("email" => $zerdb->proteger( $email ) ) );
+	$q = $zerdb->select($zerdb->usuarios, "*", array("email" => $zerdb->real_escape( $email ) ) )->_();
 
-	return true == (  $q && $q->nums > 0);
+	return $q && $q->nums > 0;
 }
 
 function estado( $estado ) {
 	global $zerdb;
-	return ( (int) $estado == 1 ) ? __("Activo") : __("Suspendido");
-}
-
-function eliminar_usuario( $id ) {
-	global $zerdb;
-	
-	if( !existe_usuario_id($id) )
-		return false;
-
-	$u = obt_usuario( $id );
-
-	if( $u->rango == '1')
-		return false;
-
-	return $zerdb->eliminar( $zerdb->usuarios, array("id" => $zerdb->proteger( $id ) ) );
-}
-
-function esta_suspendido( $id ) {
-
-	$u = obt_id( $id );
-
-	return (int) $u->estado !== 1;
-}
-
-function suspender_usuario( $id ) {
-	global $zerdb;
-
-	if( ! existe_usuario_id($id) || esta_suspendido($id) )
-		return false;
-
-	return $zerdb->actualizar($zerdb->usuarios, array("estado" => "0"), array("id" => $id) );
-}
-
-function quitar_suspension( $id ) {
-	global $zerdb;
-
-	if( ! existe_usuario_id($id) || ! esta_suspendido($id) )
-		return false;
-
-	return $zerdb->actualizar( $zerdb->usuarios, array("estado" => "1"), array("id" => $id) );
+	return(int) $estado == 1 ? __("Activo") : __("Suspendido");
 }
