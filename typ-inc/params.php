@@ -22,26 +22,14 @@
 function obt_parametros($posicion, $tracker_id) {
 	global $zerdb;
 
-	if( ! is_numeric( $posicion ) || ! is_numeric($tracker_id) || (int) $posicion > 3 || (int) $posicion == 0 )
-		return false;
+	$p = $zerdb->select($zerdb->parametros, "*", array("tracker" => $tracker_id, "posicion" => $posicion) )->_();
 
-	$tracker = $zerdb->proteger($tracker_id);
-
-	$p = new extraer($zerdb->parametros, "*", array("tracker" => $tracker ) );
-
-	if( ! $p || !$p->nums > 0)
-		return false;
-
-	$p = new extraer($zerdb->parametros, "*", array("tracker" => $tracker, "posicion" => $posicion) );
-
-	$datos = array(
-			"size" => (int) $p->size,
-			"x" => (int) $p->x,
-			"y" => (int) $p->y,
-			"angulo" => (int) $p->angulo
+	return array(
+			"size" => $p->size,
+			"x" => $p->x,
+			"y" => $p->y,
+			"angulo" => $p->angulo
 		);
-	
-	return $datos;
 
 }
 
@@ -96,60 +84,27 @@ class actualizar_parametros {
 	**/
 	public function __construct( $tracker_id, $posicion, $parametros ) {
 		global $zerdb;
-
-		if( ! is_numeric( $tracker_id ) ) {
-			$this->comp_error = true;
-			$this->error = __("El tracker debe ser un ID");
-			return false;
-		}
-
-		if( ! is_numeric($posicion) ) {
-			$this->comp_error = true;
-			$this->error = __("La posición debe ser un número del 1 al 3");
-			return false;
-		}
-
-		if( !is_array($parametros ) ) {
-			$this->comp_error = true;
-			$this->error = __("Los parámetros deben ir en matriz");
-			return false;
-		}
-
-		$t = obt_tracker( $tracker_id );
-
-		if( $t && ! $t->nums > 0 ) {
-			$this->comp_error = true;
-			$this->error = __("El tracker no existe");
-			return false;
-		}
-
 		$array = array("x", "y", "angulo", "size");
-
 		foreach($array as $a) {
-			if( ! comprobar_args_array($parametros) ) {
+			if( ! comprobar_args($parametros[$a]) ) {
 				$this->comp_error = true;
 				$this->error = __("Los parámetros enviados son incorrectos");
 				return false;
-			}elseif( empty($parametros) ) {
+			}elseif( vacio($parametros[$a]) ) {
 				$this->comp_error = true;
 				$this->error = __("No puedes dejar campos vacíos");
 				return false;
 			}
 		}
-
-		$actualizar = $zerdb->actualizar(
+		$actualizar = $zerdb->update(
 				$zerdb->parametros,
-				$parametros,
-				array("posicion" => $posicion )
-			);
+				$parametros)-> where( array('tracker' => $tracker_id, 'posicion' => $posicion) )->_();
 
 		if( ! $actualizar ) {
 			$this->comp_error = true;
-			$this->error = $zerdb->ult_err;
-			$this->query = $zerdb->ult_sol; //debugging
+			$this->error = $zerdb->error;
 			return false;
 		}
-
 		return true;
 	}
 }
