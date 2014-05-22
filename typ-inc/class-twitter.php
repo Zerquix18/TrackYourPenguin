@@ -200,66 +200,8 @@ class zer_twitter {
 **/
 function obt_oauth() {
 	global $zerdb;
-	return new extraer($zerdb->twitter, "*");
-}
-/**
-*
-* @access public
-* @return string
-* @since 0.1
-* @param $key string
-*
-**/
-function obt_key( $key ) {
-	global $zerdb;
-	$keys = array("consumer_key", "consumer_secret", "access_token_secret", "access_token");
-	if( ! is_string($key) || ! in_array($key, $keys) )
-		return false;
-	$k = new extraer($zerdb->twitter, $key);
-	return $k->$key;
-}
-/**
-*
-* Inserta el OAuth
-*
-* @access public
-* @since 0.1
-* @param $a string
-* @param $b string
-* @param $c string
-* @param $d string
-*
-**/
-function insertar_oauth($a, $b, $c, $d) {
-	global $zerdb;
-	$args = func_get_args();
-	foreach( $args as $arg )
-		if( ! is_string($arg) )
-			return false;
-	return $zerdb->insertar($zerdb->twitter, array($a, $b, $c, $d ) );
-}
-/**
-*
-* Actualiza el OAuth
-*
-* @access public
-* @since 0.1
-* @param $a string
-* @param $b string
-* @param $c string
-* @param $d string
-*
-**/
-function actualizar_oauth($a, $b, $c, $d) {
-	global $zerdb;
-	$args = func_get_args();
-	foreach( $args as $arg )
-		if( ! is_string($arg) )
-			return false;
-		
-	return $zerdb->actualizar($zerdb->twitter,
-			array("consumer_key" => $a, "consumer_secret" => $b, "access_token" => $c, "access_token_secret" => $d)
-		);
+	$lel = $zerdb->select( $zerdb->twitter );
+	return $lel->execute();
 }
 /**
 *
@@ -272,8 +214,7 @@ function actualizar_oauth($a, $b, $c, $d) {
 **/
 function oauth_configurado() {
 	$o = obt_oauth();
-
-	return true == ($o && $o->nums > 0);
+	return ($o && $o->nums > 0);
 }
 /**
 * Obtiene un tweet desde su ID
@@ -284,7 +225,8 @@ function oauth_configurado() {
 
 function obt_tweet( $id ) {
 	global $zerdb;
-	return new extraer($zerdb->tweets, "*", array("id" => $zerdb->proteger($id) ) );
+	$u = $zerdb->select($zerdb->tweets, "*", array("id" => $zerdb->real_escape($id) ) )->_();
+	return $u && $u->nums > 0 ? $u : false;
 }
 
 /**
@@ -307,63 +249,8 @@ function obt_tuit( $id ) {
 **/
 function obt_tweets() {
 	global $zerdb;
-
-	return new extraer($zerdb->tweets, "*");
-}
-/**
-*
-* Agrega un tweet
-*
-* @param $nombre str
-* @param $texto str
-*
-**/
-function agregar_tweet( $nombre, $texto ) {
-	global $zerdb;
-
-	if( ! is_string($nombre) || ! is_string($texto) ) // 0 truqueos eh...
-		return false;
-
-	if( strlen($nombre) > 10 || strlen($texto) > 140 )
-		return false;
-
-	return $zerdb->insertar( $zerdb->tweets, array($nombre, $texto) );
-
-}
-/**
-*
-* Actualiza un tweet
-*
-* @param $id int | str
-*
-* @param $parametros str | int
-*
-**/
-function actualizar_tweet($id, $parametros) {
-	global $zerdb;
-
-	if( ! is_numeric($id) || ! is_array($parametros) || ! array_key_exists(0, $parametros) || ! array_key_exists(1, $parametros) )
-		return false;
-
-	if( ! is_string($parametros[0]) || ! is_string($parametros[1]) || array_key_exists(2, $parametros) )
-		return false;
-
-	$nombre = $parametros[0];
-	$texto = $parametros[1];
-
-	if( strlen($nombre) > 10 || strlen($texto) > 140)
-		return false;
-
-	$nombre = $zerdb->proteger($nombre);
-	$texto = $zerdb->proteger($texto);
-
-	$actualizar = $zerdb->actualizar( $zerdb->tweets,
-			array("nombre" => $nombre, "tweet" => $texto),
-			array("id" => $zerdb->proteger($id) )
-		);
-
-	return $actualizar;
-
+	$u = $zerdb->select($zerdb->tweets)->_();
+	return $u && $u->nums > 0 ? $u : false;
 }
 /**
 * Comprueba si existe un tweet
@@ -372,10 +259,7 @@ function actualizar_tweet($id, $parametros) {
 *
 **/
 function existe_tweet( $id ) {
-	global $zerdb;
-	$id = $zerdb->proteger($id);
-	$comprobar = new extraer($zerdb->tweets, "*", array("id" => $id) );
-	return true == ( $comprobar && $comprobar->nums > 0 );
+	return obt_tuit($id) !== false ? true : false;
 }
 /**
 *
@@ -388,47 +272,7 @@ function eliminar_tweet( $id ) {
 	global $zerdb;
 	if( ! existe_tweet($id) )
 		return false;
-	$id = $zerdb->proteger($id);
+	$id = $zerdb->real_escape($id);
 	$eliminar = $zerdb->eliminar( $zerdb->tweets, array("id" => $id ) );
 	return $eliminar;
-}
-/**
-*
-* Obtiene un tweet desde una columna
-*
-* @param $por str
-* @param $donde array
-*
-**/
-function obt_tweet_por($por, $donde) {
-	global $zerdb;
-
-	if( ! is_string($por) || !is_string($donde) )
-		return false;
-
-	$por_ = array("id", "nombre", "tweet");
-
-	if( ! in_array($por, $por_) )
-		return false;
-	$d = array();
-
-	foreach($donde as $a => $b) {
-		$d[ $zerdb->proteger($a) ] = $zerdb->proteger($b);
-	}
-
-	$t = new extraer( $zerdb->trackers, "*", $d );
-
-	if( $t && $t->nums > 0)
-		return $t->$por;
-	else
-		return false;
-}
-/**
-*
-* Comprueba si el usuaro tiene tuits
-*
-**/
-function tiene_tweets() {
-	$t = obt_tweets();
-	return true == ( $t && $t->nums > 0 );
 }
