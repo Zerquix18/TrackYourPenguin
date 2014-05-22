@@ -2,26 +2,26 @@
 
 class actualizacion {
 
-	public $archivo = 'actualizar.zip';
+	private $archivo = 'actualizar.zip';
 
 	private $host = 'http://trackyourpenguin.com/d/';
 
-	public $dir = './';
+	private $dir = './';
 
-	public function cambiar_modo() {
+	private function cambiar_modo() {
 		$iterator = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $this->dir ) ); // todos los dirs y subsdirs..
 		foreach($iterator as $item)
-			if( ! preg_match('/[\/\.htaccess]$/', $item) || ! preg_match("/[\/\.htpasswd]$/", $item) && ! preg_match('/\/\./', $item) && ! preg_match('/\/\./', $item)  ) // quita los /.. y /. a EXEPCIÓN de /.htaccess y /.htpasswd
+			if( ! preg_match('/(\/\.htaccess)$/', $item) || ! preg_match("/(\/\.htpasswd)$/", $item) && ! preg_match('/\/\./', $item) && ! preg_match('/\/\./', $item)  ) // quita los /.. y /. a EXEPCIÓN de /.htaccess y /.htpasswd
     			@chmod($item, 0777); // cambia el modo recursivamente a todos los ficheros nuevos.
 	}
 	public function __construct() {
 		// algunos bugs...
 		if( ! class_exists("ZipArchive") ) {
-			echo agregar_error( __("No existe la clase <b>ZipArchive</b> para la descompresión de los archivos. No se puede actualizar :("), false, true );
+			echo agregar_error( __("No existe la clase <strong>ZipArchive</strong> para la descompresión de los archivos. No se puede actualizar :("), false, true );
 			return false;
 		}
 		if( ! function_exists("curl_init") || ! function_exists("curl_close" ) ) {
-			echo agregar_error( __("No existe <b>curl_init</b> para la descarga de los archivos. No se puede actualizar. :("), false, true);
+			echo agregar_error( __("No existe <strong>curl_init</strong> para la descarga de los archivos. No se puede actualizar. :("), false, true);
 			return false;
 		}
 
@@ -37,7 +37,7 @@ class actualizacion {
 		*
 		**/
 		echo __("Creando archivo temporal...<br>"); // mensaje de aviso.
-		if( false == ($arch = @touch( $this->archivo ) ) ) {
+		if( false == touch( $this->archivo ) ) {
 			echo agregar_error( __("No se puede crear el archivo temporal. Probablemente los permisos."), false, true);
 			return false;
 		}
@@ -66,16 +66,15 @@ class actualizacion {
 		// algunos parámetros para enviarle al archivo vía POST
 
 		$params = array(
-				"tipo" => urlencode("actualizacion") // el tipo de descarga es por actualización y no directa.
+				"tipo" => "actualizacion" // el tipo de descarga es por actualización y no directa.
 			);
 
 		curl_setopt($ch, CURLOPT_POST, true); //cURL vía POST y no GET.
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $params );
 		curl_setopt($ch, CURLOPT_FILE, $this->f ); // donde guardará el archivo.
-		echo sprintf( __("Descargando archivos desde <b>%s</b><br><br>"), $this->host . $this->archivo );
+		echo sprintf( __("Descargando archivos desde <strong>%s</strong><br><br>"), $this->host . $this->archivo );
 		dormir( 1 );
 		$this->resultado = curl_exec($ch); // descarga y reemplaza (Ejecuta)
-
 		// cierra lo que queda abierto...
 		fclose( $this->f );
 		curl_close( $ch );
@@ -90,7 +89,7 @@ class actualizacion {
 			@$this->zip->deleteName("img/");
 			@$this->zip->DeleteName("typ-config.php");
 			############################################ OLÉ!
-			echo __("Descomprimiendo <b>zip</b> ya descargado... <br>");
+			echo __("Descomprimiendo <strong>zip</strong> ya descargado... <br>");
 			dormir(1);
 			if( false == ($this->zip->extractTo( $this->dir ) ) ) {
 				echo agregar_error( __("No se pudo descomprimir el paquete descargado :(") );
@@ -115,7 +114,7 @@ class actualizacion {
 			ob_end_clean(); // get the fuck up
 			agregar_info(
 					sprintf(
-							__("Bienvenido a TrackYourPenguin <b>%s</b> :)"),
+							__("Bienvenido a TrackYourPenguin <strong>%s</strong> :)"),
 							obt_version()
 						)
 				);
@@ -137,21 +136,21 @@ function obt_version( $array = false ) {
 		$h = 'http://trackyourpenguin.com/v.txt';
 		$ch = curl_init($h);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2); //máximo 2 mins para responder la solicitud.
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2); //máximo 2 segs para responder la solicitud, o get the fak up.
 		$_v = curl_exec( $ch );
 		if( ! $_v )
 			return 0;
 		curl_close($ch);
 	}elseif( false !== ($_v = @file_get_contents($h) ) ) {
-		$_v = $_v;
+		$_v = $_v; // anyways c:
 	}
 	if( ! isset($_v) )
-		return false; // no obtuvimos nada... ?
+		return false; // no obtuvimos nada... ? :c
 
 	if( false == ( $v = @explode('.', $_v ) ) )
 		return false;
 
-	preg_match_all("!\d+!", $v[0], $match);
+	preg_match_all("-\d+-", $v[0], $match); // let's get all numbers... no lo cojo directo por problemas del encoding... u-u
 
 	$v[0] = @$match[0][0];
 
@@ -194,7 +193,7 @@ function actualizaciones() {
 	if( ! $comparar && ! es('actualizaciones.php') )
 		return agregar_error(
 				sprintf(
-						__('TrackYourPenguin <b>%s</b> ya está disponible, por favor <a href="%s">actualiza.</a> :)'),
+						__('TrackYourPenguin <strong>%s</strong> ya está disponible, por favor <a href="%s">actualiza.</a> :)'),
 						$v,
 						url() . 'actualizaciones.php'
 					), true, false
