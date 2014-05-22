@@ -51,7 +51,6 @@ $sql['trackers'] = "CREATE TABLE IF NOT EXISTS $zerdb->trackers (
 $sql['config'] = "CREATE TABLE IF NOT EXISTS $zerdb->config (
 		titulo varchar(20),
 		url varchar(100),
-		robots varchar(1),
 		extra varchar(200)
 	)";
 
