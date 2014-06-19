@@ -11,36 +11,36 @@
 **/
 
 if( ! class_exists('mysqli') )
-	exit("Class MySQLi doesn't exist'");
+  exit("Class MySQLi doesn't exist'");
 
 class zerdb {
 
-	public $tablas = array(
-			"usuarios" => array(
-					"usuario", "clave", "email", "estado", "rango", "hash"
-				),
-			"sesiones" => array(
-					"id", "hash", "ip", "fecha"
-				),
-			"trackers" => array(
-					"personaje", "img", "imgbg", "fuente"
-				),
-			"config" => array(
-					"titulo", "url", "robots", "extra"
-				),
-			"twitter" => array(
-					"consumer_key", "consumer_secret", "access_token", "access_token_secret"
-				),
-			"log" => array(
-					"accion", "fecha"
-				),
-			"tweets" => array(
-					"nombre", "tweet"
-				),
-			"parametros" => array(
-					"tracker", "posicion", "size", "angulo", "x", "y"
-				)
-		);
+  public $tablas = array(
+      "usuarios" => array(
+          "usuario", "clave", "email", "estado", "rango", "hash"
+        ),
+      "sesiones" => array(
+          "id", "hash", "ip", "fecha"
+        ),
+      "trackers" => array(
+          "personaje", "img", "imgbg", "fuente"
+        ),
+      "config" => array(
+          "titulo", "url", "extra"
+        ),
+      "twitter" => array(
+          "consumer_key", "consumer_secret", "access_token", "access_token_secret"
+        ),
+      "log" => array(
+          "accion", "fecha"
+        ),
+      "tweets" => array(
+          "nombre", "tweet"
+        ),
+      "parametros" => array(
+          "tracker", "posicion", "size", "angulo", "x", "y"
+        )
+    );
 
   /**
   *
@@ -51,7 +51,7 @@ class zerdb {
   * @var string
   *
   **/
-	private $dbhost;
+  private $dbhost;
 
   /**
   *
@@ -62,7 +62,7 @@ class zerdb {
   * @var string
   *
   **/
-	private $dbuser;
+  private $dbuser;
 
   /**
   *
@@ -74,7 +74,7 @@ class zerdb {
   *
   **/
 
-	private $dbpass;
+  private $dbpass;
 
   /**
   *
@@ -85,7 +85,7 @@ class zerdb {
   * @var string
   *
   **/
-	private $dbname;
+  private $dbname;
 
   /**
   *
@@ -96,7 +96,7 @@ class zerdb {
   * @var string
   *
   **/
-	private $port;
+  private $port;
 
   /**
   *
@@ -107,7 +107,7 @@ class zerdb {
   * @var int
   *
   **/
-	public $nums = null;
+  public $nums = null;
 
   /**
   *
@@ -118,7 +118,7 @@ class zerdb {
   * @var bool
   *
   **/
-	public $ready = false;
+  public $ready = false;
 
   /**
   *
@@ -129,7 +129,7 @@ class zerdb {
   * @var object
   *
   **/
-	public $mysqli;
+  public $mysqli;
 
   /**
   *
@@ -140,7 +140,7 @@ class zerdb {
   * @var string|null
   *
   **/
-	public $query;
+  public $query;
 
   /**
   *
@@ -151,7 +151,7 @@ class zerdb {
   * @var string
   *
   **/
-	public $error;
+  public $error;
 
   /**
   *
@@ -162,7 +162,7 @@ class zerdb {
   * @var string
   *
   **/
-	public $errno;
+  public $errno;
 
   /**
   *
@@ -173,7 +173,7 @@ class zerdb {
   * @var string
   *
   **/
-	public $charset;
+  public $charset;
 
   /**
   *
@@ -184,7 +184,7 @@ class zerdb {
   * @var public
   *
   **/
-	public $id;
+  public $id;
 
   /**
   *
@@ -198,17 +198,17 @@ class zerdb {
   * @param integer $port
   *
   **/
-	public function __construct($dbhost, $dbuser, $dbpass, $dbname, $charset = null, $port = null ) {
+  public function __construct($dbhost, $dbuser, $dbpass, $dbname, $charset = null, $port = null ) {
 
-		$this->dbhost = $dbhost;
-		$this->dbuser = $dbuser;
-		$this->dbpass = $dbpass;
-		$this->dbname = $dbname;
-		$this->charset = ! is_null($charset) ? $charset : 'utf8';
-		$this->port = is_null($port) ? ini_get('mysqli.default_port') : $port;
+    $this->dbhost = $dbhost;
+    $this->dbuser = $dbuser;
+    $this->dbpass = $dbpass;
+    $this->dbname = $dbname;
+    $this->charset = ! is_null($charset) ? $charset : 'utf8';
+    $this->port = is_null($port) ? ini_get('mysqli.default_port') : $port;
 
-		return $this->connect();
-	}
+    return $this->connect();
+  }
 
   /**
   *
@@ -218,20 +218,20 @@ class zerdb {
   * @return bool true if everything is done and false if there was an error
   *
   **/
-	private function connect() {
-		$this->mysqli = new mysqli( $this->dbhost, $this->dbuser, $this->dbpass, $this->dbname, $this->port);
-		if( $this->mysqli->connect_error ) {
-			$this->error = $this->mysqli->connect_error;
-			$this->errno = $this->mysqli->connect_errno;
-			return false;
-		}
-		foreach($this->tablas as $a => $b)
-				$this->$a = $a;
+  private function connect() {
+    $this->mysqli = @new mysqli( $this->dbhost, $this->dbuser, $this->dbpass, $this->dbname, $this->port);
+    if( $this->mysqli->connect_error ) {
+      $this->error = $this->mysqli->connect_error;
+      $this->errno = $this->mysqli->connect_errno;
+      return false;
+    }
+    foreach($this->tablas as $a => $b)
+        $this->$a = $a;
 
-		$this->mysqli->set_charset( $this->charset );
-		$this->ready = true;
-		return true;
-	}
+    $this->mysqli->set_charset( $this->charset );
+    $this->ready = true;
+    return true;
+  }
   /**
   *
   * It closes the connection
@@ -239,11 +239,11 @@ class zerdb {
   * @return bool
   *
   **/
-	public function close() {
-		if( $this->ready )
-			return $this->mysqli->close();
-		return false;
-	}
+  public function close() {
+    if( $this->ready )
+      return $this->mysqli->close();
+    return false;
+  }
 
   /**
   *
@@ -252,13 +252,13 @@ class zerdb {
   * @return bool
   *
   **/
-	public function flush() {
-		$this->query = null;
-		$this->error = null;
-		$this->errno = null;
-		$this->nums = null;
-		return true;
-	}
+  public function flush() {
+    $this->query = null;
+    $this->error = null;
+    $this->errno = null;
+    $this->nums = null;
+    return true;
+  }
 
   /**
   *
@@ -269,7 +269,7 @@ class zerdb {
   * @return string
   *
   **/
-	public function real_escape( $string ) {
+  public function real_escape( $string ) {
     if( ! is_string( $string ) )
       return $string; // If it's integer or float there's nothing we have to do.
     $string = stripslashes($string); // if you added slashes...
@@ -277,7 +277,7 @@ class zerdb {
       return $this->mysqli->real_escape_string( $string );
     else
       return addslashes( $string );
-	}
+  }
 
   /**
   *
@@ -329,14 +329,14 @@ class zerdb {
   public function execute() {
     if( empty($this->query ) )
       return false;
-  	$q = $this->mysqli->query( $this->query );
-  	if( !$q ) {
-  		$this->error = $this->mysqli->error;
-  		$this->errno = $this->mysqli->errno;
+    $q = $this->mysqli->query( $this->query );
+    if( !$q ) {
+      $this->error = $this->mysqli->error;
+      $this->errno = $this->mysqli->errno;
       return false;
-  	}
-  	$this->id = $this->mysqli->insert_id; // dw if it's null...
-    $this->nums = $this->mysqli->affected_rows;
+    }
+    $this->id = $this->mysqli->insert_id; // dw if it's null...
+    $this->nums = (int) $this->mysqli->affected_rows;
     if( preg_match('/(select)/i', $this->query) ) {
       $lol = new stdClass();
       $this->nums = $lol->nums = $q->num_rows;
@@ -348,7 +348,7 @@ class zerdb {
         endif;
       return $lol;
     }
-  	return $q;
+    return $q;
   }
 
   /**
@@ -357,7 +357,7 @@ class zerdb {
   *
   **/
   public function _() {
-  	return $this->execute();
+    return $this->execute();
   }
 
   /**
@@ -374,13 +374,13 @@ class zerdb {
     if( ! $this->ready )
       return false;
 
-  	$this->flush();
-  	$this->query = "SELECT $data FROM $table";
+    $this->flush();
+    $this->query = "SELECT $data FROM $table";
 
     if( ! is_null($where) )
       $this->where( $where );
 
-  	return $this;
+    return $this;
   }
 
   /**
@@ -474,7 +474,7 @@ class zerdb {
     if( ! in_array( strtoupper($action), array("INSERT", "REPLACE") ) ) 
       return false;
     //then
-  	$t_data = $this->tablas[$table];
+    $t_data = $this->tablas[$table];
     $this->query = "{$action} INTO {$table} (" . implode(', ', $t_data) . ") VALUES ";
     $v = array();
     foreach($data as $a)
