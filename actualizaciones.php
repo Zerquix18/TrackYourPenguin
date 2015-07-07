@@ -23,7 +23,7 @@ if( $ha && isset($_GET['actualizar']) ) {
 	$n = new actualizacion();
 	exit( construir('pies') );
 }
-if( ! $ha && ! isset($_GET['actualizar']) ) {
+if( ! $ha ) {
 	agregar_info( __("There are not updates. You have the last version. :)"), false, true); //0,1
 }elseif( $ha && ! isset($_GET['actualizar']) ) {
 	agregar_error( sprintf( __("TrackYourPenguin <strong>%s</strong> is available. :)"), obt_version() ), false, false );
