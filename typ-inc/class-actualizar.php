@@ -69,10 +69,9 @@ class actualizacion {
 			############################################ OLÉ!
 			echo __("Decompressing the TrackYourPenguin update file... <br>");
 			dormir(1);
-			chmod( $this->archivo, 0777 ) or die("error");
 			if( false == ($this->zip->extractTo("./") ) ) {
 				echo agregar_error( __("Unable to decompress the TrackYourPenguin update file :(") );
-				unlink($this->archivo) or die("fuck");
+				@unlink($this->archivo);
 				return false;
 			}
 			// intenta cambiar el modo de los archivos en esa raíz...
@@ -80,10 +79,12 @@ class actualizacion {
 			// cierra zip...
 			$this->zip->close();
 			echo __("Deleting temporary file...<br><br>");
+			dormir(1);
 			// borra el zip descargado...
 			@unlink( $this->archivo );
 			// actualiza los archivos:
 			echo __("Updating TrackYourPenguin...<br>");
+			dormir(1);
 			$this->src = "TrackYourPenguin-{$v}/";
 			$this->dir_ = array_slice( scandir( $this->src ), 2);
 			$ftd = array("README.md", "typ-config-sample.php");
@@ -108,6 +109,7 @@ class actualizacion {
 			}
 			//yup ! finally 
 			ob_end_clean(); // get the fuck up
+			echo "<hr>";
 			agregar_info(
 					sprintf(
 							__("Welcome to TrackYourPenguin <strong>%s</strong> :)"),
@@ -128,7 +130,7 @@ class actualizacion {
 *
 **/
 
-function obt_version( $array = false ) {
+function obt_version() {
 	$url = "https://raw.githubusercontent.com/Zerquix18/TrackYourPenguin/master/typ-load.php";
 	$content = file_get_contents($url);
 	$regex = '/define\(\"VERSION\"\, \"(.*)?\"/';
@@ -158,7 +160,7 @@ function actualizaciones() {
 		return agregar_error(
 				sprintf(
 						__('TrackYourPenguin <strong>%s</strong> is available, please <a href="%s">update.</a> :)'),
-						$v,
+						obt_version(),
 						url() . 'actualizaciones.php'
 					), true, false
 			);
