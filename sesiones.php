@@ -22,7 +22,7 @@ elseif( es_super_admin() && isset($_GET['id']) && is_numeric($_GET['id']) )
 elseif( es_super_admin() )
 	$dnd = null;
 
-construir('cabecera', __('Sesiones'), true );
+construir('cabecera', __('Sessions'), true );
 
 if( es_super_admin() )
 	$id = $_SESSION['id'];
@@ -31,7 +31,7 @@ $u = obt_id( $id );
 $s = $zerdb->select($zerdb->sesiones, "*", $dnd)->_();
 
 if( isset($_GET['id']) && !$s->nums > 0)
-	typ_die( __("No hay sesiones para ese usuario") );
+	typ_die( __("There aren't sessions for this user.") );
 
 $pagina = isset($_GET['p']) && is_numeric($_GET['p']) ? $_GET['p'] : 1;
 $limit = 'LIMIT '. ($pagina-1) * 5 . ',' . 5;
@@ -39,25 +39,25 @@ $fetch = $zerdb->query( $zerdb->query . ' ' . $limit );
 $paginas = ceil( $s->nums / 5 );
 
 if( $pagina > $paginas ) {
-	agregar_error( __("No existen más sesiones") );
+	agregar_error( __("There are not more sessions") );
 	construir( 'pies' );
 	exit(0);
 }
 ?>
-<h3><?php _e("Sesiones");
-$del = __(' del usuario: ');
+<h3><?php _e("Sessions");
+$del = __(' of user: ');
 if( es_super_admin() && isset($_GET['id']) )
 	echo  $del . ucfirst($u->usuario);
 ?></h3><hr>
 <?php if( isset($_POST['borrar']) ) {
 	if( isset($_POST['eliminar']) && !is_array($_POST['eliminar']) or empty($_POST['eliminar']) ) {
-		agregar_error( __("Debes seleccionar una sesión para cerrar") );
+		agregar_error( __("You must select one session to delete.") );
 	}else{
 		/** It's... time! **/
 		foreach( $_POST['eliminar'] as $hash ) {
 			$sesion->destruir_hash( $hash );
 		}
-		agregar_info( __("Las sesiones que seleccionaste han sido eliminadas (de ser existentes)") );
+		agregar_info( __("The sessions you selected have been deleted (if they existed)") );
 		echo redireccion( url( true ), 2);
 	}
 }elseif( isset($_POST['eliminar_todo'] ) ) {
@@ -69,11 +69,11 @@ if( es_super_admin() && isset($_GET['id']) )
 <table class="table">
 	<tr>
 		<th>#</th>
-		<th><?php _e("Usuario") ?></th>
-		<th><?php _e("Fecha") ?></th>
+		<th><?php _e("User") ?></th>
+		<th><?php _e("Data") ?></th>
 	</tr>
 <?php
-$actual = __(" <strong>(sesión actual)</strong>");
+$actual = __(" <strong>(current session)</strong>");
 while($sesion = $fetch->r->fetch_array() ) {
 	?>
 	<tr>
@@ -104,12 +104,12 @@ while($sesion = $fetch->r->fetch_array() ) {
 	</ul>
 </div>
 
-<?php $este_tu = ($u->id == $id) ? __('tu') : __('este') ?>
+<?php $este_tu = ($u->id == $id) ? __('your') : __('this') ?>
 	<button type="submit" name="eliminar_todo" class="btn btn-danger text-right">
-		<i class="icon-trash"></i>&nbsp;<?php echo sprintf( __("Cerrar todas las sesiones de %s usuario"), $este_tu) ?>
+		<i class="icon-trash"></i>&nbsp;<?php echo sprintf( __("Delete all %s user sessions"), $este_tu) ?>
 	</button> |
 	<button type="submit" name="borrar" class="btn btn-danger text-right">
-		<i class="icon-trash"></i>&nbsp;<?php _e("Cerrar sesiones seleccionadas") ?>
+		<i class="icon-trash"></i>&nbsp;<?php _e("Delete selected sessions") ?>
 	</button>
 </form>
 <?php 

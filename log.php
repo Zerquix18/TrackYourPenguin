@@ -14,8 +14,8 @@ require_once( dirname(__FILE__) . '/typ-load.php' );
 comprobar( false );
 
 if( ! es_super_admin() )
-	typ_die("Haciendo trampa, ¿eh?");
-construir('cabecera', __('Registro de cambios'), true );
+	typ_die("Cheatin', uh?!");
+construir('cabecera', __('Changelog'), true );
 
 if( isset($_GET['id']) && is_numeric($_GET['id'] ) )
 	$dnd = array("id" => $zerdb->real_escape($_GET['id'] ) );
@@ -28,7 +28,7 @@ $l = $l->execute();
 
 if( isset($_GET['id']) && is_numeric($_GET['id'] ) ) {
 	if( ! $l || !$l->nums > 0 ) {
-		agregar_error( __("No existe ese ID en el log") );
+		agregar_error( __("That log ID doesn't exist.") );
 		exit( construir('pies') );
 	}
 	?>
@@ -36,18 +36,18 @@ if( isset($_GET['id']) && is_numeric($_GET['id'] ) ) {
 	<div class="well">
 		<?php echo mostrar_log($l->accion) ?>
 	</div>
-	<strong><?php _e("Fecha") ?>:</strong>&nbsp;<i><?php echo mostrar_fecha($l->fecha, true) ?></i>
+	<strong><?php _e("Date") ?>:</strong>&nbsp;<i><?php echo mostrar_fecha($l->fecha, true) ?></i>
 	<ul class="pager">
-		<li class="previous"><a href="<?php echo url() . 'log.php' ?>">&larr; <?php _e("Volver al log") ?></a></li>
+		<li class="previous"><a href="<?php echo url() . 'log.php' ?>">&larr; <?php _e("Back to all logs") ?></a></li>
 	</ul>
 	<?php
 	exit( construir('pies') );
 }
 ?>
-<h3> <?php _e("Registro de cambios") ?> </h3><hr>
+<h3> <?php _e("Changelog") ?> </h3><hr>
 <?php
 	if( !$l || $l->nums == "0") {
-		agregar_error( __("No se ha registrado nada aún en el registro o los registros han sido borrados.") );
+		agregar_error( __("Nothing have been registered yet or all the logs have been deleted.") );
 		exit( construir('pies') );
 	}
 	$pagina = isset($_GET['p']) && is_numeric($_GET['p']) ? $_GET['p'] : 1;
@@ -55,7 +55,7 @@ if( isset($_GET['id']) && is_numeric($_GET['id'] ) ) {
 	$fetch = $zerdb->query( $zerdb->query . ' ' . $limit );
 	$paginas = ceil( $l->nums / 5 );
 if( $pagina > $paginas ) {
-	agregar_error( __("No existen más registros") );
+	agregar_error( __("There are not more logs.") );
 	construir( 'pies' );
 	exit();
 }
@@ -63,12 +63,12 @@ if( $pagina > $paginas ) {
 <form method="POST" action="<?php echo url( true ) ?>">
 	<?php if( isset($_POST['borrar']) ) {
 	if( isset($_POST['eliminar']) && !is_array($_POST['eliminar']) or empty($_POST['eliminar']) ) {
-		agregar_error( __("Debes seleccionar un log para borrar") );
+		agregar_error( __("You must select something to delete.") );
 	}else{
 		foreach( $_POST['eliminar'] as $id ) {
 			$zerdb->delete( $zerdb->log, array("id" => $zerdb->real_escape($id) ) )->_();
 		}
-		agregar_info( __("Los registros seleccionados han sido eliminados") );
+		agregar_info( __("The selected logs have been deleted.") );
 		echo redireccion( url( true ), 2);
 	}
 }elseif( isset($_POST['eliminar_todo'] ) ) {
@@ -79,8 +79,8 @@ if( $pagina > $paginas ) {
 <table class="table">
 	<tr>
 		<th>#</th>
-		<th><?php _e("Acción") ?></th>
-		<th><?php _e("Fecha") ?></th>
+		<th><?php _e("Action") ?></th>
+		<th><?php _e("Date") ?></th>
 	</tr>
 <?php
 while($log = $fetch->r->fetch_array() ) {
@@ -89,7 +89,7 @@ while($log = $fetch->r->fetch_array() ) {
 		<td><input type="checkbox" name="eliminar[]" value="<?php echo $log['id'] ?>"></td>
 		<td><?php
 				if( strlen($log['accion']) > 100 )
-					echo substr( mostrar_log($log['accion']), 0, 100) . '...<a href="' . url() . 'log.php?id=' . $log['id'] . '">' . __('más') . '</a>';
+					echo substr( mostrar_log($log['accion']), 0, 100) . '...<a href="' . url() . 'log.php?id=' . $log['id'] . '">' . __('more') . '</a>';
 				else echo mostrar_log($log['accion']);
 		?></td>
 		<td><?php echo '<strong>' . mostrar_fecha($log['fecha'])  . '</strong>' ?></td>
@@ -112,10 +112,10 @@ while($log = $fetch->r->fetch_array() ) {
 	</ul>
 </div>
 	<button type="submit" name="eliminar_todo" class="btn btn-danger text-right">
-		<i class="icon-trash"></i>&nbsp;<?php _e("Vaciar el log") ?>
+		<i class="icon-trash"></i>&nbsp;<?php _e("Empty logs") ?>
 	</button> |
 	<button type="submit" name="borrar" class="btn btn-danger text-right">
-		<i class="icon-trash"></i>&nbsp;<?php _e("Limpiar elementos seleccionados") ?>
+		<i class="icon-trash"></i>&nbsp;<?php _e("Clean selected elements") ?>
 	</button>
 </form>
 <?php construir('pies') ?>

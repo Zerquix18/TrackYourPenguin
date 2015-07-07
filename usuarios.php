@@ -29,14 +29,14 @@ switch( $accion ) {
 	case "agregar":
 
 	if( ! es_super_admin() )
-		typ_die( __("Haciendo trampa, ¿eh?") );
+		typ_die( __("Cheatin', uh?!") );
 
-	construir( 'cabecera', __('Agregar usuario'), true ); 
+	construir( 'cabecera', __('Add user'), true ); 
 
 	?>
-	<h3><?php _e("Agregar usuario") ?></h3>
+	<h3><?php _e("Add user") ?></h3>
 	<a href="<?php echo url() ?>usuarios.php" class="btn btn-link pull-right">
-		<?php _e("Volver al usuario") ?> &rarr;
+		<?php _e("Back to users") ?> &rarr;
 	</a><hr>
 	<?php
 		if( $post ) {
@@ -48,24 +48,24 @@ switch( $accion ) {
 			$args = ! comprobar_args( @$_POST['usuario'], @$_POST['clave'], @$_POST['email'], @$_POST['clave2'], @$_POST['rango']);
 			$vacios = vacios( @$_POST['usuario'], @$_POST['clave'], @$_POST['email'], @$_POST['clave2'], @$_POST['rango'] );
 			if( $args ) {
-				typ_die( __("Haciendo trampa, ¿eh?"));
+				typ_die( __("Cheatin', uh?!"));
 			}elseif( $vacios ) {
-				agregar_error( __("No puedes dejar datos vacíos"));
+				agregar_error( __("You can't leave empty fields."));
 			}elseif( comprobar_rangos($rango1, $rango2 ) ) {
-				agregar_error( __("¿Haciendo trampa para obtener un mejor rango?") );
+				agregar_error( __("Cheatin' to get a better role?") );
 			}elseif( ! preg_match('/^[a-z0-9-_]{3,12}$/i', $_POST['usuario'] ) ) {
-				agregar_error( __("Necesito un usuario válido. De 3 a 12 caracteres."));
+				agregar_error( __("I need a valid user. From 3 to 12 characters."));
 			}elseif( ! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL ) ) {
-				agregar_error( __("El email ingresado no parece ser válido"));
+				agregar_error( __("The email is not valid."));
 			}elseif( existe_usuario( strtolower( $_POST['usuario'] ) ) ) {
-				agregar_error( __("El usuario ingresado ya existe"));
+				agregar_error( __("That user already exists."));
 			}elseif( existe_email( strtolower($_POST['email'] ) ) ) {
-				agregar_error( __("El email ingresado ya existe"));
+				agregar_error( __("That email already exists"));
 			}elseif( $rango1 == 1) {
-				agregar_error( __("No puede ser super administrador") );
+				agregar_error( __("It can't be super admin!") );
 			}else{
 				$zerdb->insert( $zerdb->usuarios, array($nombre, $clave, $email, 1, $rango1, '') );
-				agregar_info( __("El usuario ha sido ingresado"), true, true );
+				agregar_info( __("The user has been created."), true, true );
 				echo redireccion( url() . 'usuarios.php?id='.  $zerdb->id, 2 );
 			}
 		}
@@ -73,30 +73,30 @@ switch( $accion ) {
 <form class="form-horizontal" action="<?php echo url() . 'usuarios.php?accion=agregar' ?>" method="POST">
 	<div class="control-group">
 		<label class="control-label">
-		<?php _e("Usuario") ?>
+		<?php _e("User") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="usuario" <?php if($post) echo 'value="' . @$_POST['usuario'] . '"' ?> required="required"
 			pattern="^[A-Za-z0-9-_]{3,12}$">
-			<span class="help-block"><?php _e("El nombre de usuario") ?></span>
+			<span class="help-block"><?php _e("Username") ?></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-			<?php _e("Clave") ?>
+			<?php _e("Password") ?>
 		</label>
 		<div class="controls">
 			<input type="password" name="clave" id="clave" required="required">
-			<span class="help-block"><?php _e("La clave para el usuario") ?></span>
+			<span class="help-block"><?php _e("User password") ?></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-		<?php _e("Confirmar clave") ?>
+		<?php _e("Re-type password") ?>
 		</label>
 		<div class="controls">
 			<input type="password" name="clave2" id="clave2" required="required">
-			<span class="help-block"><?php _e("Confirma la clave para el usuario") ?></span>
+			<span class="help-block"><?php _e("Re-type the user password") ?></span>
 		</div>
 	</div>
 	<div class="control-group">
@@ -105,46 +105,46 @@ switch( $accion ) {
 		</label>
 		<div class="controls">
 			<input type="email" name="email" id="email" required="required" <?php if($post) echo 'value="'. @$_POST['email'] . '"' ?>>
-			<span class="help-block"><?php _e("Email para el usuario") ?></span>
+			<span class="help-block"><?php _e("User email") ?></span>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-		Rango
+		<?php _e('Role') ?>
 		</label>
 		<div class="controls">
 			<select name="rango">
-				<option value="2"><?php _e("Administrador") ?></option>
-				<option value="3"><?php _e("Actualizador") ?></option>
+				<option value="2"><?php _e("Administrator") ?></option>
+				<option value="3"><?php _e("Updater") ?></option>
 			</select>
-			<span class="help-block"><?php _e("¿Qué le vamos a permitir a este usuario?") ?></span>
+			<span class="help-block"><?php _e("Which will be this user's role?") ?></span>
 		</div>
 	</div>
 	<hr>
-	<center><input type="submit" name="enviar" class="btn btn-primary text-center" value="<?php _e("Agregar") ?>" id="enviar"></center>
+	<center><input type="submit" name="enviar" class="btn btn-primary text-center" value="<?php _e("Add") ?>" id="enviar"></center>
 </form>
 	<?php
 	break;
 	case "editar":
 	if( ! isset($_GET['id']) || ! is_numeric( $_GET['id'] ) )
-		typ_die( __("Necesito un ID correcto") );
+		typ_die( __("I need a valid ID.") );
 
 	$u = obt_id( $_GET['id'] );
 	$usuario = obt_usuario_actual();
 	if( false == $u )
-		typ_die( __("El usuario que especificas no existe") );
+		typ_die( __("The user you specify doesn't exist.") );
 
 	if( ! es_super_admin() && $_GET['id'] !== $_SESSION['id'] )
-		typ_die( __("No tienes los premisos suficientes para acceder aquí") );
+		typ_die( __("You are not allowed to be here.") );
 
 	if( $u->rango <= $usuario->rango && $_GET['id'] !== $_SESSION['id'] && ! es_super_admin() )
-		typ_die( __("No puedes editar a alguien que tenga tu mismo rango o mayor") );
+		typ_die( __("You can't edit someone's user with a role bigger or the same that you.") );
 
-	construir( 'cabecera', sprintf( __("Editar el usuario: %s"), ucfirst($u->usuario) ), true ); ?>
+	construir( 'cabecera', sprintf( __("Edit user: %s"), ucfirst($u->usuario) ), true ); ?>
 
-<h3><?php _e("Editar el usuario") ?>: <i><?php echo ucfirst( $u->usuario ) ?></i></h3>
+<h3><?php _e("Edit user") ?>: <i><?php echo ucfirst( $u->usuario ) ?></i></h3>
 <a href="<?php echo url() ?>usuarios.php?id=<?php echo $u->id ?>" class="btn btn-link pull-right">
-	<?php _e("Volver al usuario") ?> &rarr;
+	<?php _e("Back to user") ?> &rarr;
 </a><hr>
 	<?php
 		if( $post ) {
@@ -160,24 +160,24 @@ switch( $accion ) {
 			$usuario_ = $zerdb->query("SELECT * FROM {$zerdb->usuarios} WHERE usuario = ? AND email != ?", $nombre, $u->email);
 			$email_ =  $zerdb->query("SELECT * FROM {$zerdb->usuarios} WHERE email = ? AND usuario != ?", $email, $u->usuario);
 			if( $args ) {
-				typ_die( __("Haciendo trampa, ¿eh?") );
+				typ_die( __("Cheatin', uh?!") );
 			}elseif( $vacios ) {
-				agregar_error( __("No puedes dejar datos vacíos"), true, true);
+				agregar_error( __("You can't leave empty fields."), true, true);
 			}elseif( isset($_POST['rango']) && is_string($_POST['rango'] && $_POST['rango'] > $u->rango) ) {
-				agregar_error( __("¿Haciendo trampa para obtener un mejor rango?"), true, true);
+				agregar_error( __("Cheatin' to get a better role?"), true, true);
 			}elseif( ! preg_match('/^[A-Za-z0-9-_]{3,12}$/', $_POST['usuario'] ) ) {
-				agregar_error( __("Pon un nombre de usuario válido, de 3 a 12 caracteres"), true, true);
+				agregar_error( __("Type a valid username. From 3 to 12 characters."), true, true);
 			}elseif( ! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL ) ) {
-				agregar_error( __("El email ingresado no parece ser válido"), true, true);
+				agregar_error( __("The email is not valid."), true, true);
 			}elseif(  $usuario_->nums > 0 ) {
-				agregar_error( __("El usuario ingresado ya existe"), true, true);
+				agregar_error( __("That user already exist."), true, true);
 			}elseif( $email_->nums > 0) {
-				agregar_error( __("El email ingresado ya existe"), true, true);
+				agregar_error( __("That email already exist."), true, true);
 			}elseif( $rango == 1 && ! es_super_admin() ) {
-				agregar_error( __("No puedes ser super administrador"), true, true);
+				agregar_error( __("You can't be super admin."), true, true);
 			}else{
 				$zerdb->update( $zerdb->usuarios,array("usuario" => $nombre, "email" => $email, "rango" => $rango) ) -> where('id', $u->id ) -> execute();
-				agregar_info( __("El usuario ha sido actualizado"), true, true );
+				agregar_info( __("The user has been updated."), true, true );
 				
 			}
 		}
@@ -185,12 +185,12 @@ switch( $accion ) {
 <form class="form-horizontal" action="<?php echo url( true ) ?>" method="POST">
 	<div class="control-group">
 		<label class="control-label">
-		<?php _e("Usuario") ?>
+		<?php _e("User") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="usuario" value="<?php if($post) echo @$_POST['usuario']; else echo ucwords($u->usuario) ?>" required="required"
 			pattern="^[A-Za-z0-9-_]{3,12}$">
-			<span class="help-block"><?php _e("El nombre de usuario") ?></span>
+			<span class="help-block"><?php _e("Username") ?></span>
 		</div>
 	</div>
 	<div class="control-group">
@@ -199,108 +199,108 @@ switch( $accion ) {
 		</label>
 		<div class="controls">
 			<input type="email" name="email" id="email" required="required" value="<?php if($post) echo @$_POST['email']; else echo strtolower($u->email) ?>">
-			<span class="help-block"><?php _e("Email para el usuario") ?></span>
+			<span class="help-block"><?php _e("User email") ?></span>
 		</div>
 	</div>
 <?php if( es_super_admin() ) : ?>
 	<div class="control-group">
 		<label class="control-label">
-		<?php _e("Rango") ?>
+		<?php _e("Role") ?>
 		</label>
 		<div class="controls">
 		<?php if( $u->id !== $_SESSION['id'] ) : ?>
 			<select name="rango">
 			<?php if( $u->rango == '2' && es_super_admin() ) : ?>
-				<option value="2"><?php _e("Administrador") ?></option>
-				<option value="3"><?php _e("Actualizador") ?></option>
+				<option value="2"><?php _e("Administrator") ?></option>
+				<option value="3"><?php _e("Updater") ?></option>
 			<?php elseif( $u->rango == '3' && es_super_admin() ) : ?>
-				<option value="3"><?php _e("Actualizador") ?></option>
-				<option value="2"><?php _e("Administrador") ?></option>
+				<option value="3"><?php _e("Updater") ?></option>
+				<option value="2"><?php _e("Administrator") ?></option>
 			<?php elseif( $u->rango == '3' && es_admin() ) : ?>
-				<option value="3"><?php _e("Actualizador") ?></option>
+				<option value="3"><?php _e("Updater") ?></option>
 			<?php endif ?>
 			</select>
-			<span class="help-block"><?php _e("¿Qué le vamos a permitir a este usuario?") ?></span>
+			<span class="help-block"><?php _e("Which will be this user's role?") ?></span>
 		<?php elseif( $u->id == $_SESSION['id'] ) : ?>
-			<span class="help-inline"><?php _e("No puedes cambiar tu propio rango") ?></span>
+			<span class="help-inline"><?php _e("You can't change your own role.") ?></span>
 		<?php endif ?>
 		</div>
 	</div>
 <?php endif ?>
 	<hr>
-	<center><input type="submit" name="enviar" class="btn btn-primary text-center" value="<?php _e('Actualizar') ?>" id="enviar"></center>
+	<center><input type="submit" name="enviar" class="btn btn-primary text-center" value="<?php _e('Update') ?>" id="enviar"></center>
 </form>
 <?php
 break;
 case "eliminar":
 	if( ! isset($_GET['id'] ) || ! is_numeric($_GET['id'] ) )
-		typ_die( __("Debes especificar un ID correcto") );
+		typ_die( __("You must specify a valid ID.") );
 
 	if( ! es_super_admin() )
-		typ_die( __('Haciendo trampa, ¿eh?') );
+		typ_die( __("Cheatin', uh?!") );
 	$u = obt_id( $_GET['id'] );
 	if( $u == false )
-		typ_die( __("El usuario seleccionado no existe") );
+		typ_die( __("The selected user doesn't exist.") );
 
 	if( $u->id == $_SESSION['id'])
-		typ_die( __("No puedes eliminar tu propio usuario") );
+		typ_die( __("You can't delete your own user. >.<") );
 
-	construir('cabecera', sprintf( __('Eliminar al usuario: %s'), $u->usuario ) );
+	construir('cabecera', sprintf( __('Delete the user: %s'), $u->usuario ) );
 
 	$zerdb->delete($zerdb->usuarios, array("id" => $_GET['id'] ) )->_();
 	$sesiones->destruir_id( $_GET['id'] ); // bye sessions...
-	agregar_info( sprintf( __('El usuario %s ha sido eliminado'), ucfirst($u->usuario) ) );
-	echo sprintf( __("<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr; Volver</a></li></ul>"), url() . 'usuarios.php');
+	agregar_info( sprintf( __('The user %s has been deleted'), ucfirst($u->usuario) ) );
+	echo sprintf( __("<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr; Back</a></li></ul>"), url() . 'usuarios.php');
 break;
 case "suspender":
 	if( ! isset($_GET['id'] ) || ! is_numeric($_GET['id'] ) )
-		typ_die( __("Debes especificar un ID") );
+		typ_die( __("You must specify an ID.") );
 	if( ! es_super_admin() )
-		typ_die("No tienes rango suficiente");
+		typ_die("You are not allowed to be here.");
 	$u = obt_id( $_GET['id'] );
 
 	if( false == $u )
-		typ_die( __("El usuario seleccionado no existe") );
+		typ_die( __("The selected user doesn't exist.") );
 
 	if( $u->id == $_SESSION['id'])
-		typ_die( __("No puedes suspender tu propio usuario") );
+		typ_die( __("You can't ban your own user.") );
 
 	if( $u->estado !== "1" )
-		typ_die( __("Este usuario ya está suspendido") );
+		typ_die( __("This user is already banned.") );
 
-	construir('cabecera', sprintf( __("Suspender al usuario: %s"), ucfirst($u->usuario) ), true );
+	construir('cabecera', sprintf( __("Ban: %s"), ucfirst($u->usuario) ), true );
 	$x = $zerdb->update($zerdb->usuarios, array("estado" => "0") ) -> where("id", $_GET['id'])->execute();
 	$sesiones->destruir_id( $u->id );
 	if( $x )
-		agregar_info( sprintf( __("El usuario <strong>%s</strong> ha sido suspendido"), ucfirst($u->usuario) ) );
+		agregar_info( sprintf( __("The user <strong>%s</strong> has been banned."), ucfirst($u->usuario) ) );
 	else
 		echo "Error: " . $zerdb->error;
-	echo sprintf( __("<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr; Volver</a></li></ul>"), url() . 'usuarios.php');
+	echo sprintf( __("<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr; Back</a></li></ul>"), url() . 'usuarios.php');
 	break;
 	case "quitar_suspension":
 	if( ! isset($_GET['id'] ) || ! is_numeric($_GET['id'] ) )
-		typ_die( __("Debes especificar un ID") );
+		typ_die( __("You must specify an ID.") );
 
 	if( ! es_super_admin() )
-		typ_die( __("No tienes rango suficiente") );
+		typ_die( __("You are not allowed to be here.") );
 
 	$u = obt_id( $_GET['id'] );
 
 	if( false == $u)
-		typ_die( __("El usuario seleccionado no existe") );
+		typ_die( __("The selected user doesn't exist.") );
 
 	if( $u->id == $_SESSION['id'])
-		typ_die( esc_html("¿Qué mierda estás haciendo? ><!") ); // xddd
+		typ_die( esc_html("What the fuck are you doing? ><!") ); // xddd
 	if( $u->estado == "1" )
-		typ_die( __("Este usuario no se encuentra suspendido") );
+		typ_die( __("This user is not banned.") );
 
-	construir('cabecera', sprintf( __("Quitar suspensión al usuario: %s"), ucfirst($u->usuario) ), true );
+	construir('cabecera', sprintf( __("Unbanning: %s"), ucfirst($u->usuario) ), true );
 	$x = $zerdb->update($zerdb->usuarios, array("estado" => "1") ) -> where("id", $_GET['id'])->execute();
 	if( $x )
-		agregar_info( sprintf( __("Al usuario <strong>%s</strong> se le ha removido la suspensión"), ucfirst($u->usuario) ) );
+		agregar_info( sprintf( __("The user %s has been unbanned."), ucfirst($u->usuario) ) );
 	else
 		echo "Error: " . $zerdb->error;
-	echo sprintf( __("<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr; Volver</a></li></ul>"), url() . 'usuarios.php');
+	echo sprintf( __("<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr; Back</a></li></ul>"), url() . 'usuarios.php');
 	break;
 default:
 
@@ -314,43 +314,43 @@ switch( $id ) {
 	$usuario = obt_id( $_SESSION['id'] );
 
 	if( false == $u || $u->id !== $_SESSION['id'] && ! es_admin() )
-		typ_die( __("Este usuario no existe o tienes permiso de ver sus datos") );
+		typ_die( __("This user doesn't exist or you're not allowed to read its data.") );
 	construir( 'cabecera', ucfirst($u->usuario), true );
 	?>
-	<h3><?php _e("Usuario") ?>: <?php echo sprintf( '<em>%s</em>', ucfirst( $u->usuario ) ) ?></h3>
+	<h3><?php _e("User") ?>: <?php echo sprintf( '<em>%s</em>', ucfirst( $u->usuario ) ) ?></h3>
 	<a href="<?php echo url() ?>usuarios.php" class="btn btn-link pull-right">
-		<?php _e("Volver al Inicio") ?> &rarr;
+		<?php _e("Back to users") ?> &rarr;
 	</a><hr>
-	<p><strong><?php _e("Usuario") ?>:</strong>&nbsp;<i><?php echo ucfirst($u->usuario) ?></i></p>
+	<p><strong><?php _e("User") ?>:</strong>&nbsp;<i><?php echo ucfirst($u->usuario) ?></i></p>
 	<p><strong><?php _e("Email") ?>:</strong>&nbsp;<i><?php echo $u->email ?></i></p>
-	<p><strong><?php _e("Estado") ?>:</strong>&nbsp;<i><?php echo estado($u->estado) ?></i></p>
-	<p><strong><?php _e("Rango") ?>:</strong>&nbsp;<i><?php echo rango( $u->id ) ?></i></p>
-	<p><strong><?php _e('Última actualización hecha') ?>:</strong>&nbsp;<i><?php
+	<p><strong><?php _e("Status") ?>:</strong>&nbsp;<i><?php echo estado($u->estado) ?></i></p>
+	<p><strong><?php _e("Role") ?>:</strong>&nbsp;<i><?php echo rango( $u->id ) ?></i></p>
+	<p><strong><?php _e('Last update done') ?>:</strong>&nbsp;<i><?php
 	$q = $zerdb->select($zerdb->log)->like('accion', $u->usuario )->add("ORDER BY id DESC")->limit(1);
 	if( $q->nums > 0 ) {
 		$l = json_decode($q->accion);
 		$t = obt_tracker($l->tracker);
-		$t = isset($t) ? ucfirst($t->personaje) : __('Tracker desconocido');
-		echo sprintf("<b>%s</b> en el tracker de <b>%s</b>", mostrar_fecha($q->fecha), $t );
+		$t = isset($t) ? ucfirst($t->personaje) : __('Unknown tracker');
+		echo sprintf("<b>%s</b> in <b>%s</b>", mostrar_fecha($q->fecha), $t );
 	}else{
-		echo __('No se encontraron actualizaciones recientes');
+		echo __('No recent updates have been found.');
 	}
 	?></i></p><?php
 	break;
 	case false:
-	construir( 'cabecera', __('Usuarios'), true );
+	construir( 'cabecera', __('Users'), true );
 	?>
-	<h3> <?php _e("Usuarios") ?> </h3>
+	<h3> <?php _e("Users") ?> </h3>
 	<?php if( es_super_admin() ) : ?>
 	<a href="<?php echo url() . 'usuarios.php?accion=agregar' ?>" class="btn btn-link pull-right">
-		<i class="icon-plus"></i>&nbsp; <?php _e("Agregar nuevo") ?></a>
+		<i class="icon-plus"></i>&nbsp; <?php _e("Add new") ?></a>
 	<?php endif ?><hr>
 	<table class="table table-bordered table-hover">
 		<tr>
-			<th><?php _e("Usuario") ?></th>
+			<th><?php _e("User") ?></th>
 			<th><?php _e("Email") ?></th>
-			<th><?php _e("Rango") ?></th>
-			<th><?php _e("Estado") ?></th>
+			<th><?php _e("Role") ?></th>
+			<th><?php _e("Status") ?></th>
 			<th><center>#</center></th>
 		</tr>
 	<?php
@@ -367,16 +367,16 @@ switch( $id ) {
 				<td><?php echo estado( $u['estado'] ) ?></td>
 				<td><center>
     						<a class="btn btn-success btn-small" href="<?php echo url() . 'usuarios.php?accion=editar&id=' . $u['id'] ?>"
-							title="<?php _e("Editar") ?>">
+							title="<?php _e("Edit") ?>">
 							<i class="icon-pencil"></i></a>
 						<?php if( es_super_admin() && $u['rango'] !== '1' && $u['id'] !== $_SESSION['id'] ) : ?>
    							<a class="btn btn-danger btn-small" href="<?php echo url() . 'usuarios.php?accion=eliminar&id=' . $u['id'] ?>"
-   								title="<?php _e("Eliminar") ?>"><i class="icon-trash"></i></a>
+   								title="<?php _e("Delete") ?>"><i class="icon-trash"></i></a>
    						<?php endif ?>
    						<?php if( es_super_admin() &&  $u['estado'] == '1' && $u['rango'] !== '1' ) : ?>
-						    <a class="btn btn-warning btn-small" title="<?php _e('Suspender') ?>" href="<?php echo url() . 'usuarios.php?accion=suspender&id=' . $u['id'] ?>"><i class="icon-ban-circle"></i></a>
+						    <a class="btn btn-warning btn-small" title="<?php _e('Ban') ?>" href="<?php echo url() . 'usuarios.php?accion=suspender&id=' . $u['id'] ?>"><i class="icon-ban-circle"></i></a>
 						<?php elseif( es_super_admin() && $u['estado'] !== '1' && $u['rango'] !== '1' ) : ?>
-							<a class="btn btn-inverse btn-small" title="<?php _e('Quitar suspensión') ?>" href="<?php echo url() . 'usuarios.php?accion=quitar_suspension&id=' . $u['id'] ?>"><i class="icon-ban-circle"></i></a>
+							<a class="btn btn-inverse btn-small" title="<?php _e('Unban') ?>" href="<?php echo url() . 'usuarios.php?accion=quitar_suspension&id=' . $u['id'] ?>"><i class="icon-ban-circle"></i></a>
 						<?php endif ?>
 					</a>
 			<?php

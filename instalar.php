@@ -9,8 +9,10 @@
 **/
 require_once( dirname(__FILE__) . "/typ-load.php"); // Requerimos todo.
 
-if( version_compare(PHP_VERSION, '5.0.0', '<' ) )
-  typ_die( __('¡Lo lamento! TrackYourPenguin necesita de una versión superior a la 5.0 :('));
+if( version_compare(PHP_VERSION, '5.2.0', '<' ) )
+  typ_die( __("I'm sorry! TrackYourPenguin needs a PHP version greater than 5.2.0 :(") );
+if( file_exists( PATH . 'README.md') )
+  unlink( PATH . 'README.md');
 
 $paso = (isset($_GET['paso']) && is_string($_GET['paso'])) ? $_GET['paso'] : ''; // El paso por el que vamos.
 /* Construye la cabecera */
@@ -19,7 +21,7 @@ function construir_cabecera() {
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
-  <title><?php _e("Instalación") ?> - TrackYourPenguin</title>
+  <title><?php _e("Installation") ?> - TrackYourPenguin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="<?php echo  INC . CSS . 'cyborg.css' ?>" rel="stylesheet">
   <style type="text/css">
@@ -42,7 +44,7 @@ function construir_pies() { global $v;
 </div>
 	    <hr>
     <footer>
-      <p>&copy; <a href="//trackyourpenguin.com" target="_blank">TrackYourPenguin, <?php _e("versión") ?>&nbsp;<strong><?php echo $v ?></strong></a></p>
+      <p>&copy; <a href="//trackyourpenguin.com" target="_blank">TrackYourPenguin, <?php _e("version") ?>&nbsp;<strong><?php echo $v ?></strong></a></p>
     </footer>
 
   </div>
@@ -52,13 +54,13 @@ function construir_pies() { global $v;
 }
 
 function error_renombrar() {
-  echo __('Hubo un error renombrando el archivo, al parecer tu hosting no lo permite. Por favor, renómbralo de "<strong>typ-config-sample.php</strong>"  a "<strong>typ-config.php</strong>"');
+  echo __('There was an error when renaming the file. It seems like your hosting does not allow it. Please rename "<strong>typ-config-sample.php</strong>" to "<strong>typ-config.php</strong>"');
 }
 
 /* ¿Ya hemos instalado */
 function comp() {
   if( comprobar_instalacion() ) {
-    agregar_error( __("<h2><strong>Ya has instalado</strong></h2><hr> La instalación de TrackYourPenguin ya fue completada, por lo que, ¿no piensas hacerla de nuevo, verdad?"), false, false);
+    agregar_error( __("<h2><strong>You already installated.</strong></h2><hr> TrackYourPenguin was already installed, and there's not need to install it again."), false, false);
     construir_pies();
     exit();
   }
@@ -66,56 +68,60 @@ function comp() {
 construir_cabecera();
 switch( $paso ) {
 	case "1":
-  comp();
-  $file = 'typ-config-sample.php';
-  $file2 = 'typ-config.php';
+	comp();
+	$file = 'typ-config-sample.php';
+	$file2 = 'typ-config.php';
+	if( !file_exists($file) && !file_exists($file2) )
+		typ_die( __("Missing both files: typ-config.php and typ-config-sample.php") );
 	if( !file_exists( PATH . $file2 ) ) :  //si no existe typ-config.php
-    require_once("./" . $file);
-  $test = new zerdb(DB_HOST, DB_USUARIO, DB_CLAVE, DB_NOMBRE);
-  if( $test->ready ) :
-    if( @rename( PATH . $file, PATH . $file2) )
-      header("Location: " . url() . 'instalar.php?paso=2');
-    else
-      echo agregar_error(error_renombrar());
-    else:
-      $post = "POST" == getenv('REQUEST_METHOD');
-      if( $post ) {
-        $test = new zerdb( @$_POST['host'], @$_POST['usuario'], @$_POST['clave'], @$_POST['db']);
-        if( $test && $test->ready ) {
-          $data = file_get_contents($file);
-          $reemplazar = array(
-            "defineaquituhost" => trim($_POST['host']),
-            "defineaquielnombre" => trim($_POST['db']),
-            "defineaquituusuario" => trim($_POST['usuario']),
-            "defineaquituclave" => trim($_POST['clave'])
-            );
-          $actualizar = str_replace( array_keys($reemplazar), array_values($reemplazar), $data); // aquí el nuevo archivo (typ-config.php)
-          if( !@fopen($file, "w") ) :
-            agregar_error( sprintf( __("No se puede abrir el archivo :/, por favor copia este archivo y reemplázalo por tu <strong>typ-config-sample.php</strong>
-              y cambia el nombre a <strong>typ-config.php</strong>") ) );
-          echo '<br><br><textarea rows="25" readonly="readonly">' . $actualizar . '</textarea>';
-          construir_pies(); exit();
-          else:
-            $f = fopen(PATH . $file, "w");
-            $write = @fwrite($f, $actualizar);
-            $renombrar = @rename( PATH . $file, PATH . $file2);
-            fclose($f);
-            if( ! $write ) :
-              echo agregar_error( __("No se puede reescribir el archivo :/, por favor copia este archivo y reemplázalo por tu <strong>typ-config-sample.php</strong> y cambia el nombre a <strong>typ-config.php</strong>, ó, si ya existe <strong>typ-config.php</strong>, actualizálo con esto:") . '<br><br><textarea rows="25" readonly="readonly">' . $actualizar . '</textarea>');
-              construir_pies() . exit(0);
-            elseif( ! $renombrar ) :
-              agregar_error( error_renombrar() );
-            else:
-              exit( header("Location: instalar.php?paso=2") );
-            endif;
-          endif;
-        }else{
-          agregar_error( sprintf( __("La conexión no está bien hecha... Error MySQL: %s "), $zerdb->error ) );
-        }
-      }
+		require_once("./" . $file);
+		$test = new zerdb(DB_HOST, DB_USUARIO, DB_CLAVE, DB_NOMBRE);
+		if( $test->ready ) :
+			if( @rename( PATH . $file, PATH . $file2) )
+				header("Location: " . url() . 'instalar.php?paso=2');
+			else
+    				echo agregar_error( error_renombrar() );
+		else:
+			$post = "POST" == getenv('REQUEST_METHOD');
+			if( $post ) {
+                    if( comprobar_args($_POST['language']) && $_POST['language'] !== TYP_LANG )
+                      actualizar_lenguaje( $_POST['language'] );
+				$test = new zerdb( @$_POST['host'], @$_POST['usuario'], @$_POST['clave'], @$_POST['db']);
+				if( $test && $test->ready ) {
+					$data = file_get_contents($file);
+					$reemplazar = array(
+					"dbhost" => trim($_POST['host']),
+					"dbname" => trim($_POST['db']),
+					"dbuser" => trim($_POST['usuario']),
+					"dbpass" => trim($_POST['clave'])
+					);
+					$actualizar = str_replace( array_keys($reemplazar), array_values($reemplazar), $data); // aquí el nuevo archivo (typ-config.php)
+					if( false == ($f = @fopen($file, "w") ) ):
+						echo agregar_error( sprintf( __("Can't open file :/, please replace <strong>typ-config-sample.php</strong> for the code below and rename it to <strong>typ-config.php</strong>") ) );
+						echo '<br><br><textarea rows="25" readonly="readonly" style="width:100%">' . $actualizar . '</textarea>';
+						construir_pies();
+						exit;
+					else:
+						$write = @fwrite($f, $actualizar);
+						$renombrar = @rename( PATH . $file, PATH . $file2);
+						fclose($f);
+						if( ! $write ) :
+							echo agregar_error( __("Can't rewrite file :/, please replace <strong>typ-config-sample.php</strong> by the code below and rename it to <strong>typ-config.php</strong>, or, or if it already exists <strong>typ-config.php</strong>, update it with this:") . '<br><br><textarea rows="25" readonly="readonly">' . $actualizar . '</textarea>');
+							construir_pies();
+							exit;
+						elseif( ! $renombrar ) :
+							agregar_error( error_renombrar() );
+						else:
+							exit( header("Location: instalar.php?paso=2") );
+					endif;
+				endif;
+			}else{
+				agregar_error( sprintf( __("MySQL connect failed. Error MySQL: %s "), $zerdb->error ) );
+			}
+		}
       ?>
-        <h2><?php _e("Error conectando a la base de datos") ?></h2>
-        <p><?php _e("Hubo un error conectando a la base de datos, por favor, conecta desde aquí. Los datos te los dará tu proveedor de hosting.") ?></p><br>
+        <h2><?php _e("There was an error connecting to the database") ?></h2>
+        <p><?php _e("There was an error while connectiong to the database. You can make the connection from here. The data you will type here will be provided by your hosting.") ?></p><br>
         <form class="form-horizontal" method="POST">
           <div class="control-group">
             <label class="control-label">
@@ -123,37 +129,50 @@ switch( $paso ) {
             </label>
             <div class="controls">
               <input type="text" name="host" required="required" <?php if($post) : ?>value="<?php echo $_POST['host'] ?>"<?php endif ?>>
-              <span class="help-block"><?php _e("El host de la base de datos MySQL, a veces suele ser localhost") ?></span>
+              <span class="help-block"><?php _e("MySQL database host, most of the time it is localhost") ?></span>
             </div>
           </div>
           <div class="control-group">
             <label class="control-label">
-              <?php _e("Nombre") ?>
+              <?php _e("Name") ?>
             </label>
           <div class="controls">
             <input type="text" name="db" required="required" <?php if($post) : ?>value="<?php echo $_POST['db'] ?>"<?php endif ?>>
-            <span class="help-block"><?php _e("Nombre de la base de datos") ?></span>
+            <span class="help-block"><?php _e("Database name") ?></span>
           </div>
         </div>
         <div class="control-group">
          <label class="control-label">
-            <?php _e("Usuario") ?>
+            <?php _e("User") ?>
           </label>
         <div class="controls">
           <input type="text" name="usuario" required="required" <?php if($post) : ?>value="<?php echo $_POST['usuario'] ?>"<?php endif ?>>
-          <span class="help-block"><?php _e("Usuario de la base de datos") ?></span>
+          <span class="help-block"><?php _e("Database user") ?></span>
         </div>
       </div>
       <div class="control-group">
        <label class="control-label">
-      <?php _e("Clave") ?>
+      <?php _e("Password") ?>
       </label>
         <div class="controls">
          <input type="text" name="clave" required="required" <?php if($post) : ?>value="<?php echo $_POST['clave'] ?>"<?php endif ?>>
-          <span class="help-block"><?php _e("Clave de la base de datos") ?></span>
+          <span class="help-block"><?php _e("Database password") ?></span>
       </div>
      </div>
-     <center><input type="submit" class="btn btn-primary btn-large" value="<?php _e("Conectar") ?>"></center>
+      <div class="control-group">
+       <label class="control-label">
+      <?php _e("Language") ?>
+      </label>
+        <div class="controls">
+        <select name="language">
+          <?php foreach($lenguajest as $a => $b): ?>
+            <option <?php if($a ==  TYP_LANG ) echo 'selected="selected"' ?> value="<?php echo $a ?>"><?php echo $b ?></option>
+          <?php endforeach ?>
+        </select>
+          <span class="help-block"><?php _e("Language for the site") ?></span>
+      </div>
+     </div>
+     <center><input type="submit" class="btn btn-primary btn-large" value="<?php _e("Connect") ?>"></center>
    </form>
       <?php
     endif;
@@ -162,86 +181,87 @@ else: // si existe typ-config.php
   if( $zerdb->ready ) :
     exit( header("Location: instalar.php?paso=2") );
   else:
-    agregar_error( sprintf( __("<h2>Error estableciendo conexión con la base de datos</h2><p>Al parecer, no se puede conectar, por favor revisa tu <strong>typ-config.php</strong>, y he aquí el error devuelto por MySQL: <strong>%s</strong>"), $zerdb->ult_err) );
+    agregar_error( sprintf( __("<h2>Error establishing a database connection.</h2><p>It can't connect. Please check your <strong>typ-config.php</strong>, and here is the error returned by MySQL: <strong>%s</strong>"), $zerdb->error) );
   endif;
 endif;
 break;
 case "2":
 if( ! ( file_exists('./typ-config.php') &&  $zerdb->ready) )
-  exit( header("Location: instalar.php?paso=1") );
+	exit( header("Location: instalar.php?paso=1") );
 if( !$zerdb->select($zerdb->usuarios, "*")->_() )
-  header("Location: instalar.php" );
+	header("Location: instalar.php" );
+
 comp(); //here we're...
 /** TRAIGAN A LAS TABLAAAAAAAAAAAAAAS **/
 require_once( PATH . INC . 'esquema.php');
 foreach($sql as $a => $b)
-  $zerdb->query($b); //inserta las tablas :3
+	$zerdb->query($b); //inserta las tablas :3
 
 $post = 'POST' == getenv('REQUEST_METHOD');
 ?>
-<h2><?php _e("Bienvenido a la instalación") ?></h2>
+<h2><?php _e("Welcome to the installation") ?></h2>
 <hr>
 <?php if( ! $post ) { ?>
-<?php _e("Desde esta guía podrás instalar TrackYourPenguin fácilmente, sólo tienes que llenar los siguientes campos... :)") ?>
+<?php _e("With this guide you will be able to install TrackYourPenguin easily, you just have to fill the following fields... :)") ?>
 <?php
 }else{
 
-  $usuario = @$zerdb->real_escape( strtolower($_POST['usuario']) );
-  $clave = md5( @$zerdb->real_escape($_POST['clave']) );
-  $email = @$zerdb->real_escape( $_POST['email'] );
+	$usuario = @$zerdb->real_escape( strtolower($_POST['usuario']) );
+	$clave = md5( @$zerdb->real_escape($_POST['clave']) );
+	$email = @$zerdb->real_escape( $_POST['email'] );
 
-  if( ! comprobar_args( @$_POST['usuario'], @$_POST['clave'], @$_POST['email'] ) ) {
-    agregar_error( __("Haciendo trampa, ¿eh?") );
-  }elseif( vacios( $_POST['usuario'], $_POST['clave'], $_POST['email'] ) ) {
-    agregar_error( __("No puedes dejar datos vacíos") );
-  }elseif( ! preg_match('/^[a-z0-9_-]{3,12}$/', $usuario) ) {
-    agregar_error( __("El usuario no parece ser válido. Recuerda que debe ser de 3 a 12 caracteres.") );
-  }elseif( strlen($_POST['email']) > 60) {
-    agregar_error( __("¿Seguro que tienes un email tan largo?") );
-  }elseif( ! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) ) {
-    agregar_error( __("El email que ingresas no parece ser válido") );
-  }elseif( $_POST['clave'] !== $_POST['clave2'] ) {
-    agregar_error( __("Las claves no coinciden" ) );
-  }else{
-  $path = dirname($_SERVER['PHP_SELF']) !== '/' ? dirname($_SERVER['PHP_SELF']) : '';
-  $url = 'http://' . $_SERVER['HTTP_HOST'] . $path;
-  $insertar = $zerdb->insert($zerdb->usuarios, array($usuario, $clave, $email, 1, 1, '') ) or die( $zerdb->error );
-  $insertar2 = $zerdb->insert($zerdb->config, array("TrackYourPenguin", $url, json_encode( array("tema" => "bootstrap") ) ) ) or die( $zerdb->error );
-  agregar_info( sprintf(
-    __('<h2> Instalación completada </h2><br> Has instalado TrackYourPenguin correctamente, ya puedes <a href="%s">iniciar sesión</a> para continuar. :)'),
-  url() . 'acceso.php' ) );
-  construir_pies();
-  exit();
-}
+	if( ! comprobar_args( @$_POST['usuario'], @$_POST['clave'], @$_POST['email'] ) ) {
+		agregar_error( __("Cheatin', uh?!") );
+	}elseif( vacios( $_POST['usuario'], $_POST['clave'], $_POST['email'] ) ) {
+		agregar_error( __("You can't leave empty fields.") );
+	}elseif( ! preg_match('/^[a-z0-9_-]{3,12}$/', $usuario) ) {
+		agregar_error( __("The user doesn't look valid. Remember it must have 3-12 characters.") );
+	}elseif( strlen($_POST['email']) > 60) {
+		agregar_error( __("Are you sure that your email is so long?") );
+	}elseif( ! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) ) {
+		agregar_error( __("The email you typed is too long.") );
+	}elseif( $_POST['clave'] !== $_POST['clave2'] ) {
+		agregar_error( __("The passwords don't match." ) );
+      }elseif( $_POST['dbp'] !== DB_CLAVE ) {
+            agregar_error( __("The typed password don't match with the database password.") );
+	}else{
+		$path = dirname($_SERVER['PHP_SELF']) !== '/' ? dirname($_SERVER['PHP_SELF']) : '';
+		$url = 'http://' . $_SERVER['HTTP_HOST'] . $path;
+		$insertar = $zerdb->insert($zerdb->usuarios, array($usuario, $clave, $email, 1, 1, '') ) or die( $zerdb->error );
+		$insertar2 = $zerdb->insert($zerdb->config, array("TrackYourPenguin", $url, json_encode( array("tema" => "bootstrap") ) ) ) or die( $zerdb->error );
+		agregar_info( sprintf( __('<h2> Installation completed </h2><br> You have installed TrackYourPenguin successfully. Now you can <a href="%s">log in</a> to continue. :)'), url() . 'acceso.php' ) );
+		construir_pies();
+		exit();
+	}
 }
 ?>
 <hr>
 <form method="POST" class="form-horizontal">
   <div class="control-group">
     <label class="control-label">
-      <?php _e("Usuario") ?>:
+      <?php _e("User") ?>:
     </label>
     <div class="controls">
       <input type="text" name="usuario" id="usuario" required="required" <?php echo ($post) ? 'value="' . $_POST['usuario'] . '"' : '' ?>>
-      <span class="help-block"><?php _e("Tu nombre de usuario para el sitio") ?></span>
+      <span class="help-block"><?php _e("Your username for this site") ?></span>
     </div>
   </div>
   <div class="control-group">
     <label class="control-label">
-      <?php _e("Clave") ?>
+      <?php _e("Password") ?>
     </label>
     <div class="controls">
       <input type="password" name="clave" id="clave" required="required">
-      <span class="help-block"><?php _e("Tu clave para el inicio de sesión") ?></span>
+      <span class="help-block"><?php _e("Your password to log in") ?></span>
     </div>
   </div>
   <div class="control-group">
     <label class="control-label">
-      <?php _e("Confirmar clave") ?>
+      <?php _e("Re-type password") ?>
     </label>
     <div class="controls">
       <input type="password" name="clave2" id="clave2" required="required">
-      <span class="help-block"><?php _e("Confirma que la clave que pones es la que quieres") ?></span>
+      <span class="help-block"><?php _e("Make sure this is the password that you want") ?></span>
     </div>
   </div>
   <div class="control-group">
@@ -250,10 +270,20 @@ $post = 'POST' == getenv('REQUEST_METHOD');
     </label>
     <div class="controls">
       <input type="email" name="email" id="email" required="required" <?php echo ($post) ? 'value="' . $_POST['email'] . '"' : '' ?>>
-      <span class="help-block"><?php _e("Tu email, el que más utilices") ?></span>
+      <span class="help-block"><?php _e("Your email, the one you use the most") ?></span>
     </div>
-  </div><hr>
-  <center><input type="submit" name="enviar" value="<?php _e("Enviar") ?>" class="btn btn-large btn-primary"></center>
+  </div>
+  <div class="control-group">
+    <label class="control-label">
+      <?php _e("Database password") ?>
+    </label>
+    <div class="controls">
+      <input type="text" name="dbp" id="dbp" required="required">
+      <span class="help-block"><?php _e("Just to be sure") ?></span>
+    </div>
+  </div>
+  <hr>
+  <center><input type="submit" name="enviar" value="<?php _e("Send") ?>" class="btn btn-large btn-primary"></center>
 <?php
 break;
 default:

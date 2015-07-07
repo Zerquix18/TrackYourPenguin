@@ -19,16 +19,12 @@
 *
 **/
 function comprobar_args() {
-
 	$args = func_get_args();
-
 	if( ! array_key_exists(0, $args) )
 		return false;
-
 		foreach($args as $a)
 			if( ! isset($a) || !is_string($a) ) //tiene que ser string lo que entre, o nada :'3
 				return false;
-
 	return true;
 }
 /**
@@ -43,9 +39,7 @@ function vacio( $string ) {
 		return true;
 	if( $string === "0")
 		return false; 
-
 	$string = trim($string);
-
 	return empty( $string );
 }
 /**
@@ -56,16 +50,12 @@ function vacio( $string ) {
 *
 **/
 function vacios() {
-
 	$args = func_get_args();
-
 	if( ! array_key_exists(0, $args) )
 		return false;
-
 	foreach($args as $a)
 		if( vacio($a) )
 			return true;
-
 	return false;
 }
 /**
@@ -332,9 +322,7 @@ function generar_hash( $cantidad = 0, $simbolos = true, $mas_simbolos = false ) 
 	$chars .= "{}`´+«»@~¬[]|\"";
 
 	$sufijo = 'typ_'; // si te sientes seguro, puedes editar el sufijo que va antes de los hashes. PD: No afectará los ya creados.
-
 	$clave = substr( str_shuffle($chars), 0, $cantidad);
-
 	return substr($sufijo . $clave, 0, - strlen($sufijo) );
 }
 /**
@@ -375,18 +363,18 @@ function modal_tweets() { ?>
 <div id="cc" class="modal hide fade" role="dialog" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"><u><?php _e("Códigos cortos") ?></u></h3>
+    <h3 id="myModalLabel"><u><?php _e("Short codes") ?></u></h3>
   </div>
   <div class="modal-body">
-	<?php _e('Son pequeños códigos que puedes usar para enviar al tweet cosas como la sala, servidor, estado, etc. Sólo tienes que añadirlos en los tweets'); echo '<br>';
-	echo '<strong>%es</strong>&nbsp;<i>' . __('Esto imprime el estado. Ejemplo: El estado ahora es %es') . '</i><br>';
-	echo '<strong>%se</strong>&nbsp;<i>' . __('Esto imprime el servidor. Ejemplo: #Alguien está en el servidor: %se') . '</i><br>';
-	echo '<strong>%sa</strong>&nbsp;<i>' . __('Esto imprime la sala. Ejemplo: #Alguien está en la sala %sa') . '</i><br>';
-	echo '<strong>%cp</strong>&nbsp;<i>' . __('Esto imprime "#ClubPenguin", sirve para indicar que tus tuits están relacionados con ello') . '</i><br>';
-	echo '<strong>%r</strong>&nbsp;<i>' . __('Esto imprime un número del 1 al 100, para que los tweets no se repitan.') . '</i><br>';
-	echo '<strong>%pe</strong>&nbsp;<i>' . __('Esto imprime el personaje (nombre del tracker) que asignaste. Ejemplo: #%pe ha sido encontrado en [...]') . '</i><br>';
-	echo __('<strong>Ejemplo normal</strong><br>
-	<i>#%pe ha sido encontrado en la sala %sa (%r) %cp</i> = #*nombredeltracker* ha sido encontrado en la sala *sala enviada* (*número del 1 al 100*) #ClubPenguin</i>');
+	<?php _e("These are short codes that you can use to tweet things like status, server, room, etc. You just have to add them to the tweets."); echo '<br>';
+	echo '<strong>%es</strong>&nbsp;<i>' . __('This prints the status.. Example: the status is: %es') . '</i><br>';
+	echo '<strong>%se</strong>&nbsp;<i>' . __('This prints the server. Example: #Someone is in the server: %se') . '</i><br>';
+	echo '<strong>%sa</strong>&nbsp;<i>' . __('This prints the room.. Example: #Someone is in the room:%sa') . '</i><br>';
+	echo '<strong>%cp</strong>&nbsp;<i>' . __('This prints "#ClubPenguin", it\'s useful to indicate people that your tweets are related to that. And also your tweets may appear in the searches about that.') . '</i><br>';
+	echo '<strong>%r</strong>&nbsp;<i>' . __("This prints a random number from 1 to 100, so your tweets won't repeat.") . '</i><br>';
+	echo '<strong>%pe</strong>&nbsp;<i>' . __("This prints the name of the character (the tracker's name)  Example: #%pe has been found in [...]") . '</i><br>';
+	echo __('<strong>Full example:</strong><br>
+	<i>#%pe has been found in %sa (%r) %cp</i> = #*trackersname* has been found in the room *sent room* (*random number from 1 to 100*) #ClubPenguin</i>');
 	?>
   </div>
 </div>

@@ -1,5 +1,4 @@
 <?php
-
 /**
 * Archivo de carga, reune los demás y es la cabecilla de todo el sistema.
 *
@@ -18,7 +17,7 @@ define("JS", "js/");
 define("IMG", "img/");
 define("LANG", "lang/");
 define("PATH", dirname(__FILE__) . '/');
-define("VERSION", "1.0");
+define("VERSION", "1.1");
 $GLOBALS['v'] = constant("VERSION");
 $config = file_exists(PATH . 'typ-config.php') ? 'typ-config.php' : 'typ-config-sample.php';
 require_once( PATH . $config );

@@ -19,7 +19,7 @@ switch($_POST['accion']) {
 	case "sesion":
 	if( ! sesion_iniciada() ) {
 		$url = comprobar_args($_POST['href']) && ! vacio($_POST['href']) ? trim($_POST['href']) : url();
-		echo json_encode( array("estado" => 0, "mensaje" => __("Por favor, inicia sesión para continuar...") . redireccion( url() . 'acceso.php?continuar=' . urlencode($url), 3 ) ) );
+		echo json_encode( array("estado" => 0, "mensaje" => __("Please, log in to continue...") . redireccion( url() . 'acceso.php?continuar=' . urlencode($url), 3 ) ) );
 	}else{
 		echo json_encode( array("estado" => 1 ) );
 	}

@@ -16,9 +16,9 @@ require_once( dirname(__FILE__) . '/typ-load.php');
 comprobar( false );
 
 if( ! es_admin() )
-	typ_die( __("Haciendo trampa, ¿eh?") );
+	typ_die( __("Cheatin', uh?!") );
 
-construir('cabecera', __('Configurar OAuth'), true);
+construir('cabecera', __('Set up OAuth'), true);
 
 $o = obt_oauth();
 $datos = array(
@@ -28,7 +28,7 @@ $datos = array(
 		"access_token_secret" => (isset($o->access_token_secret)) ? $o->access_token_secret : ""
 	);
 ?>
-<h3><?php _e("Configurar OAuth de Twitter") ?></h3>
+<h3><?php _e("Set up Twitter OAuth") ?></h3>
 <?php
 	if( "POST" == $_SERVER['REQUEST_METHOD']) {
 		$consumer_key = @$zerdb->real_escape( $_POST['consumer_key'] );
@@ -40,9 +40,9 @@ $datos = array(
 		$args2 = vacios(@$_POST['consumer_key'], @$_POST['consumer_secret'], @$_POST['access_token'], @$_POST['access_token_secret']);
 
 		if( $args ) {
-			typ_die( __("Haciendo trampa, ¿eh?") );
+			typ_die( __("Cheatin', uh?!") );
 		}elseif( $args2 ) {
-			agregar_error( __("No puedes dejar campos vacíos") );
+			agregar_error( __("You can't leave empty fields.") );
 		}else{
 			if( ! oauth_configurado() )
 				$zerdb->insert($zerdb->twitter, array($consumer_key, $consumer_secret, $access_token, $access_token_secret ) );
@@ -55,7 +55,7 @@ $datos = array(
 					)
 				)->execute();
 
-			agregar_info( __("Datos de conexión a Twitter actualizados") );
+			agregar_info( __("Twitter data connection updated") );
 			echo redireccion( url( true ), 2);
 		}
 	}
@@ -67,7 +67,7 @@ $datos = array(
 		</label>
 		<div class="controls">
 			<input type="text" name="consumer_key" value="<?php echo $datos['consumer_key'] ?>" required="required">
-			<span class="help-block"><small><code>consumer_key</code> <?php _e("de tu aplicación de Twitter") ?></small></span>
+			<span class="help-block"><small><code>consumer_key</code> <?php _e("of your Twitter app") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
@@ -76,7 +76,7 @@ $datos = array(
 		</label>
 		<div class="controls">
 			<input type="text" name="consumer_secret" value="<?php echo $datos['consumer_secret'] ?>" required="required">
-			<span class="help-block"><small><code>consumer_secret</code> <?php _e("de tu aplicación de Twitter") ?></small></span>
+			<span class="help-block"><small><code>consumer_secret</code> <?php _e("of your Twitter app") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
@@ -85,7 +85,7 @@ $datos = array(
 		</label>
 		<div class="controls">
 			<input type="text" name="access_token" value="<?php echo $datos['access_token'] ?>" required="required">
-			<span class="help-block"><small><code>access_token</code> <?php _e("de tu aplicación de Twitter") ?> (Read and write)</small></span>
+			<span class="help-block"><small><code>access_token</code> <?php _e("of your Twitter app") ?></small></span>
 		</div>
 	</div>
 	<div class="control-group">
@@ -94,10 +94,10 @@ $datos = array(
 		</label>
 		<div class="controls">
 			<input type="text" name="access_token_secret" value="<?php echo $datos['access_token_secret'] ?>" required="required">
-			<span class="help-block"><small><code>access_token_secret</code> <?php _e("de tu aplicación de Twitter") ?> (Read and write)</small></span>
+			<span class="help-block"><small><code>access_token_secret</code> <?php _e("of your Twitter app") ?></small></span>
 		</div>
 	</div>
-	<center><input type="submit" class="text-center btn btn-primary" value="<?php _e("Actualizar") ?>" name="enviar" id="enviar"></center>
+	<center><input type="submit" class="text-center btn btn-primary" value="<?php _e("Update") ?>" name="enviar" id="enviar"></center>
 </form>
 <?php
 construir('pies');

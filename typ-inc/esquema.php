@@ -20,11 +20,11 @@ $sql = array();
 $sql['usuarios'] = "CREATE TABLE IF NOT EXISTS $zerdb->usuarios (
 		id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		usuario varchar(12),
-		clave varchar(32),
+		clave char(32),
 		email varchar(60),
-		estado varchar(1),
-		rango varchar(1),
-		hash varchar(32)
+		estado char(1),
+		rango char(1),
+		hash char(32)
 	)";
 
 /* Tabla de sesiones */
@@ -33,7 +33,7 @@ $sql['sesiones'] = "CREATE TABLE IF NOT EXISTS $zerdb->sesiones (
 		id int(4),
 		hash varchar(32),
 		ip varchar(40),
-		fecha varchar(50)
+		fecha int(32)
 	)";
 
 /*Tabla de trackers*/
@@ -51,7 +51,7 @@ $sql['trackers'] = "CREATE TABLE IF NOT EXISTS $zerdb->trackers (
 $sql['config'] = "CREATE TABLE IF NOT EXISTS $zerdb->config (
 		titulo varchar(20),
 		url varchar(100),
-		extra varchar(200)
+		extra text
 	)";
 
 /*Tabla del OAuth de Twitter */
@@ -68,7 +68,7 @@ $sql['twitter'] = "CREATE TABLE IF NOT EXISTS $zerdb->twitter (
 $sql['log'] = "CREATE TABLE IF NOT EXISTS $zerdb->log ( 		
 		id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		accion varchar(300),
-		fecha varchar(100)
+		fecha int(32)
 	)";
 
 /*Tabla de tuits*/

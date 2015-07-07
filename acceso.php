@@ -10,7 +10,6 @@
 * 
 *
 **/
-
 require_once( dirname(__FILE__) . '/typ-load.php');
 $post = "POST" == getenv('REQUEST_METHOD');
 $accs = array('acceder', 'co', 'rc');
@@ -89,9 +88,9 @@ function pies() {
 	?>
 	     <ul class="pager">
         <?php if($acc == 'acceder' || vacio($acc) ): ?>
-			<li><a href="<?php echo url() . 'acceso.php?accion=co' ?>"><?php _e('¿Olvidaste tus datos?') ?>&rarr; </li>
+			<li><a href="<?php echo url() . 'acceso.php?accion=co' ?>"><?php _e('Forgot password?') ?>&rarr; </li>
         <?php elseif($acc == 'co') : ?>
-			<li><a href="<?php echo url() . 'acceso.php?accion=acceder' ?>">&larr; <?php _e('Volver al acceso') ?> </li>
+			<li><a href="<?php echo url() . 'acceso.php?accion=acceder' ?>">&larr; <?php _e('Back to login') ?> </li>
 		<?php endif; ?>
 	     </ul>
     </center>
@@ -106,29 +105,29 @@ switch( $acc ) {
 	case "co": // Clave Olvidada
 
 	if( isset($_GET['error']) ): 
-		$mensaje = __('El hash o el usuario son incorrectos.');
+		$mensaje = __('Hash or password are WRONG.');
 		$error = true;
 	elseif( ! $post ) :
-		$mensaje = __('Agrega tu email para recuperar tu clave');
+		$mensaje = __('Type your email to recover your password.');
 		$error = false;
 	else:
 		$mensaje = $error = false;
 	endif;
 
-	cabecera( __('Clave olvidada'), $mensaje, $error);
+	cabecera( __('Forgot password'), $mensaje, $error);
 
 	if( $post ) {
 		$email = $zerdb->real_escape( trim($_POST['email']) );
 		$usuario = $zerdb->select($zerdb->usuarios, "*", array("email" => $email) )->_();
 
 		if( ! comprobar_args( @$_POST['email'] ) ) {
-			agregar_error( __("Haciendo trampa, ¿eh?") );
+			agregar_error( __("Cheatin', uh?!") );
 		}elseif( vacio($_POST['email']) ) {
-			agregar_error( __("El email no puede estar vacío"), true, true);
+			agregar_error( __("The email input can't be empty."), true, true);
 		}elseif( ! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL ) ) {
-			agregar_error( __("El email no parece válido"), true, true);
+			agregar_error( __("That email isn't valid."), true, true);
 		}elseif(! $usuario || 0 == (int) $usuario->nums ) {
-			agregar_error( __("El email que buscas no está registrado"), true, true);
+			agregar_error( __("The email you typed is not registered."), true, true);
 		}else{
 			if( empty($usuario->hash) ) {
 				$hash = md5( uniqid() );
@@ -136,26 +135,26 @@ switch( $acc ) {
 			}else{
 				$hash = $usuario->hash;
 			}
-			$asunto = sprintf( __('Clave olvidada [%s]'), titulo() );
+			$asunto = sprintf( __('Forgot password [%s]'), titulo() );
 			$texto = sprintf( __("<html><body>
-					¡Hola, <strong>%s</strong>! \n\n
-					Se ha enviado una solicitud para cambiar la clave de tu usuario, si t&uacute; la enviaste, haz
-					<a href=\"%s\"><strong>clic aqu&iacute;</strong></a>\n\n
-					Si no la hiciste, d&eacute;jalo todo como est&aacute; y no pasar&aacute; nada. :)</body></html>"), 
+					Hi, <strong>%s</strong>! \n\n
+					Someone sent a request to this email for a lost password, if it was you
+					<a href=\"%s\"><strong>click here</strong></a>\n\n
+					If it wasn't you, don't do nothing, take it easy and nothing will happen. :)</body></html>"), 
 			$usuario->usuario, url() . 'acceso.php?accion=rc&hash=' . $hash . '&usuario=' . $usuario->usuario);
 			$mail = enviar_email($email, $asunto, $texto);
 			if( $mail )
-				agregar_info( __("Ha sido enviado un email a tu correo electrónico, por favor revísalo.") );
+				agregar_info( __("The mail has been sent. Check it.") );
 			else
-				agregar_error( __("Lamentablemente no se pudo enviar el email, por favor revisa que tu hosting tenga la función <strong>mail()</strong> activa.") );
+				agregar_error( __("Unafortunely, the email couldn't send. Maybe because the function <strong>mail()</strong> is disabled.") );
 		}
 	}
 	?>
 <form method="POST" class="form-signin" action="<?php echo url() . 'acceso.php?accion=co' ?>">
-  <h2 class="form-signin-heading"><?php _e('Clave olvidada') ?></h2>
-  <input type="email" name="email" class="input-block-level" placeholder="<?php _e('Ingresa tu email') ?>" id="email" 
+  <h2 class="form-signin-heading"><?php _e('Forgot password') ?></h2>
+  <input type="email" name="email" class="input-block-level" placeholder="<?php _e('Type your email') ?>" id="email" 
   required="required" <?php if($post) _f(@$_POST['email'], 1) ?> maxlength="60">
-  <center><input type="submit" value="<?php _e('Enviar') ?>" class="btn btn-primary"></center>
+  <center><input type="submit" value="<?php _e('Send') ?>" class="btn btn-primary"></center>
 </form>
 	<?php
 break;
@@ -170,28 +169,28 @@ break;
 	$u = $zerdb->select($zerdb->usuarios, "*", array("hash" => $hash, "usuario" => $usuario) )->_();
 	if( ! $u  || !$u->nums > 0)
 		exit( header("Location: acceso.php?accion=co&error=1&" ) );
-	cabecera( __('Cambiar clave'), (!$post) ? __('Ya puedes poner tu nueva clave para actualizarla') : false, false );
+	cabecera( __('Change password'), (!$post) ? __('Now you can type your password to update it.') : false, false );
 	if( $post ) {
 		if( ! comprobar_args(@$_POST['clave'], @$_POST['clave2']) ) {
-			agregar_error( __("Haciendo trampa, ¿eh?"));
+			agregar_error( __("Cheatin', uh?!"));
 		}elseif( vacios( $_POST['clave'], $_POST['clave2'] ) ) {
-			agregar_error( __("No puedes dejar campos vacíos") );
+			agregar_error( __("You can't leave empty fields.") );
 		}elseif( ! ($_POST['clave'] == $_POST['clave2']) ) {
-			agregar_error( __("Las claves no coinciden"));
+			agregar_error( __("The password don't match."));
 		}else{
 			$clave = md5( $zerdb->real_escape($_POST['clave']) );
 			$zerdb->update($zerdb->usuarios, array("clave" => $clave, "hash" => "") )->where("id", $u->id )->_(); // bug fixed ;)
-			agregar_info( __("Tu clave ha sido actualizada"));
+			agregar_info( __("Your password has been updated."));
 		}
 	}
 ?>
 <form method="POST" class="form-signin" action="<?php echo url() . sprintf('acceso.php?accion=rc&usuario=%s&hash=%s', $_GET['usuario'], $_GET['hash']) ?>">
-  <h2 class="form-signin-heading"><?php _e('Actualizar contraseña') ?></h2>
-  <input type="password" name="clave" class="input-block-level" placeholder="<?php _e('Ingresa tu nueva clave') ?>" id="clave" 
+  <h2 class="form-signin-heading"><?php _e('Update password') ?></h2>
+  <input type="password" name="clave" class="input-block-level" placeholder="<?php _e('Type your new password') ?>" id="clave" 
   required="required">
-  <input type="password" name="clave2" class="input-block-level" placeholder="<?php _e('Confirma tu clave') ?>" id="clave2"
+  <input type="password" name="clave2" class="input-block-level" placeholder="<?php _e('Re-type your new password.') ?>" id="clave2"
   required="required">
-  <center><input type="submit" value="<?php _e('Actualizar clave') ?>" class="btn btn-primary"></center>
+  <center><input type="submit" value="<?php _e('Update password') ?>" class="btn btn-primary"></center>
 </form>
 	<?php
 	break;
@@ -200,14 +199,14 @@ break;
 	if( ! isset($_GET['salir']) ) comprobar( true );
 
 	if( isset($_GET['continuar']) && is_string($_GET['continuar']) && ! empty( $_GET['continuar']) && ! $post ) {
-		$mensaje = __("Por favor, inicia sesión para continuar");
+		$mensaje = __("Please log in to continue.");
 		$error = true;
 	}else{
 		$mensaje = false;
 		$error = false;
 	}
 
-	cabecera( __('Acceder' ), $mensaje, $error );
+	cabecera( __('Log In' ), $mensaje, $error );
 
 	if( $post ) {
 		$usuario = @$zerdb->real_escape( strtolower( trim($_POST['usuario']) ) );
@@ -216,13 +215,13 @@ break;
 		$recordar = isset($_POST['recuerdame']) ? true : false;
 		
 		if( ! comprobar_args( @$_POST['usuario'], @$_POST['clave'] ) ) {
-			agregar_error( __("¿Haciendo trampa, eh?") );
+			agregar_error( __("Cheatin', uh?!") );
 		}elseif( vacios($_POST['usuario'], $_POST['clave']) ) {
-			agregar_error( __("No puedes dejar campos vacíos") );
+			agregar_error( __("You can't leave empty fields.") );
 		}elseif( ! $query || ! $query->nums > 0) {
-			agregar_error( __("El usuario o la clave no coinciden"), true, true);
+			agregar_error( __("The user and password don't match."), true, true);
 		}elseif( 1 != $query->estado ) {
-			agregar_error( __("Este usuario se encuentra suspendido") );
+			agregar_error( __("This user was banned.") );
 		}else{
 		$sesion->crear( $usuario, $recordar );
         $uri = urlencode(url());
@@ -234,7 +233,7 @@ break;
 		}
 	}elseif( isset($_GET['salir']) && 1 == $_GET['salir']) {
 		$sesion->destruir();
-		agregar_info( __("Has cerrado sesión") );
+		agregar_info( __("You have logged out.") );
 	}elseif( sesion_iniciada() ) {
 		header("Location: " . url() );
 	}
@@ -244,13 +243,13 @@ break;
 	if ( isset($_GET['continuar']) && ! empty($_GET['continuar']) && is_string($_GET['continuar']) )
 		echo sprintf('?continuar=%s', $_GET['continuar']);
 			?>">
-  <h2 class="form-signin-heading"><?php _e('Acceder') ?></h2>
-  <input type="text" name="usuario" class="input-block-level" placeholder="<?php _e('Nombre de usuario') ?>" id="usuario" 
+  <h2 class="form-signin-heading"><?php _e('Log In') ?></h2>
+  <input type="text" name="usuario" class="input-block-level" placeholder="<?php _e('Username') ?>" id="usuario" 
   required="required" <?php if( $post ) _f(@$_POST['usuario']) ?>>
-  <input type="password" name="clave" class="input-block-level" placeholder="<?php _e('Ingresa tu clave') ?>" id="clave"
+  <input type="password" name="clave" class="input-block-level" placeholder="<?php _e('Password') ?>" id="clave"
   required="required">
-  <label class="checkbox"><input <?php if( $post && $recordar ) echo 'checked="checked"' ?> type="checkbox" name="recuerdame"><?php _e('Recuérdame') ?></label>
-  <center><input type="submit" value="<?php _e('Enviar') ?>" class="btn btn-primary"></center>
+  <label class="checkbox"><input <?php if( $post && $recordar ) echo 'checked="checked"' ?> type="checkbox" name="recuerdame"><?php _e('Remember me') ?></label>
+  <center><input type="submit" value="<?php _e('Send') ?>" class="btn btn-primary"></center>
 </form>
 	<?php
 }

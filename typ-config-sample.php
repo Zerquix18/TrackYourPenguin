@@ -1,32 +1,32 @@
 <?php
 
 /** 
-*Archivo de configuración de TrackYourPenguin
+* TrackYourPenguin configuration file
 *
-* Aquí se configura: Directorio de incluidos, conexíón al servidor MySQL y a la base de datos. 
-* Esos datos te los da tu proveedor de hosting, o probablemente ya los tengas.
+* Here you can configure: Files included dir and MySQL connection 
+* These data will be provided by your histing
 *
 * @package TrackYourPenguin
 *
 **/
 
-/* Agrega el host de la base de datos */
-define("DB_HOST", "defineaquituhost");
+/* Add your database host */
+define("DB_HOST", "dbhost");
 
-/* Agrega el nombre de la base de datos */
+/* Add your database name */
 
-define("DB_NOMBRE", "defineaquielnombre");
+define("DB_NOMBRE", "dbname");
 
-/* Agrega tu usuario de la base de datos */
+/* Add your database user */
 
-define("DB_USUARIO", "defineaquituusuario");
+define("DB_USUARIO", "dbuser");
 
-/* Agrega la clave de la base de datos */
+/* Add your database password */
 
-define("DB_CLAVE", "defineaquituclave");
+define("DB_CLAVE", "dbpass");
 
-/* Agrega el lenguaje para el sistema */
+/* Add your language (it may be es_ES or en_US) */
 
-define("TYP_LANG", "es_ES");
+define("TYP_LANG", "en_US");
 
-/* Listo ! */
+/* Done ! */

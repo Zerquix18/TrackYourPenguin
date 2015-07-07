@@ -14,24 +14,24 @@ require_once( dirname(__FILE__) . '/typ-load.php' );
 comprobar( false );
 
 if( ! isset($_GET['id'] ) || ! is_numeric($_GET['id'] ) ) 
-	typ_die( __("Necesito un ID correcto") );
+	typ_die( __("I need a valid ID.") );
 
 $t = obt_tracker( $_GET['id'] );
 
 if( false == $t )
-	typ_die( __("El tracker que especificas no existe") );
+	typ_die( __("The tracker you specify doesn't exist.") );
 
-construir('cabecera', sprintf( __("Actualizar el tracker de: %s"), ucwords($t->personaje) ), false );
+construir('cabecera', sprintf( __("Update %s's tracker"), ucwords($t->personaje) ), false );
 $post = "POST" == getenv('REQUEST_METHOD');
 // seguridad...
 if( ! file_exists( IMG . $t->img ) ) {
-	agregar_error( __("La imagen final no existe en el directorio de imágenes") );
+	agregar_error( __("The final image doesn't exist in the directory of images.") );
 	exit( construir('pies') );
 }elseif( ! file_exists( IMG . $t->imgbg ) ) {
-	agregar_error( __("La imagen por la que se crea el tracker no existe en el directorio de imágenes") );
+	agregar_error( __("The image which is used to create the final image doesn't exist in the directory of images.") );
 	exit( construir('pies') );
 }elseif( ! file_exists( INC . $t->fuente ) ) {
-	agregar_error( __("La fuente no existe") );
+	agregar_error( __("The font doesn't exist.") );
 	exit( construir('pies') );
 }
 function arreglar_imagen( $img, $imgbg, $ext ) {
@@ -50,7 +50,7 @@ function arreglar_imagen( $img, $imgbg, $ext ) {
 	if( !$z )
 		typ_die( 
 			sprintf( 
-				__('Lo lamento. Tu archivo no es una imagen de formato <strong>%1$s</strong>, por lo que he de cambiar el formato a <strong>%$2s</strong> para que sí funcione. Por favor cambia el formato de %3$s y de %4$s a %2$s en el directorio de imágenes (img/). :)'),
+				__("I'm sorry. Your file is not an <strong>%1$s</strong> image,so you'll have to change the format to <strong>%$2s</strong> to get it to work. Please change the format of %3$s and %4$s to %2$s in the directory of images (img/). :)"),
 				end( explode('.', $img_ ) ),
 				$ext,
 				$img_,
@@ -59,7 +59,7 @@ function arreglar_imagen( $img, $imgbg, $ext ) {
 	else
 		typ_die(
 				sprintf(
-						__('Tus imágenes no tenían el formato correcto. He decidido cambiarlos, por favor recarga la página e intenta de nuevo')
+						__('Your images had the wrong format and I decided to change them to get them working. Please reload the page. :)')
 					)
 			);
 }
@@ -97,13 +97,13 @@ function actualizar_imagen( $tracker_id, $datos ) {
 	return true;
 }
 ?>
-<h2><?php echo sprintf( __("Actualizar el tracker de %s"), ucwords($t->personaje) ) ?></h1>
+<h2><?php echo sprintf( __("Update %s's tracker"), ucwords($t->personaje) ) ?></h1>
 <ul class="pager">
-	<li class="next"><a href="<?php echo url() ?>"><?php _e('Volver') ?>&rarr;</a></li>
+	<li class="next"><a href="<?php echo url() ?>"><?php _e('Back') ?>&rarr;</a></li>
 </ul>
 <hr>
 <div class="page-header">
-	<h2><?php _e('Actualizar') ?>&nbsp;<small><?php _e('Actualiza el tracker') ?></small></h2>
+	<h2><?php _e('Update') ?>&nbsp;<small><?php _e('Update the tracker') ?></small></h2>
 </div>
 <hr>
 <?php
@@ -111,9 +111,9 @@ function actualizar_imagen( $tracker_id, $datos ) {
 		$args = ! comprobar_args( @$_POST['estado'], @$_POST['servidor'], @$_POST['sala'] );
 		$vacios = vacios( @$_POST['estado'], @$_POST['servidor'], @$_POST['sala'] );
 		if( $args ) {
-			typ_die( __("Haciendo trampa, ¿eh?") );
+			typ_die( __("Cheatin', uh?!") );
 		}elseif( $vacios ) {
-			agregar_error( __("No puedes dejar datos vacíos") );
+			agregar_error( __("You can't leave empty fields.") );
 		}else{
 			$datos = array(
 					"estado" => trim($_POST['estado']),
@@ -140,14 +140,14 @@ function actualizar_imagen( $tracker_id, $datos ) {
 			}
 			$log = json_encode( $log );
 			agregar_log( $log, time() );
-			agregar_info( __("El tracker ha sido actualizado..."), true, true);
+			agregar_info( __("The tracker has been updated."), true, true);
 		}
 	}
 ?>
 <form method="post" action="<?php echo url() . sprintf('actualizar.php?id=%s', $_GET['id']) ?>" class="form-horizontal">
 	<div class="control-group">
 		<label class="control-label">
-			<?php _e("Estado")?>
+			<?php _e("Status")?>
 		</label>
 		<div class="controls">
 			<input type="text" name="estado" <?php if( $post ) _f( @$_POST['estado']) ?> required="required">
@@ -155,7 +155,7 @@ function actualizar_imagen( $tracker_id, $datos ) {
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-			<?php _e("Servidor") ?>
+			<?php _e("Server") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="servidor" <?php if( $post ) _f( @$_POST['servidor']) ?> required="required">
@@ -163,20 +163,20 @@ function actualizar_imagen( $tracker_id, $datos ) {
 	</div>
 	<div class="control-group">
 		<label class="control-label">
-			<?php _e("Sala") ?>
+			<?php _e("Room") ?>
 		</label>
 		<div class="controls">
 			<input type="text" name="sala" <?php if( $post ) _f( @$_POST['sala']) ?> required="required">
 		</div>
 	</div>
 <?php if( isset($_SESSION['ult_act_' . $t->id]) ) : ?>
-	<strong><?php _e("Última actualización") ?></strong>: <?php echo mostrar_fecha($_SESSION['ult_act_' . $t->id]) ?>
+	<strong><?php _e("Last update") ?></strong>: <?php echo mostrar_fecha($_SESSION['ult_act_' . $t->id]) ?>
 <?php endif ?>
 <hr>
 <?php
 if(  oauth_configurado() ) : ?>
 <div class="page-header">
-	<h2><?php _e("Tuitear") ?>&nbsp;<small><?php _e("Envía lo que actualices a Twitter") ?></small></h2>
+	<h2><?php _e("Tweet") ?>&nbsp;<small><?php _e("Send your update to Twitter") ?></small></h2>
 </div>
 <?php
 	$tuits = obt_tweets();
@@ -192,17 +192,17 @@ if(  oauth_configurado() ) : ?>
 
 			$tw = $twitter->tuitear( reemplazar_tweet( stripslashes($tuit), $datos ) );
 			if( $tw )
-				agregar_info( sprintf( __('El tweet ha sido enviado. <strong><a href="%s" target="_blank">Ver</a></strong>'), $twitter->url ), true, true );
+				agregar_info( sprintf( __('The tweet has been sent. <strong><a href="%s" target="_blank">View</a></strong>'), $twitter->url ), true, true );
 			else
 				agregar_error( $twitter->error );
 		}else{
-			agregar_error( __("No has seleccionado/escrito ningún tweet"), false, false );
+			agregar_error( __("You haven't selected any tweet."), false, false );
 		}
 	}
 	if( false == $tuits && ! $post  )
-		_e('No tienes tuits. Aun así, puedes enviar un tweet personalizado.');
+		_e("You don't have tweets. Anyway, you can send a custom tweet.");
 	?>
-	<hr><textarea name="tweetp" class="redo input-xxlarge" cols="2" placeholder="<?php _e('Envía tu tweet personalizado...') ?>"></textarea><hr>
+	<hr><textarea name="tweetp" class="redo input-xxlarge" cols="2" placeholder="<?php _e('Send your custom tweet.') ?>"></textarea><hr>
 	<?php
 	while($tuits !== false && $tw_ = $tuits->r->fetch_array() ) {
 		?>
@@ -214,10 +214,10 @@ if(  oauth_configurado() ) : ?>
 	}
 ?>
 <?php elseif( ! oauth_configurado() && es_admin() ):
-	agregar_error( sprintf( __("No has configurado el <a href=\"%s\">OAuth de Twitter</a>."), url() . 'oauth.php'), false, true);
+	agregar_error( sprintf( __("You haven't set up the <a href=\"%s\">Twitter OAuth</a>."), url() . 'oauth.php'), false, true);
 	endif;
 ?>
-<center><input type="submit" class="btn btn-primary btn-large" value="<?php _e("Actualizar tracker") ?>"></center>
+<center><input type="submit" class="btn btn-primary btn-large" value="<?php _e("Update tracker") ?>"></center>
 </form>
 
 <!-- ... -->
@@ -226,20 +226,20 @@ if(  oauth_configurado() ) : ?>
 <div id="ver" class="modal hide fade" role="dialog" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"><u><?php _e("Ver imagen") ?></u></h3>
+    <h3 id="myModalLabel"><u><?php _e("View image") ?></u></h3>
   </div>
   <div class="modal-body">
     <p align="center"><a href="<?php echo $img = url() . IMG . $t->img ?>"><img src="<?php echo $img ?>"></a></p>
   </div>
 </div>
-<?php if( 'localhost' !== $_SERVER['HTTP_HOST'] ) : ?>
+<?php if( ! in_array( $_SERVER['HTTP_HOST'], array("localhost", "127.0.0.1") ) ) : ?>
 <div id="herramientas" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"><?php _e("Compartir imagen") ?></h3>
+    <h3 id="myModalLabel"><?php _e("Share image") ?></h3>
   </div>
   <div class="modal-body">
-	<p><?php _e("Comparte la imagen en tu sitio web copiando el siguiente HTML") ?></p><br>
+	<p><?php _e("Share the image in your website by copying the following code:") ?></p><br>
 	<div class="well redo">
 		<code>&lt;img src="<?php echo url() . IMG . $t->img ?>" title="<?php echo $t->img ?>"&gt;</code>
   </div>

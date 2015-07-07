@@ -88,11 +88,11 @@ class actualizar_parametros {
 		foreach($array as $a) {
 			if( ! comprobar_args($parametros[$a]) ) {
 				$this->comp_error = true;
-				$this->error = __("Los parámetros enviados son incorrectos");
+				$this->error = __("The sent parameters aren't valid.");
 				return false;
 			}elseif( vacio($parametros[$a]) ) {
 				$this->comp_error = true;
-				$this->error = __("No puedes dejar campos vacíos");
+				$this->error = __("You can't leave empty fields.");
 				return false;
 			}
 		}

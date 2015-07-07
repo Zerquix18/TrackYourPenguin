@@ -41,7 +41,7 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 		<!DOCTYPE html>
 		<html lang="es">
 		<head>
-			<title><?php if(!empty($titulo)) echo $titulo . ' - '; echo nombre() ?></title>
+			<title><?php if(!empty($titulo)) echo $titulo . ' - '; echo htmlspecialchars( nombre() ) ?></title>
 			<link rel="stylesheet" id="estilo" href="<?php echo url() . INC . CSS . tema() . '.css' ?>" />
 			<link rel="stylesheet" id="estilo_r" href="<?php echo url() . INC . CSS . tema() . '.min.css' ?>" />
 			<link rel="stylesheet" href="<?php echo url() . INC . CSS . 'typ.css' ?>" />
@@ -66,19 +66,19 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="<?php echo url() ?>"><?php echo nombre() ?></a>
+          <a class="brand" href="<?php echo url() ?>"><?php echo htmlspecialchars( nombre() ) ?></a>
           <div class="nav-collapse collapse">
           	<div class="btn-group pull-right">
           		<a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-primary">
           			<i class="icon-plus"></i>&nbsp;<?php _e("Extra") ?> <b class="caret"></b>
           		</a>
 				<ul class="dropdown-menu">
-					<li><a href="<?php echo url() ?>about.php"><i class="icon-question-sign"></i>&nbsp;<?php _e('Acerca de') ?></a></li>
-					<li><a href="<?php echo url() ?>acceso.php?salir=1"><i class="icon-off"></i>&nbsp;<?php _e("Cerrar sesión") ?></a></li>
+					<li><a href="<?php echo url() ?>about.php"><i class="icon-question-sign"></i>&nbsp;<?php _e('About') ?></a></li>
+					<li><a href="<?php echo url() ?>acceso.php?salir=1"><i class="icon-off"></i>&nbsp;<?php _e("Log out") ?></a></li>
 				</ul>
 			</div>
             <ul class="nav">
-              <li <?php if(es('index.php')) echo 'class="active"' ?>><a href="<?php echo url() ?>index.php"><?php _e('Inicio') ?></a></li>
+              <li <?php if(es('index.php')) echo 'class="active"' ?>><a href="<?php echo url() ?>index.php"><?php _e('Home') ?></a></li>
               <?php if( $t->nums > 0 || es_admin() ): ?>
 		              <li class="dropdown">
 		              	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php _e("Trackers") ?> <b class="caret"></b></a>
@@ -90,45 +90,45 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 		              }
 		              ?>
 		           <?php if( es_admin() ) : ?>
-		               <li><a href="<?php echo url() ?>?accion=agregar"><?php _e("Agregar nuevo") ?></a></li>
+		               <li><a href="<?php echo url() ?>?accion=agregar"><?php _e("Add new") ?></a></li>
 		           <?php endif ?>
 		          	   </ul>
 	          	</li>
 	          <?php endif ?>
 	          <?php if( es('actualizar.php') ) : ?>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php _e("Herramientas") ?> <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php _e("Tools") ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li>
 							<a data-toggle="modal" href="#ver" role="button">
-								<i class="icon-eye-open"></i>&nbsp;<?php _e("Ver imagen") ?>
+								<i class="icon-eye-open"></i>&nbsp;<?php _e("View image") ?>
 							</a>
 						</li>
 						<?php if( 'localhost' !== $_SERVER['HTTP_HOST'] ) : ?>
 						<li>
 							<a data-toggle="modal" href="#herramientas" role="button">
-								<i class="icon-share"></i>&nbsp;<?php _e("Compartir") ?>
+								<i class="icon-share"></i>&nbsp;<?php _e("Share") ?>
 							</a>
 						</li>
 						<?php endif; if( es_admin() ) : ?>
 						<li>
 							<a href="<?php echo url() . 'parametros.php?id=' . $t->id ?>">
-								<i class="icon-wrench"></i>&nbsp;<?php _e("Editar parámetros") ?>
+								<i class="icon-wrench"></i>&nbsp;<?php _e("Edit parameters") ?>
 							</a>
 						</li>
 						<?php endif; if( es('actualizar.php') && oauth_configurado() ) : ?>
 						<li>
 							<a data-toggle="modal" href="#cc" role="button">
-								<i class="icon-question-sign"></i>&nbsp;<?php _e("Códigos cortos") ?>
+								<i class="icon-question-sign"></i>&nbsp;<?php _e("Short codes") ?>
 							</a>
 						</li>
 						<?php endif ?>
 					</ul>
 				</li>
 			<?php elseif( es('parametros.php') && isset($_GET['posicion']) ) : ?>
-			<li><a href="#obtparams" data-toggle="modal" role="button"><?php _e("Obtener parámetros") ?></a></li>
+			<li><a href="#obtparams" data-toggle="modal" role="button"><?php _e("Get parameters") ?></a></li>
 			<?php elseif( es('tweets.php') ): ?>
-			<li><a href="#cc" data-toggle="modal" role="button"><?php _e('Códigos cortos') ?></a></li>
+			<li><a href="#cc" data-toggle="modal" role="button"><?php _e('Short codes') ?></a></li>
 			<?php endif ?>
             </ul>
           </div><!--/.nav-collapse -->
@@ -136,7 +136,7 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
       </div>
     </div>
     <?php actualizaciones()  ?>
-<noscript><?php agregar_error( __('Javascript está desactivado, más de la mitad de las funciones del sitio están destinadas a fallar...') ) ?></noscript>
+<noscript><?php agregar_error( __('Javascript is disabled. Most of the functions will fail. :(') ) ?></noscript>
     <div class="container-fluid">
       <div class="row-fluid">
 		<?php if( $barra ) : ?>
@@ -148,11 +148,11 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 					<a href="<?php echo url() ?>index.php"><i class="icon-search"></i>&nbsp;<?php _e("Trackers") ?></a>
 				</li>
 				<li <?php if( es('usuarios.php') ) echo 'class="active"' ?>>
-					<a href="<?php echo url() ?>usuarios.php"><i class="icon-user"></i>&nbsp;<?php _e("Usuarios") ?></a>
+					<a href="<?php echo url() ?>usuarios.php"><i class="icon-user"></i>&nbsp;<?php _e("Users") ?></a>
 				</li>
 				<?php if( es_super_admin() ) : ?>
 				<li <?php if( es('ajustes.php') ) echo 'class="active"' ?>>
-					<a href="<?php echo url() ?>ajustes.php"><i class="icon-cog"></i>&nbsp;<?php _e("Ajustes") ?></a>
+					<a href="<?php echo url() ?>ajustes.php"><i class="icon-cog"></i>&nbsp;<?php _e("Settings") ?></a>
 				</li>
 				<?php endif; ?>
 				<?php if( es_admin() ) : ?>
@@ -164,18 +164,18 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 				</li>
 				<?php if( es_super_admin() ) : ?>
 				<li <?php if( es('log.php') ) echo 'class="active"' ?>>
-					<a href="<?php echo url() ?>log.php"><i class="icon-list"></i>&nbsp;<?php _e("Registro") ?></a>
+					<a href="<?php echo url() ?>log.php"><i class="icon-list"></i>&nbsp;<?php _e("Log") ?></a>
 				</li>
 				<li <?php if( es('actualizaciones.php') ) echo 'class="active"' ?>>
 					<a href="<?php echo url() ?>actualizaciones.php">
-						<i class="icon-globe"></i>&nbsp;<?php _e('Actualizaciones'); if( hay_actualizacion() ) 
+						<i class="icon-globe"></i>&nbsp;<?php _e('Updates'); if( hay_actualizacion() ) 
 						echo '&nbsp;<span class="badge badge-important">1</span>' ?>
 					</a>
 				</li>
 				<?php endif ?>
 				<?php endif ?>	
 				<li <?php if( es('sesiones.php') ) echo 'class="active"' ?>>
-					<a href="<?php echo url() ?>sesiones.php"><i class="icon-lock"></i>&nbsp;<?php _e("Sesiones") ?></a>
+					<a href="<?php echo url() ?>sesiones.php"><i class="icon-lock"></i>&nbsp;<?php _e("Sessions") ?></a>
 				</li>
             </ul>
           </div><!--/.well -->
@@ -205,7 +205,7 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 </div>
 <script type="text/javascript">var uri = "<?php echo url(false) ?>", _tema = "<?php echo tema() ?>";</script>
 	</div><hr>
-				<footer><a target="_blank" href="http://trackyourpenguin.com/">&copy; TrackYourPenguin <strong><?php echo $v ?></strong></a></footer></div>
+				<footer><a target="_blank" href="http://github.com/zerquix18/TrackYourPenguin">&copy; TrackYourPenguin <strong><?php echo $v ?></strong></a></footer></div>
 		<?php
 		$js = array("jquery", "html5", "alerta", "dropdown", "modal", "tooltip", "typ");
 		foreach($js as $a)

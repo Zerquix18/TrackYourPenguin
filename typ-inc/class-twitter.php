@@ -79,79 +79,79 @@ class zer_twitter {
 			$error = __('200 - OK');
 			break;
 			case 304:
-			$error = __('Error 304: No modificado - La URL de la petición no fue modificada');
+			$error = __('Error 304: Not Modified - There was no new data to return.');
 			break;
 			case 400:
-			$error = __('Error 400: Mal solicitado - La solicitud hecha no es válida');
+			$error = __('Error 400: Bad Request - The request was invalid or cannot be otherwise served.');
 			break;
 			case 401:
-			$error = __('Error 401: No autorizado - La aplicación no cuenta que los permisos suficientes (lectura y escritura)');
+			$error = __('Error 401: Unauthorized - Authentication credentials were missing or incorrect.');
 			break;
 			case 403:
-			$error = __("Error 403: Prohibido - Acceso no permitido, la aplicación no puede conectar a Twitter");
+			$error = __("Error 403: Forbidden - The request was understood, but it has been refused or access is not allowed.");
 			break;
 			case 404:
-			$error = __("Error 404: No encontrado - La URL no ha sido encontrada");
+			$error = __("Error 404: Not found - The URI requested is invalid or the resource requested, such as a user, does not exists.");
 			break;
 			case 406:
-			$error = __("Error 406: No aceptable - El servidor no fue capaz de procesar la petición debido a los formatos");
+			$error = __("Error 406: Not acceptable - Returned by the Search API when an invalid format is specified in the request.");
 			break;
 			case 410:
-			$error = __("Error 410: Ya no disponible - La URL de la petición ya no está disponible ni lo estará");
+			$error = __("Error 410: Gone - This resource is gone.");
 			break;
 			case 420:
-			$error = __("Error 420: Has superado el límite de búsquedas");
+			$error = __("Error 420: Returned by the version 1 Search and Trends APIs when you are being rate limited.");
 			break;
 			case 422:
-			$error = __("Error 422: No pasable - La imagen que intentas subir no puede ser procesada");
+			$error = __("Error 422: Unprocessable Entity - Returned when an image uploaded to POST account / update_profile_banner is unable to be processed.");
 			break;
 			case 429:
-			$error = __("Error 429: Demasiadas solicitudes - Has llegado al límite de solicitudes");
+			$error = __("Error 429: Too Many Requests - Returned in API v1.1 when a request cannot be served due to the application’s rate limit having been exhausted for the resource.");
 			break;
 			case 500:
-			$error = __("Error 500: Error interno del servidor - Algo está roto. Twitter ha fallado en la solicitud");
+			$error = __("Error 500: Internal Server Error - Something is broken. This is a Twitter error. Please, check Twitter Status.");
 			break;
 			case 502:
-			$error = __("Error 502: Pasarela incorrecta - Twitter está de baja o está siendo actualizado");
+			$error = __("Error 502: Bad Gateway - Twitter is down or being upgraded.");
 			break;
 			case 503:
-			$error = __("Error 503: Servicio no disponible - Twitter no está de baja, pero sí recargado de solicitudes");
+			$error = __("Error 503: Service Unavailable - The Twitter servers are up, but overloaded with requests. Try again later.");
 			break;
 			case 504:
-			$error = __("Error 504: Tiempo agotado - El tiempo para hacer la petición ha tardado demasiado");
+			$error = __("Error 504: Gateway timeout - The Twitter servers are up, but the request couldn’t be serviced due to some failure within our stack. Try again later.");
 			break;
 			case 32:
-			$error = __("Error: No se pudo autenticar - La autenticación ha fallado");
+			$error = __("Error: Could not authenticate you - Your call could not be completed as dialed.");
 			break;
 			case 34:
-			$error = __("Error (404): No encontrado - La página no existe");
+			$error = __("Error (404): Sorry, that page does not exist - The specified resource was not found.");
 			break;
 			case 68:
-			$error = __("El URL solicitado correspondía a la versión anterior de la API. Por favor actualiza");
+			$error = __("The Twitter REST API v1 is no longer active. Please update.");
 			break;
 			case 88:
-			$error = __("Error: Límite de velocidad - Se alcanzó el límite de velocidad de este recurso");
+			$error = __("Error: Rate limit exceeded - The request limit for this resource has been reached for the current rate limit window.");
 			break;
 			case 89:
-			$error = __("Error: Clave de autenticación inválida o expirada - La clave de acceso usada está expirada o es inválida");
+			$error = __("Error: Invalid or expired token - The access token used in the request is incorrect or has expired. Used in API v1.1");
 			break;
 			case 64:
-			$error = __("Error (403): Tu cuenta está suspendida y no le está permitida hacer esta acción");
+			$error = __("Error (403): Your account is suspended and is not permitted to access this feature");
 			break;
 			case 131:
-			$error = __("Error (500): Error interno del servidor - Twitter ha fallado en la petición");
+			$error = __("Error (500): Internal error - Corresponds with an HTTP 500 - An unknown internal error occurred.");
 			break;
 			case 135:
-			$error = __("Error (401): No se puede autenticar - Quiere decir que la hora de este servidor está más adelante o detrás que la del rango aceptable de Twitter");
+			$error = __("Error (401): Could not authenticate you - Corresponds with a HTTP 401 - it means that your oauth_timestamp is either ahead or behind our acceptable range");
 			break;
 			case 187:
-			$error = __("Error: El tweet ha sido duplicado");
+			$error = __("Error: Status is a duplicate - The status text has been Tweeted already by the authenticated account.");
 			break;
 			case 215:
-			$error = __("Error (400): Hacer esto requiere una autenticación válida. Recuerda que necesitas 4 parámetros (consumer_key, consumer_secret, access_token y access_token_secret)");
+			$error = __("Error (400): Bad authentication data - Typically sent with 1.1 responses with HTTP code 400. The method requires authentication but it was not presented or was wholly invalid.)");
 			break;
 			default:
-			$error = __("Error no conocido :/");
+			$error = __("Unknown error! ):");
 		}
 		return $error;
 	}
@@ -175,7 +175,7 @@ class zer_twitter {
 			return false;
 		}elseif( isset($this->tweet->error)) {
 			$this->comp_error = true;
-			$this->error = __("Error: La aplicación no cuenta con los permisos suficientes. Recuerda que deben ser lectura y escritura y están en sólo lectura");
+			$this->error = __("Error: the application doesn't have enough permissions. Remember that both access tokens must have permissions to read and write.");
 			return false;
 		}
 		/* valores retornados por twitter*/

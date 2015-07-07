@@ -2,125 +2,122 @@
 
 class actualizacion {
 
-	private $archivo = 'actualizar.zip';
+	private $archivo;
 
-	private $host = 'http://trackyourpenguin.com/d/';
+	private $host = 'https://github.com/Zerquix18/TrackYourPenguin/archive/';
 
-	private $dir = './';
-
+	// Le cambia el modo a 777 a todos los archivos excepto a los .ht(.*)
 	private function cambiar_modo() {
-		$iterator = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $this->dir ) ); // todos los dirs y subsdirs..
+		$iterator = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( "./" ) ); // todos los dirs y subsdirs..
 		foreach($iterator as $item)
-			if( ! preg_match('/(\/\.htaccess)$/', $item) || ! preg_match("/(\/\.htpasswd)$/", $item) && ! preg_match('/\/\./', $item) && ! preg_match('/\/\./', $item)  ) // quita los /.. y /. a EXEPCIÓN de /.htaccess y /.htpasswd
+			if( ! preg_match('/^\/[\.]/', $item) ) // evita archivos empezando por un punto (.)
     			@chmod($item, 0777); // cambia el modo recursivamente a todos los ficheros nuevos.
 	}
+	/** Thanks you!! : http://php.net/manual/en/function.rmdir.php#98622 **/ 
+	private function rrmdir( $dir, $except = array() ) {
+		if (is_dir($dir)) { 
+			$objects = scandir($dir); 
+			foreach ($objects as $object) { 
+				if ($object != "." && $object != ".." && ! in_array($object, $except) ) { 
+					if( filetype($dir."/".$object) == "dir" )
+						$this->rrmdir($dir."/".$object);
+					else 
+						unlink($dir."/".$object); 
+				}
+			} 
+			reset($objects); 
+		rmdir($dir); 
+  		} 
+	}
 	public function __construct() {
-		// algunos bugs...
+		global $zerdb;
+		// El único requisito 100% necesario.
 		if( ! class_exists("ZipArchive") ) {
-			echo agregar_error( __("No existe la clase <strong>ZipArchive</strong> para la descompresión de los archivos. No se puede actualizar :("), false, true );
-			return false;
-		}
-		if( ! function_exists("curl_init") || ! function_exists("curl_close" ) ) {
-			echo agregar_error( __("No existe <strong>curl_init</strong> para la descarga de los archivos. No se puede actualizar. :("), false, true);
+			echo agregar_error( __("The class <strong>ZipArchive</strong> doesn't exist to unzip the files. It can't update. :("), false, true );
 			return false;
 		}
 
+		$v = obt_version();
+		$this->archivo = $v . '.zip';
 		// it starts...
 
-		/**
-		*
-		* Esta función sirve para cambiar la última fecha de modificación de un archivo.
-		* touch, significa tocar, por eso es así.
-		* En cambio lo uso porque si el archivo no existe, lo crea, y esto es lo útil.
-		* Crea el archivo, que será reemplazado por el ya descargado.
-		*
-		*
-		**/
-		echo __("Creando archivo temporal...<br>"); // mensaje de aviso.
+		echo __("Creating temporary file...<br>"); // mensaje de aviso.
 		if( false == touch( $this->archivo ) ) {
-			echo agregar_error( __("No se puede crear el archivo temporal. Probablemente los permisos."), false, true);
+			echo agregar_error( __("Unable to create the temporary file. Probably the permissions."), false, true);
 			return false;
 		}
-		dormir( 1 );
-		/**
-		*
-		* Intenta cambiarle el modo al archivo, desactiva el debugging automático con la @
-		* Así veo que no haya problemas al abrir y/o editar el archivo
-		*
-		**/
-		@chmod( $this->dir . $this->archivo, 0777 );
-		/**
-		*
-		* Abre el archivo que ya fue creado, para su edición...
-		*
-		**/
-		$this->f = fopen( $this->dir . $this->archivo, "w" ); // w = write = escribir
-
-		/**
-		*
-		* Hace la solicitud para descargar el archivo con cURL.
-		* 
-		**/
-		$ch = curl_init( $this->host . $this->archivo );
-
-		// algunos parámetros para enviarle al archivo vía POST
-
-		$params = array(
-				"tipo" => "actualizacion" // el tipo de descarga es por actualización y no directa.
-			);
-
-		curl_setopt($ch, CURLOPT_POST, true); //cURL vía POST y no GET.
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $params );
-		curl_setopt($ch, CURLOPT_FILE, $this->f ); // donde guardará el archivo.
-		echo sprintf( __("Descargando archivos desde <strong>%s</strong><br><br>"), $this->host . $this->archivo );
-		dormir( 1 );
-		$this->resultado = curl_exec($ch); // descarga y reemplaza (Ejecuta)
-		// cierra lo que queda abierto...
-		fclose( $this->f );
-		curl_close( $ch );
-
+		chmod( $this->archivo, 0777 );
+		$this->d_url = $this->host . $this->archivo;
+		echo sprintf( __("Downloading files from <strong>%s</strong><br><br>"), $this->d_url );
+		if( false === (file_put_contents($this->archivo, file_get_contents($this->d_url ) ) ) ) {
+			if( ! function_exists('curl_init') ) {
+				echo agregar_error( __("Unable to download the update file. The files don't have permissions and/or the cURL extension is not installed.") );
+				return false;
+			}
+			$this->f = fopen("./".$this->archivo, "w" ); // w = write = escribir
+			$ch = curl_init( $this->host . $this->archivo );
+			curl_setopt($ch, CURLOPT_FILE, $this->f ); // donde guardará el archivo.
+			dormir( 1 );
+			$this->resultado = curl_exec($ch); // descarga y reemplaza (Ejecuta)
+			// cierra lo que queda abierto...
+			fclose( $this->f );
+			curl_close( $ch );
+		}
 		// descomprime...
-
 		$this->zip = new ZipArchive();
-
-		if( false !== ( $this->zip->open( $this->archivo ) ) ) { // abre zip si no resulta false.
-			// borra los archivos que no pueden descomprimirse, en caso de existencia o de mala descarga.
-			@$this->zip->deleteName("typ-config-sample.php");
-			@$this->zip->deleteName("img/");
-			@$this->zip->DeleteName("typ-config.php");
+		if( true === ( $this->zip->open( $this->archivo ) ) && $this->zip->numFiles !== 0) { // abre zip si resulta true
 			############################################ OLÉ!
-			echo __("Descomprimiendo <strong>zip</strong> ya descargado... <br>");
+			echo __("Decompressing the TrackYourPenguin update file... <br>");
 			dormir(1);
-			if( false == ($this->zip->extractTo( $this->dir ) ) ) {
-				echo agregar_error( __("No se pudo descomprimir el paquete descargado :(") );
-				@unlink($this->archivo);
+			chmod( $this->archivo, 0777 ) or die("error");
+			if( false == ($this->zip->extractTo("./") ) ) {
+				echo agregar_error( __("Unable to decompress the TrackYourPenguin update file :(") );
+				unlink($this->archivo) or die("fuck");
 				return false;
 			}
 			// intenta cambiar el modo de los archivos en esa raíz...
 			$this->cambiar_modo();
 			// cierra zip...
 			$this->zip->close();
-			echo __("Borrando archivo temporal...<br><br>");
-			dormir(1);
+			echo __("Deleting temporary file...<br><br>");
 			// borra el zip descargado...
 			@unlink( $this->archivo );
-			echo __("Actualizando TrackYourPenguin...<br>");
-			dormir(2); // a dormir :3
+			// actualiza los archivos:
+			echo __("Updating TrackYourPenguin...<br>");
+			$this->src = "TrackYourPenguin-{$v}/";
+			$this->dir_ = array_slice( scandir( $this->src ), 2);
+			$ftd = array("README.md", "typ-config-sample.php");
+			$except = array();
+			$qe = $zerdb->select("trackers", "fuente")->_();
+			// para no eliminar fuentes añadidas (it won't delete added fonts)
+			while( $res = $qe->r->fetch_array() )
+				if( $res['fuente'] !== 'typ.ttf' )
+					$except[] = $res['fuente'];
+			foreach($ftd as $a => $b)
+				unlink($this->src . $b);
+			foreach($this->dir_ as $a => $b)
+				if( ! in_array($b, $ftd) ):
+					if( is_dir($this->src . $b) )
+						$this->rrmdir( "./" . $b, $except );
+					rename($this->src . $b, "./" . $b);
+				endif;
+			rmdir($this->src);
 			if( file_exists( PATH . INC . 'actualizado.php' ) ) {
-			require_once( PATH . INC . 'actualizado.php');
-			@unlink( PATH . INC . 'actualizado.php'); //ya no es necesario.
+				require_once( PATH . INC . 'actualizado.php');
+				@unlink( PATH . INC . 'actualizado.php'); //ya no es necesario.
 			}
-			//yup !
+			//yup ! finally 
 			ob_end_clean(); // get the fuck up
 			agregar_info(
 					sprintf(
-							__("Bienvenido a TrackYourPenguin <strong>%s</strong> :)"),
-							obt_version()
+							__("Welcome to TrackYourPenguin <strong>%s</strong> :)"),
+							$v
 						)
 				);
-			echo redireccion( url( true ), 3); // GUALÁAAAAAAA!!!!!!!!1 SOY EL PUTO AMOOOOOOOOo!!!!!!!!!!!D ASLDKALÑJ
+			echo redireccion( url() . 'about.php', 3); // GUALÁAAAAAAA!!!!!!!!1 SOY EL PUTO AMOOOOOOOOo!!!!!!!!!!!D ASLDKALÑJ
 		}else{
-			echo agregar_error( sprintf( __("No se puede abrir el archivo: %s"), $this->archivo ) ); // ay :(
+			echo agregar_error( sprintf( __("It couldn't open the file: %s :("), $this->archivo ) ); // ay :(
+			unlink( $this->archivo );
 			return false;
 		}
 	}
@@ -132,41 +129,13 @@ class actualizacion {
 **/
 
 function obt_version( $array = false ) {
-	if( function_exists('curl_init') ) {
-		$h = 'http://trackyourpenguin.com/v.txt';
-		$ch = curl_init($h);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2); //máximo 2 segs para responder la solicitud, o get the fak up.
-		$_v = curl_exec( $ch );
-		if( ! $_v )
-			return 0;
-		curl_close($ch);
-	}elseif( false !== ($_v = @file_get_contents($h) ) ) {
-		$_v = $_v; // anyways c:
-	}
-	if( ! isset($_v) )
-		return false; // no obtuvimos nada... ? :c
+	$url = "https://raw.githubusercontent.com/Zerquix18/TrackYourPenguin/master/typ-load.php";
+	$content = file_get_contents($url);
+	$regex = '/define\(\"VERSION\"\, \"(.*)?\"/';
+	if( preg_match($regex, $content, $matches) )
+		return $matches[1];
+	return false;
 
-	if( false == ( $v = @explode('.', $_v ) ) )
-		return false;
-
-	preg_match_all("-\d+-", $v[0], $match); // let's get all numbers... no lo cojo directo por problemas del encoding... u-u
-
-	$v[0] = @$match[0][0];
-
-	if( ! count($v) >= 2 )
-		return false;
-
-	if( $array ) {
-		$v[2] = array_key_exists(2, $v) ? $v[2] : null;
-		return array($v[0], $v[1], $v[2]);
-	}else{
-		if( ! array_key_exists(0, $v) || ! array_key_exists(1, $v) )
-			return false;
-
-		$v[2] = array_key_exists(2, $v) ? '.' . $v[2] : '';
-		return sprintf("%d.%s%s", $v[0], $v[1], $v[2]);
-	}
 }
 /**
 *
@@ -178,24 +147,20 @@ function hay_actualizacion() {
 	if( defined("NO_ACTUALIZACIONES") && TRUE == constant("NO_ACTUALIZACIONES") || false == ( $v = obt_version( false ) ) )
 		return false;
 
-	return $v !== constant("VERSION");
+	return version_compare($v, constant('VERSION'), '>');
 }
 /**
 * Lanza el mensaje de aviso si se necesita actualizar
 *
 **/
 function actualizaciones() {
-	if( false == ( $v = obt_version( false ) ) )
-		return false;
-
-	$comparar = $v == constant("VERSION");
-
-	if( ! $comparar && ! es('actualizaciones.php') )
+	if( hay_actualizacion() )
 		return agregar_error(
 				sprintf(
-						__('TrackYourPenguin <strong>%s</strong> ya está disponible, por favor <a href="%s">actualiza.</a> :)'),
+						__('TrackYourPenguin <strong>%s</strong> is available, please <a href="%s">update.</a> :)'),
 						$v,
 						url() . 'actualizaciones.php'
 					), true, false
 			);
+	return;
 }

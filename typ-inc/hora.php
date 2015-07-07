@@ -82,33 +82,33 @@ function obt_fecha($time = '', $hoy_es = false) {
 	if( empty($time) )
 		$time = time();
         $dias = array(
-        	__('Domingo'),
-        	__('Lunes'),
-        	__('Martes'),
-        	__('Miércoles'),
-        	__('Jueves'),
-        	__('Viernes'),
-        	__('Sábado')
+        	__('Sunday'),
+        	__('Monday'),
+        	__('Tuesday'),
+        	__('Wednesday'),
+        	__('Thursday'),
+        	__('Friday'),
+        	__('Saturday')
         );
         $meses = array(
-        	__('Enero'),
-        	__('Febrero'),
-        	__('Marzo'),
-        	__('Abril'),
-        	__('Mayo'),
-        	__('Junio'),
-        	__('Julio'),
-        	__('Agosto'),
-        	__('Septiembre'),
-            __('Octubre'),
-            __('Noviembre'),
-            __('Diciembre')
+        	__('January'),
+        	__('February'),
+        	__('March'),
+        	__('April'),
+        	__('May'),
+        	__('June'),
+        	__('July'),
+        	__('August'),
+        	__('September'),
+            __('October'),
+            __('November'),
+            __('December')
          );
         $dia_de_la_semana = $dias[ date('w', $time) ];
         $dia_del_mes = date('d', $time);
         $mes = $meses[ date('n', $time) - 1 ];
         $anio = date('Y', $time);
-        $hoy = (false == $hoy_es ) ? '' : __('Hoy es ');
+        $hoy = (false == $hoy_es ) ? '' : __('Today is ');
         if( 'en_US' == obt_lenguaje() ) // english: Today is April 29, 2014
         	return $hoy . $dia_de_la_semana . ', ' . $mes . ' ' . $dia_del_mes . ', ' . $anio;
         return $hoy . $dia_de_la_semana . ' ' . $dia_del_mes . ' de ' . $mes . ' del ' . $anio;

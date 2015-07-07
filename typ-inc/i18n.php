@@ -30,30 +30,29 @@ $lenguajes = array("es_ES", "en_US");
 function obt_lenguaje() {
 	global $lenguajes;
 	if( ! defined("TYP_LANG") )
-		return 'es_ES';
+		return 'en_US';
 	$lenguaje = constant("TYP_LANG");
 	$posibles_leng_es = array("es", "español", "spanish", "esp", "espanol"); //por si las fallas...
 	$posibles_leng_en = array("en", "english", "eng", "ing", "ingles");
 	if( in_array( strtolower($lenguaje), $posibles_leng_es) )
-		return "es_ES";
+		return "en_US";
 	if( in_array( strtolower($lenguaje), $posibles_leng_en) )
 		return "en_US";
 	if( ! in_array( $lenguaje, $lenguajes) )
-		return "es_ES";
+		return "en_US";
 	else
 		return $lenguaje;
 }
 
 // requerimos al lenguaje, dando excepción de que no sea el default.
 
-if( obt_lenguaje() !== "es_ES" && file_exists(PATH . INC . LANG . obt_lenguaje() . '.mo') ):
+if( obt_lenguaje() !== "en_US" && file_exists(PATH . INC . LANG . obt_lenguaje() . '.mo') ):
 	$tr = new gettext_reader( new CachedFileReader( PATH . INC . LANG . obt_lenguaje() . '.mo' ) );
 	$tr->load_tables();
 	#_textdomain('default');
 else:
 	$tr = new gettext_reader(null);
 endif;
-
 /**
 *
 * Devuelve el mensaje, si necesita traducción lo traduce
@@ -101,3 +100,25 @@ function esc_html( $texto ) {
 function esc_html_e( $texto ) {
 	echo esc_html($texto);
 }
+/**
+*
+* Actualiza el lenguaje
+* @since 1.1
+*
+*/
+function actualizar_lenguaje( $lenguaje ) {
+	global $lenguajes;
+	if( ! in_array($lenguaje, $lenguajes) )
+		return false;
+	$c = file_get_contents( PATH . 'typ-config.php');
+	if( ! $c )
+		return false;
+	$c = str_replace( TYP_LANG, $lenguaje, $c);
+	file_put_contents(PATH.'typ-config.php', $c);
+	return true;
+}
+
+$lenguajest = array(
+		"en_US"=> __("English"),
+		"es_ES" => __("Spanish"),
+	);

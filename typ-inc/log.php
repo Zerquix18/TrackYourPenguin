@@ -49,7 +49,7 @@ function eliminar_log( $id ) {
 function mostrar_fecha( $fecha, $segs = false ) {
 	if( ! is_numeric($fecha) )
 		return $fecha; // Por actualizaciones anteriores :p ^-^
-	return obt_fecha( $fecha, false ) . __(' a la(s) ') . obt_hora( $fecha, $segs );
+	return obt_fecha( $fecha, false ) . __(' at ') . obt_hora( $fecha, $segs );
 }
 /**
 *
@@ -64,11 +64,11 @@ function mostrar_fecha( $fecha, $segs = false ) {
 function mostrar_log( $log ) {
 	if( is_string($r = @json_decode( $log ) ) )
 		return $log; // actualizaciones anteriores, no pierdas la estabilidad :o
-	$usuario = isset($r->usuario) && $r->usuario == $_SESSION['usuario'] ? __('Tú actualizaste ') : sprintf( __('<strong>%s</strong> actualizó ') );
-	$texto = isset($r->usuario, $r->tracker) ? $usuario  . sprintf( __("el tracker de <strong>%s</strong> \n"), is_numeric($r->tracker) ? obt_tracker($r->tracker)->personaje : $r->tracker ) : '';
-	$texto .= isset($r->estado) ? sprintf( __("Estado: %s \n"), $r->estado) : '';
-	$texto .= isset($r->servidor) ? sprintf( __("Servidor: %s \n"), $r->servidor ) : '';
-	$texto .= isset($r->sala) ? sprintf( __("Sala: %s \n"), $r->sala ) : '';
-	$texto .= isset($r->tweet) ? sprintf( __("Tweet elegido: %s"), $r->tweet ) : '';
+	$usuario = isset($r->usuario) && $r->usuario == $_SESSION['usuario'] ? __('You updated ') : sprintf( __('<strong>%s</strong> updated ') );
+	$texto = isset($r->usuario, $r->tracker) ? $usuario  . sprintf( __("<strong>%s</strong>'s tracker' \n"), is_numeric($r->tracker) ? obt_tracker($r->tracker)->personaje : $r->tracker ) : '';
+	$texto .= isset($r->estado) ? sprintf( __("Status: %s \n"), $r->estado) : '';
+	$texto .= isset($r->servidor) ? sprintf( __("Server: %s \n"), $r->servidor ) : '';
+	$texto .= isset($r->sala) ? sprintf( __("Room: %s \n"), $r->sala ) : '';
+	$texto .= isset($r->tweet) ? sprintf( __("Chosen tweet: %s"), $r->tweet ) : '';
 	return $texto;
 }

@@ -10,7 +10,6 @@ function existe_usuario( $usuario ) {
 	global $zerdb;
 	$usuario = $zerdb->real_escape( $usuario );
 	$u = $zerdb->select($zerdb->usuarios, "*", array("usuario" => $usuario) )->_();
-
 	return $u && (int) $u->nums > 0 ? $u : false;
 }
 
@@ -49,12 +48,9 @@ function obt_usuario_actual() {
 
 function es_super_admin() {
 	global $zerdb;
-
-	if( false == ($u = obt_usuario_actual() ) ) //removí la doble comprobación de sesiión iniciada...
+	if( false == ($u = obt_usuario_actual() ) ) //removí la doble comprobación de sesión iniciada...
 		return false;
-
 	$u = $zerdb->select($zerdb->usuarios, "rango", array("id" => $u->id) )->_();
-
 	return 1 == $u->rango;
 }
 
@@ -66,12 +62,9 @@ function es_super_admin() {
 
 function es_admin() {
 	global $zerdb;
-
-	if( false == ($u = obt_usuario_actual() ) ) //removí la doble comprobación de sesiión iniciada...
+	if( false == ($u = obt_usuario_actual() ) ) //removí la doble comprobación de sesión iniciada...
 		return false;
-
 	$u = $zerdb->select($zerdb->usuarios, "rango", array("id" => $u->id) )->_();
-
 	return 2 == $u->rango || es_super_admin();
 }
 
@@ -84,12 +77,9 @@ function es_admin() {
 
 function es_actualizador() {
 	global $zerdb;
-
 	if( false == ($u = obt_usuario_actual() ) ) //removí la doble comprobación de sesiión iniciada...
 		return false;
-
 	$u = $zerdb->select($zerdb->usuarios, "rango", array("id" => $u->id) )->_();
-
 	return 3 == $u->rango || es_admin();
 }
 
@@ -108,16 +98,16 @@ function rango( $id = null ) {
 		return $u;
 	switch( $u->id ) {
 		case "1":
-		return __("Super Administrador");
+		return __("Super Administrator");
 		break;
 		case "2":
-		return __("Administrador");
+		return __("Administrator");
 		break;
 		case "3":
-		return __("Actualizador");
+		return __("Updater");
 		break;
 		default:
-		return __("No tiene rango .-. ):"); /// eeeeeeeeey troooooooooooll xdddddd
+		return __("It has no rank .-. ):"); /// eeeeeeeeey troooooooooooll xdddddd
 	}
 }
 function existe_usuario_id( $id ) {
@@ -129,32 +119,24 @@ function existe_usuario_id( $id ) {
 function comprobar_rangos( $rango1, $rango2 = '') {
 	if( ! is_numeric($rango1) )
 		return false;
-
 	$rango1 = (int) $rango1;
-
 	if( $rango1 !== 1 || $rango1 !== 2 || $rango1 !== 3)
 		return false;
-
 	$u = obt_usuario_actual();
-
 	if( empty($rango2) )
 		$rango2 = $u->rango;
-
  	return $rango1 <= $rango2; //menor o igual
 }
 
 function existe_email( $email ) {
 	global $zerdb;
-
 	if( ! is_string($email) )
 		return false;
-
 	$q = $zerdb->select($zerdb->usuarios, "*", array("email" => $zerdb->real_escape( $email ) ) )->_();
-
 	return $q && $q->nums > 0;
 }
 
 function estado( $estado ) {
 	global $zerdb;
-	return(int) $estado == 1 ? __("Activo") : __("Suspendido");
+	return(int) $estado == 1 ? __("Active") : __("Banned");
 }
