@@ -1,0 +1,1981 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TrackYourPenguin\n"
+"POT-Creation-Date: 2015-07-06 15:08-0430\n"
+"PO-Revision-Date: 2015-07-06 15:14-0430\n"
+"Last-Translator: \n"
+"Language-Team: Zerquix18 <zerquix18cp@intruder>\n"
+"Language: Español\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: /var/www/typ\n"
+
+#: /var/www/typ/actualizar.php:17 /var/www/typ/usuarios.php:130
+msgid "I need a valid ID."
+msgstr "Necesito un ID válido."
+
+#: /var/www/typ/actualizar.php:22
+msgid "The tracker you specify doesn't exist."
+msgstr "El tracker que especificas no existe."
+
+#: /var/www/typ/actualizar.php:24 /var/www/typ/actualizar.php:100
+#: /var/www/typ/index.php:248 /var/www/typ/index.php:251
+#, php-format
+msgid "Update %s's tracker"
+msgstr "Actualizar el tracker de %s"
+
+#: /var/www/typ/actualizar.php:28
+msgid "The final image doesn't exist in the directory of images."
+msgstr "La imagen final no existe en el directorio de imágenes"
+
+#: /var/www/typ/actualizar.php:31
+msgid ""
+"The image which is used to create the final image doesn't exist in the "
+"directory of images."
+msgstr ""
+"La imagen que es usada para crear la imagen final no existe en el directorio "
+"de imágenes."
+
+#: /var/www/typ/actualizar.php:34
+msgid "The font doesn't exist."
+msgstr "La fuente no existe."
+
+#: /var/www/typ/actualizar.php:62
+msgid ""
+"Your images had the wrong format and I decided to change them to get them "
+"working. Please reload the page. :)"
+msgstr ""
+"Tus imágenes tenían el formato equivocado y los he cambiado para que "
+"funcionen. Por favor, recarga la página. :)"
+
+#: /var/www/typ/actualizar.php:102 /var/www/typ/index.php:25
+msgid "Back"
+msgstr "Atrás"
+
+#: /var/www/typ/actualizar.php:106 /var/www/typ/oauth.php:100
+#: /var/www/typ/actualizaciones.php:32 /var/www/typ/tweets.php:140
+#: /var/www/typ/index.php:134 /var/www/typ/index.php:248
+#: /var/www/typ/usuarios.php:231 /var/www/typ/ajustes.php:106
+msgid "Update"
+msgstr "Actualizar"
+
+#: /var/www/typ/actualizar.php:106
+msgid "Update the tracker"
+msgstr "Actualizar el tracker"
+
+#: /var/www/typ/actualizar.php:114 /var/www/typ/oauth.php:19
+#: /var/www/typ/oauth.php:43 /var/www/typ/tweets.php:19
+#: /var/www/typ/tweets.php:42 /var/www/typ/tweets.php:103
+#: /var/www/typ/index.php:22 /var/www/typ/index.php:33
+#: /var/www/typ/index.php:82 /var/www/typ/index.php:99
+#: /var/www/typ/index.php:144 /var/www/typ/instalar.php:214
+#: /var/www/typ/acceso.php:124 /var/www/typ/acceso.php:175
+#: /var/www/typ/acceso.php:218 /var/www/typ/usuarios.php:32
+#: /var/www/typ/usuarios.php:51 /var/www/typ/usuarios.php:163
+#: /var/www/typ/usuarios.php:240 /var/www/typ/ajustes.php:17
+#: /var/www/typ/ajustes.php:39 /var/www/typ/parametros.php:17
+msgid "Cheatin', uh?!"
+msgstr "Haciendo trampa, ¿eh?"
+
+#: /var/www/typ/actualizar.php:116 /var/www/typ/oauth.php:45
+#: /var/www/typ/tweets.php:44 /var/www/typ/tweets.php:105
+#: /var/www/typ/index.php:35 /var/www/typ/index.php:101
+#: /var/www/typ/instalar.php:216 /var/www/typ/acceso.php:177
+#: /var/www/typ/acceso.php:220 /var/www/typ/usuarios.php:53
+#: /var/www/typ/usuarios.php:165 /var/www/typ/ajustes.php:41
+#: /var/www/typ/typ-inc/params.php:95
+msgid "You can't leave empty fields."
+msgstr "No puedes dejar campos vacíos."
+
+#: /var/www/typ/actualizar.php:143
+msgid "The tracker has been updated."
+msgstr "El tracker ha sido actualizado."
+
+#: /var/www/typ/actualizar.php:150 /var/www/typ/usuarios.php:326
+#: /var/www/typ/usuarios.php:353 /var/www/typ/parametros.php:66
+msgid "Status"
+msgstr "Estado"
+
+#: /var/www/typ/actualizar.php:158 /var/www/typ/parametros.php:69
+msgid "Server"
+msgstr "Servidor"
+
+#: /var/www/typ/actualizar.php:166 /var/www/typ/parametros.php:72
+msgid "Room"
+msgstr "Sala"
+
+#: /var/www/typ/actualizar.php:173
+msgid "Last update"
+msgstr "Última actualización"
+
+#: /var/www/typ/actualizar.php:179 /var/www/typ/tweets.php:186
+msgid "Tweet"
+msgstr "Tuitear"
+
+#: /var/www/typ/actualizar.php:179
+msgid "Send your update to Twitter"
+msgstr "Envía tu actualización a Twitter"
+
+#: /var/www/typ/actualizar.php:195
+#, php-format
+msgid ""
+"The tweet has been sent. <strong><a href=\"%s\" target=\"_blank\">View</a></"
+"strong>"
+msgstr ""
+"El tweet ha sido enviado. <strong><a href=\"%s\" target=\"_blank\">Ver</a></"
+"strong>"
+
+#: /var/www/typ/actualizar.php:199
+msgid "You haven't selected any tweet."
+msgstr "No has seleccionado ningún tuit."
+
+#: /var/www/typ/actualizar.php:203
+msgid "You don't have tweets. Anyway, you can send a custom tweet."
+msgstr "No tienes tuits. De todas formas, puedes enviar un tuit personalizado."
+
+#: /var/www/typ/actualizar.php:205
+msgid "Send your custom tweet."
+msgstr "Envia tu tuit personalizado"
+
+#: /var/www/typ/actualizar.php:217
+#, php-format
+msgid "You haven't set up the <a href=\"%s\">Twitter OAuth</a>."
+msgstr "No has configurado el <a href=\"%s\">OAuth de Twitter</a>."
+
+#: /var/www/typ/actualizar.php:220
+msgid "Update tracker"
+msgstr "Actualizar tracker"
+
+#: /var/www/typ/actualizar.php:229 /var/www/typ/typ-inc/cuerpo.php:104
+msgid "View image"
+msgstr "Ver imagen"
+
+#: /var/www/typ/actualizar.php:239
+msgid "Share image"
+msgstr "Compartir imagen"
+
+#: /var/www/typ/actualizar.php:242
+msgid "Share the image in your website by copying the following code:"
+msgstr "Comparte la imagen en tu sitio web copiando el siguiente código:"
+
+#: /var/www/typ/actualizar.php:247
+msgid "Cerrar"
+msgstr "Cerrar"
+
+#: /var/www/typ/oauth.php:21
+msgid "Set up OAuth"
+msgstr "Configurar OAuth"
+
+#: /var/www/typ/oauth.php:31
+msgid "Set up Twitter OAuth"
+msgstr "Configurar el OAuth de Twitter"
+
+#: /var/www/typ/oauth.php:58
+msgid "Twitter data connection updated"
+msgstr "Datos de conexión a Twitter actualizados"
+
+#: /var/www/typ/oauth.php:66
+msgid "Consumer Key"
+msgstr "Consumer Key"
+
+#: /var/www/typ/oauth.php:70 /var/www/typ/oauth.php:79
+#: /var/www/typ/oauth.php:88 /var/www/typ/oauth.php:97
+msgid "of your Twitter app"
+msgstr "de tu aplicación de Twitter"
+
+#: /var/www/typ/oauth.php:75
+msgid "Consumer Secret"
+msgstr "Consumer Secret"
+
+#: /var/www/typ/oauth.php:84
+msgid "Access Token"
+msgstr "Access Token"
+
+#: /var/www/typ/oauth.php:93
+msgid "Access Token Secret"
+msgstr "Access Token Secret"
+
+#: /var/www/typ/actualizaciones.php:14
+msgid "Wooops! Just take it easy man."
+msgstr "¡Oye, tranquilo viejo!"
+
+#: /var/www/typ/actualizaciones.php:17 /var/www/typ/typ-inc/cuerpo.php:171
+msgid "Updates"
+msgstr "Actualizaciones"
+
+#: /var/www/typ/actualizaciones.php:21
+msgid "Getting ready to update...<br><hr>"
+msgstr "Preparando actualización... <br><hr>"
+
+#: /var/www/typ/actualizaciones.php:27
+msgid "There are not updates. You have the last version. :)"
+msgstr "No hay actualizaciones. Tienes la última versión. :)"
+
+#: /var/www/typ/actualizaciones.php:29
+#, php-format
+msgid "TrackYourPenguin <strong>%s</strong> is available. :)"
+msgstr "TrackYourPenguin <strong>%s</strong> está disponible."
+
+#: /var/www/typ/tweets.php:28
+#, php-format
+msgid ""
+"Before setting tweets up, you have to set up the <a href=\"%s\">Twitter "
+"OAuth</a>"
+msgstr ""
+"Antes de configurar los tuits, debes configurar el <a href=\"%s\">OAuth de "
+"Twitter</a>"
+
+#: /var/www/typ/tweets.php:37 /var/www/typ/tweets.php:54
+msgid "Add tweet"
+msgstr "Añadir tuit"
+
+#: /var/www/typ/tweets.php:46 /var/www/typ/tweets.php:107
+#: /var/www/typ/ajustes.php:43
+msgid "You can't overpass the limits."
+msgstr "No puedes sobrepasar los límites."
+
+#: /var/www/typ/tweets.php:49
+msgid "Tweet added"
+msgstr "Tweet añadido"
+
+#: /var/www/typ/tweets.php:55 /var/www/typ/tweets.php:95
+#: /var/www/typ/tweets.php:172
+msgid "Back to tweets"
+msgstr "Volver a los tuts"
+
+#: /var/www/typ/tweets.php:59 /var/www/typ/tweets.php:120
+#: /var/www/typ/index.php:118 /var/www/typ/index.php:178
+#: /var/www/typ/instalar.php:137 /var/www/typ/ajustes.php:58
+msgid "Name"
+msgstr "Nombre"
+
+#: /var/www/typ/tweets.php:64
+msgid "Tweet's name to be chosen"
+msgstr "Nombre del tuit a ser elegido"
+
+#: /var/www/typ/tweets.php:69 /var/www/typ/tweets.php:129
+msgid "Text"
+msgstr "Texto"
+
+#: /var/www/typ/tweets.php:73
+msgid "The text that will be tweeted"
+msgstr "El texto que será tuiteado"
+
+#: /var/www/typ/tweets.php:76 /var/www/typ/index.php:76
+#: /var/www/typ/instalar.php:286 /var/www/typ/acceso.php:157
+#: /var/www/typ/acceso.php:252
+msgid "Send"
+msgstr "Enviar"
+
+#: /var/www/typ/tweets.php:86
+msgid "You must specify a valid ID"
+msgstr "Debes especificar un ID válido"
+
+#: /var/www/typ/tweets.php:89
+msgid "That tweet doesn't exist."
+msgstr "El tuit no existe."
+
+#: /var/www/typ/tweets.php:91
+#, php-format
+msgid "Edit the tweet: %s"
+msgstr "Editar el tuit: %s"
+
+#: /var/www/typ/tweets.php:94
+msgid "Edit the tweet"
+msgstr "Editar el tuit"
+
+#: /var/www/typ/tweets.php:113
+msgid "Updated. :)"
+msgstr "Actualizado. :)"
+
+#: /var/www/typ/tweets.php:124
+msgid "The name of the tweet to edit"
+msgstr "El nombre de el tuit a editar"
+
+#: /var/www/typ/tweets.php:147
+msgid "Wrong way to delete. Wrong."
+msgstr "Mala forma de borrar. Mala."
+
+#: /var/www/typ/tweets.php:151
+msgid "Delete tweets"
+msgstr "Eliminar tuits"
+
+#: /var/www/typ/tweets.php:153
+msgid "The selected tweets have been deleted"
+msgstr "Los tuits seleccionados han sido eliminados."
+
+#: /var/www/typ/tweets.php:155 /var/www/typ/usuarios.php:253
+#: /var/www/typ/usuarios.php:278 /var/www/typ/usuarios.php:303
+#, php-format
+msgid ""
+"<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr; Back</a></"
+"li></ul>"
+msgstr ""
+"<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr; Volver</a></"
+"li></ul>"
+
+#: /var/www/typ/tweets.php:167
+msgid "This tweet doesn't exist."
+msgstr "Este tuit no existe."
+
+#: /var/www/typ/tweets.php:169
+#, php-format
+msgid "Tweet of %s"
+msgstr "Tuit de"
+
+#: /var/www/typ/tweets.php:171
+msgid "Tweet of:"
+msgstr "Tuit de:"
+
+#: /var/www/typ/tweets.php:180
+msgid "Tweet sent successfully"
+msgstr "Tuit enviado exitosamente"
+
+#: /var/www/typ/tweets.php:192 /var/www/typ/typ-inc/cuerpo.php:163
+msgid "Tweets"
+msgstr "Tuits"
+
+#: /var/www/typ/tweets.php:199 /var/www/typ/index.php:226
+#: /var/www/typ/usuarios.php:346 /var/www/typ/typ-inc/cuerpo.php:93
+msgid "Add new"
+msgstr "Agregar nuevo"
+
+#: /var/www/typ/tweets.php:203
+#, php-format
+msgid "You don't have tweets... <a href=\"%s\">Would you like to add one?</a>"
+msgstr "No tienes tuits... <a href=\"%s\">¿Quieres añadir uno?</a>"
+
+#: /var/www/typ/tweets.php:211
+msgid "View"
+msgstr "Ver"
+
+#: /var/www/typ/tweets.php:214 /var/www/typ/index.php:251
+#: /var/www/typ/usuarios.php:370
+msgid "Edit"
+msgstr "Editar"
+
+#: /var/www/typ/tweets.php:217 /var/www/typ/index.php:220
+#: /var/www/typ/usuarios.php:374
+msgid "Delete"
+msgstr "Eliminar"
+
+#: /var/www/typ/index.php:23 /var/www/typ/index.php:25
+msgid "Add tracker"
+msgstr "Agregar tracker"
+
+#: /var/www/typ/index.php:37
+msgid "I'm pretty sure that the font must have a point."
+msgstr "Estoy bastante seguro de que la fuente lleva un punto."
+
+#: /var/www/typ/index.php:39
+msgid "The font doesn't have the right format. It must be ttf (TrueType Font)"
+msgstr "La fuente no tiene el formato correcto. Debe ser ttf (TrueType Font)"
+
+#: /var/www/typ/index.php:41
+msgid "The fon't doesn't exist in the directory of included files."
+msgstr "La fuente no existe en el directorio de incluidos."
+
+#: /var/www/typ/index.php:46
+msgid "The tracker has been created successfully."
+msgstr "El tracker ha sido creado exitosamente."
+
+#: /var/www/typ/index.php:54 /var/www/typ/index.php:122
+msgid "Tracker's name"
+msgstr "Nombre del tracker"
+
+#: /var/www/typ/index.php:58
+msgid "The tracker's name or the character"
+msgstr "El nombre del tracker o el personaje"
+
+#: /var/www/typ/index.php:64
+msgid "Tracker's image"
+msgstr "Imagen del tracker"
+
+#: /var/www/typ/index.php:69 /var/www/typ/index.php:127
+#: /var/www/typ/index.php:179
+msgid "Font"
+msgstr "Fuente"
+
+#: /var/www/typ/index.php:73
+msgid "The font used to write in the image."
+msgstr "La fuente a ser usada para escribir en la imagen."
+
+#: /var/www/typ/index.php:85 /var/www/typ/usuarios.php:237
+msgid "You must specify a valid ID."
+msgstr "Debes especificar un ID válido."
+
+#: /var/www/typ/index.php:90
+msgid "That tracker doesn't exist."
+msgstr "Ese tracker no existe."
+
+#: /var/www/typ/index.php:92
+#, php-format
+msgid "Edit %s's tracker"
+msgstr "Editar el tracker de %s"
+
+#: /var/www/typ/index.php:103
+msgid "So doesn't the font have a point?"
+msgstr "¿Entonces la fuente no lleva un punto?"
+
+#: /var/www/typ/index.php:105
+msgid "The font file doesn't exist in the directory of included files."
+msgstr "El archivo de la fuente no existe en el directorio de incluidos."
+
+#: /var/www/typ/index.php:108
+msgid "Tracker edited successfully."
+msgstr "Tracker editado exitosamente."
+
+#: /var/www/typ/index.php:113
+#, php-format
+msgid "Edit <i>%s</i>'s tracker"
+msgstr "Editar el tracker de <i>%s</i>"
+
+#: /var/www/typ/index.php:114
+msgid "Back to tracker"
+msgstr "Volver al tracker"
+
+#: /var/www/typ/index.php:131
+msgid "The tracker's font"
+msgstr "La fuente del tracker"
+
+#: /var/www/typ/index.php:137 /var/www/typ/index.php:180
+#: /var/www/typ/typ-inc/cuerpo.php:116
+msgid "Edit parameters"
+msgstr "Editar parámetros"
+
+#: /var/www/typ/index.php:146
+msgid "Delete trackers"
+msgstr "Eliminar tracker"
+
+#: /var/www/typ/index.php:149
+msgid "Wrong way to delete. WRONG."
+msgstr "Mala forma de borrar. MALA."
+
+#: /var/www/typ/index.php:159
+msgid "The selected trackers have been deleted."
+msgstr "Los trackers seleccionados han sido eliminados."
+
+#: /var/www/typ/index.php:160
+#, php-format
+msgid ""
+"<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr;Back</a></"
+"li></ul>"
+msgstr ""
+"<ul class=\"pager\"><li class=\"previous\"><a href=\"%s\">&larr;Volver</a></"
+"li></ul>"
+
+#: /var/www/typ/index.php:173
+msgid "The ID you specified doesn't exist."
+msgstr "El ID que especificaste no existe."
+
+#: /var/www/typ/index.php:175
+#, php-format
+msgid "%s's tracker"
+msgstr "Tracker de %s"
+
+#: /var/www/typ/index.php:177
+msgid "Tracker details"
+msgstr "Detalles del tracker"
+
+#: /var/www/typ/index.php:179
+msgid "(it doesn't exist)"
+msgstr "(no existe)"
+
+#: /var/www/typ/index.php:181
+msgid "Background image"
+msgstr "Imagen de fondo"
+
+#: /var/www/typ/index.php:183
+msgid "Image"
+msgstr "Imagen"
+
+#: /var/www/typ/index.php:190 /var/www/typ/index.php:225
+#: /var/www/typ/typ-inc/cuerpo.php:84 /var/www/typ/typ-inc/cuerpo.php:148
+msgid "Trackers"
+msgstr "Trackers"
+
+#: /var/www/typ/index.php:196
+#, php-format
+msgid ""
+"You don't have trackers ... <a href=\"%s\">Would you like to add one?</a> :)"
+msgstr "No tienes trackers... <a href=\"%s\">¿Quieres añadir uno?</a> :)"
+
+#: /var/www/typ/index.php:198
+msgid "There are not trackers. Tell the admin. :/"
+msgstr "No hay trackers. Notifícale al administrador. :/"
+
+#: /var/www/typ/index.php:208
+msgid "You must select a tracker."
+msgstr "Debes seleccionar un tracker."
+
+#: /var/www/typ/index.php:210
+msgid "You must select at least one."
+msgstr "Debes seleccionar al menos uno."
+
+#: /var/www/typ/index.php:213
+#, php-format
+msgid "Are you sure you want to delete %s tracker?"
+msgstr "¿Estás seguro/a de que quieres eliminar %s tracker?"
+
+#: /var/www/typ/index.php:214
+#, php-format
+msgid "Are you sure you want to delete %s trackers?"
+msgstr "¿Estás seguro/a de que quieres eliminar %s trackers?"
+
+#: /var/www/typ/index.php:218
+msgid "Confirmation"
+msgstr "Confirmación"
+
+#: /var/www/typ/index.php:220 /var/www/typ/parametros.php:332
+msgid "Close"
+msgstr "Cerrar"
+
+#: /var/www/typ/index.php:245
+msgid "Image of"
+msgstr "Imagen de"
+
+#: /var/www/typ/index.php:249
+#, php-format
+msgid "View details of %s's tracker"
+msgstr "Ver detalles del tracker de %s"
+
+#: /var/www/typ/index.php:249
+msgid "Details"
+msgstr "Detalles"
+
+#: /var/www/typ/index.php:257
+msgid "There are not more trackers."
+msgstr "No hay más trackers"
+
+#: /var/www/typ/index.php:278
+msgid "Delete selected"
+msgstr "Eliminar seleccionados"
+
+#: /var/www/typ/instalar.php:13
+msgid "I'm sorry! TrackYourPenguin needs a PHP version greater than 5.2.0 :("
+msgstr ""
+"¡Lo siento! TrackYourPenguin necesita una versión de PHP mayor a la 5.2.0 :("
+
+#: /var/www/typ/instalar.php:24
+msgid "Installation"
+msgstr "Instalación"
+
+#: /var/www/typ/instalar.php:47
+msgid "version"
+msgstr "versión"
+
+#: /var/www/typ/instalar.php:57
+msgid ""
+"There was an error when renaming the file. It seems like your hosting does "
+"not allow it. Please rename \"<strong>typ-config-sample.php</strong>\" to "
+"\"<strong>typ-config.php</strong>\""
+msgstr ""
+"Hubo un error renombrando el archivo. Parece que tu hosting no lo permite. "
+"Por favor renombra \"<strong>typ-config-sample.php</strong>\" a\"<strong>typ-"
+"config.php</strong>\""
+
+#: /var/www/typ/instalar.php:63
+msgid ""
+"<h2><strong>You already installated.</strong></h2><hr> TrackYourPenguin was "
+"already installed, and there's not need to install it again."
+msgstr ""
+"<h2><strong>Ya has instalado.</strong></h2><hr> TrackYourPenguin ya fue "
+"instalado y n hay necesidad de instalarlo de nuevo."
+
+#: /var/www/typ/instalar.php:75
+msgid "Missing both files: typ-config.php and typ-config-sample.php"
+msgstr "Faltan ambos archivos: typ-config.php y typ-config-sample.php"
+
+#: /var/www/typ/instalar.php:100
+msgid ""
+"Can't open file :/, please replace <strong>typ-config-sample.php</strong> "
+"for the code below and rename it to <strong>typ-config.php</strong>"
+msgstr ""
+"No se puede abrir el archivo :/, por favor reemplaza <strong>typ-config-"
+"sample.php</strong> por el código de abajo y renómbralo a <strong>typ-config."
+"php</strong>"
+
+#: /var/www/typ/instalar.php:109
+msgid ""
+"Can't rewrite file :/, please replace <strong>typ-config-sample.php</strong> "
+"by the code below and rename it to <strong>typ-config.php</strong>, or, or "
+"if it already exists <strong>typ-config.php</strong>, update it with this:"
+msgstr ""
+"No se puede reescribir el archivo :/ por favor reemplaza <strong>typ-config-"
+"sample.php</strong> por el código de abajo y renómbralo a <strong>typ-config."
+"php</strong>, o si ya existe <strong>typ-config.php</strong> actualízalo con "
+"esto:"
+
+#: /var/www/typ/instalar.php:119
+#, php-format
+msgid "MySQL connect failed. Error MySQL: %s "
+msgstr "La conexión MySQL falló. Error MySQL: %s"
+
+#: /var/www/typ/instalar.php:123
+msgid "There was an error connecting to the database"
+msgstr "Hubo un error conectando a la base de datos."
+
+#: /var/www/typ/instalar.php:124
+msgid ""
+"There was an error while connectiong to the database. You can make the "
+"connection from here. The data you will type here will be provided by your "
+"hosting."
+msgstr ""
+"Hubo un error conectando a la base de datos. Puedes hacer la conexión desde "
+"aquí.  Los datos que pondrás aquí te los proveerá tu hosting."
+
+#: /var/www/typ/instalar.php:128
+msgid "Host"
+msgstr "Host"
+
+#: /var/www/typ/instalar.php:132
+msgid "MySQL database host, most of the time it is localhost"
+msgstr "Host de la base de datos MySQL, casi siempre es localhost"
+
+#: /var/www/typ/instalar.php:141
+msgid "Database name"
+msgstr "Nombre de la base de datos"
+
+#: /var/www/typ/instalar.php:146 /var/www/typ/instalar.php:242
+#: /var/www/typ/usuarios.php:76 /var/www/typ/usuarios.php:188
+#: /var/www/typ/usuarios.php:320 /var/www/typ/usuarios.php:324
+#: /var/www/typ/usuarios.php:350 /var/www/typ/sesiones.php:72
+msgid "User"
+msgstr "Usuario"
+
+#: /var/www/typ/instalar.php:150
+msgid "Database user"
+msgstr "Usuario de la base de datos"
+
+#: /var/www/typ/instalar.php:155 /var/www/typ/instalar.php:251
+#: /var/www/typ/acceso.php:249 /var/www/typ/usuarios.php:86
+msgid "Password"
+msgstr "Contraseña"
+
+#: /var/www/typ/instalar.php:159 /var/www/typ/instalar.php:278
+msgid "Database password"
+msgstr "Contraseña de la base de datos"
+
+#: /var/www/typ/instalar.php:164 /var/www/typ/ajustes.php:93
+msgid "Language"
+msgstr "Idioma"
+
+#: /var/www/typ/instalar.php:172 /var/www/typ/ajustes.php:103
+msgid "Language for the site"
+msgstr "Idioma para el sitio"
+
+#: /var/www/typ/instalar.php:175
+msgid "Connect"
+msgstr "Conectar"
+
+#: /var/www/typ/instalar.php:184
+#, php-format
+msgid ""
+"<h2>Error establishing a database connection.</h2><p>It can't connect. "
+"Please check your <strong>typ-config.php</strong>, and here is the error "
+"returned by MySQL: <strong>%s</strong>"
+msgstr ""
+"<h2>Error estableciendo una conexión con la base de datos.</h2><p>No se "
+"puede conectar. Por favor revisa tu <strong>typ-config.php</strong>, y aquí "
+"está el error devuelto por MySQL: <strong>%s</strong>"
+
+#: /var/www/typ/instalar.php:202
+msgid "Welcome to the installation"
+msgstr "Bienvenido a la instalación"
+
+#: /var/www/typ/instalar.php:205
+msgid ""
+"With this guide you will be able to install TrackYourPenguin easily, you "
+"just have to fill the following fields... :)"
+msgstr ""
+"Con esta guía podrás instalar TrackYourPenguin fácilmente, sólo tienes que "
+"llenar los siguientes campos... :)"
+
+#: /var/www/typ/instalar.php:218
+msgid "The user doesn't look valid. Remember it must have 3-12 characters."
+msgstr ""
+"El usuario no luce válido. Recuerda que debe tener de 3 a 12 caracteres."
+
+#: /var/www/typ/instalar.php:220
+msgid "Are you sure that your email is so long?"
+msgstr "¿Estás seguro de que tu email es tan largo?"
+
+#: /var/www/typ/instalar.php:222
+msgid "The email you typed is too long."
+msgstr "El email que ingresaste es demasiado largo."
+
+#: /var/www/typ/instalar.php:224
+msgid "The passwords don't match."
+msgstr "Las contraseñas no combinan."
+
+#: /var/www/typ/instalar.php:226
+msgid "The typed password don't match with the database password."
+msgstr "Las contraseña ingresada no combina con la de la base de datos."
+
+#: /var/www/typ/instalar.php:232
+#, php-format
+msgid ""
+"<h2> Installation completed </h2><br> You have installed TrackYourPenguin "
+"successfully. Now you can <a href=\"%s\">log in</a> to continue. :)"
+msgstr ""
+"<h2> Instalación completada </h2><br> Has instalado TrackYourPenguin "
+"exitosamente. Ahora puedes <a href=\"%s\">iniciar sesión</a> para "
+"continuar. :)"
+
+#: /var/www/typ/instalar.php:246
+msgid "Your username for this site"
+msgstr "Tu nombre de usuario para el sitio"
+
+#: /var/www/typ/instalar.php:255
+msgid "Your password to log in"
+msgstr "Tu contraseña para iniciar sesión"
+
+#: /var/www/typ/instalar.php:260 /var/www/typ/usuarios.php:95
+msgid "Re-type password"
+msgstr "Confirmar contraseña"
+
+#: /var/www/typ/instalar.php:264
+msgid "Make sure this is the password that you want"
+msgstr "Asegúrate de que esta es la contraseña que quieres"
+
+#: /var/www/typ/instalar.php:269 /var/www/typ/usuarios.php:104
+#: /var/www/typ/usuarios.php:198 /var/www/typ/usuarios.php:325
+#: /var/www/typ/usuarios.php:351
+msgid "Email"
+msgstr "Email"
+
+#: /var/www/typ/instalar.php:273
+msgid "Your email, the one you use the most"
+msgstr "Tu email, el que más uses"
+
+#: /var/www/typ/instalar.php:282
+msgid "Just to be sure"
+msgstr "Sólo para estar seguros"
+
+#: /var/www/typ/acceso.php:91
+msgid "Forgot password?"
+msgstr "¿Contraseña olvidada?"
+
+#: /var/www/typ/acceso.php:93
+msgid "Back to login"
+msgstr "Volver al acceso"
+
+#: /var/www/typ/acceso.php:108
+msgid "Hash or password are WRONG."
+msgstr "El hash o la clave están MAL."
+
+#: /var/www/typ/acceso.php:111
+msgid "Type your email to recover your password."
+msgstr "Escribe tu email para recuperar tu contraseña."
+
+#: /var/www/typ/acceso.php:117 /var/www/typ/acceso.php:154
+msgid "Forgot password"
+msgstr "Contraseña olvidada"
+
+#: /var/www/typ/acceso.php:126
+msgid "The email input can't be empty."
+msgstr "El email no puede estar vacío."
+
+#: /var/www/typ/acceso.php:128
+msgid "That email isn't valid."
+msgstr "El email no es válido."
+
+#: /var/www/typ/acceso.php:130
+msgid "The email you typed is not registered."
+msgstr "El email que escribiste no está registrado."
+
+#: /var/www/typ/acceso.php:138
+#, php-format
+msgid "Forgot password [%s]"
+msgstr "Contraseña olvidada [%s]"
+
+#: /var/www/typ/acceso.php:139
+#, php-format
+msgid ""
+"<html><body>\n"
+"\t\t\t\t\tHi, <strong>%s</strong>! \n"
+"\n"
+"\n"
+"\t\t\t\t\tSomeone sent a request to this email for a lost password, if it "
+"was you\n"
+"\t\t\t\t\t<a href=\"%s\"><strong>click here</strong></a>\n"
+"\n"
+"\n"
+"\t\t\t\t\tIf it wasn't you, don't do nothing, take it easy and nothing will "
+"happen. :)</body></html>"
+msgstr ""
+"<html><body>\n"
+"\t\t\t\t\tHi, <strong>%s</strong>! \n"
+"\n"
+"\n"
+"\t\t\t\t\tAlguien solicitó una contraseña nueva para esta cuenta, si fuiste "
+"tú\n"
+"\t\t\t\t\t<a href=\"%s\"><strong>haz clic aquí</strong></a>\n"
+"\n"
+"\n"
+"\t\t\t\t\tSi no fuiste tú, tranquilo, no hagas nada y nada pasará. :)</"
+"body></html>"
+
+#: /var/www/typ/acceso.php:147
+msgid "The mail has been sent. Check it."
+msgstr "El email ha sido enviado. Revísalo."
+
+#: /var/www/typ/acceso.php:149
+msgid ""
+"Unafortunely, the email couldn't send. Maybe because the function "
+"<strong>mail()</strong> is disabled."
+msgstr ""
+"Desafortunadamente, el email no puedo ser enviado. Quizá porque la función "
+"<strong>mail()</strong> está desactivada."
+
+#: /var/www/typ/acceso.php:155
+msgid "Type your email"
+msgstr "Escribe tu email."
+
+#: /var/www/typ/acceso.php:172
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+#: /var/www/typ/acceso.php:172
+msgid "Now you can type your password to update it."
+msgstr "Ahora puedes escribir tu contraseña para actualizarla."
+
+#: /var/www/typ/acceso.php:179
+msgid "The password don't match."
+msgstr "Las contraseñas no combinan."
+
+#: /var/www/typ/acceso.php:183
+msgid "Your password has been updated."
+msgstr "Tu contraseña ha sido actualizada."
+
+#: /var/www/typ/acceso.php:188 /var/www/typ/acceso.php:193
+msgid "Update password"
+msgstr "Actualizar contraseña."
+
+#: /var/www/typ/acceso.php:189
+msgid "Type your new password"
+msgstr "Escribe tu nueva contraseña"
+
+#: /var/www/typ/acceso.php:191
+msgid "Re-type your new password."
+msgstr "Confirma tu nueva contraseña."
+
+#: /var/www/typ/acceso.php:202
+msgid "Please log in to continue."
+msgstr "Por favor inicia sesión para continuar."
+
+#: /var/www/typ/acceso.php:209 /var/www/typ/acceso.php:246
+msgid "Log In"
+msgstr "Iniciar sesión"
+
+#: /var/www/typ/acceso.php:222
+msgid "The user and password don't match."
+msgstr "El usuario y la clave no combinan."
+
+#: /var/www/typ/acceso.php:224
+msgid "This user was banned."
+msgstr "Este usuario está suspendido."
+
+#: /var/www/typ/acceso.php:236
+msgid "You have logged out."
+msgstr "Has cerrado sesión."
+
+#: /var/www/typ/acceso.php:247 /var/www/typ/usuarios.php:81
+#: /var/www/typ/usuarios.php:193
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: /var/www/typ/acceso.php:251
+msgid "Remember me"
+msgstr "Recuérdame"
+
+#: /var/www/typ/log.php:18 /var/www/typ/log.php:47
+msgid "Changelog"
+msgstr "Registro de cambios"
+
+#: /var/www/typ/log.php:31
+msgid "That log ID doesn't exist."
+msgstr "Ese ID no existe."
+
+#: /var/www/typ/log.php:35
+msgid "Log ID"
+msgstr "ID del registro"
+
+#: /var/www/typ/log.php:39 /var/www/typ/log.php:83
+msgid "Date"
+msgstr "Fecha"
+
+#: /var/www/typ/log.php:41
+msgid "Back to all logs"
+msgstr "Volver a todos los registros"
+
+#: /var/www/typ/log.php:50
+msgid "Nothing have been registered yet or all the logs have been deleted."
+msgstr "Nada ha sido registrado aún o todos los registros han sido eliminados."
+
+#: /var/www/typ/log.php:58
+msgid "There are not more logs."
+msgstr "No hay más registros."
+
+#: /var/www/typ/log.php:66
+msgid "You must select something to delete."
+msgstr "Debes seleccionar algo para eliminar."
+
+#: /var/www/typ/log.php:71
+msgid "The selected logs have been deleted."
+msgstr "Los registros seleccionados han sido eliminados."
+
+#: /var/www/typ/log.php:82
+msgid "Action"
+msgstr "Acción"
+
+#: /var/www/typ/log.php:92
+msgid "more"
+msgstr "más"
+
+#: /var/www/typ/log.php:115
+msgid "Empty logs"
+msgstr "Vaciar registros"
+
+#: /var/www/typ/log.php:118
+msgid "Clean selected elements"
+msgstr "Eliminar elementos seleccionados"
+
+#: /var/www/typ/usuarios.php:34 /var/www/typ/usuarios.php:37
+msgid "Add user"
+msgstr "Añadir usuario"
+
+#: /var/www/typ/usuarios.php:39 /var/www/typ/usuarios.php:322
+msgid "Back to users"
+msgstr "Volver a los usuarios"
+
+#: /var/www/typ/usuarios.php:55 /var/www/typ/usuarios.php:167
+msgid "Cheatin' to get a better role?"
+msgstr "¿Haciendo trampa para conseguir un mejor rango?"
+
+#: /var/www/typ/usuarios.php:57
+msgid "I need a valid user. From 3 to 12 characters."
+msgstr "Necesito un usuario válido. De 3 a 12 caracteres."
+
+#: /var/www/typ/usuarios.php:59 /var/www/typ/usuarios.php:171
+msgid "The email is not valid."
+msgstr "El email no es válido."
+
+#: /var/www/typ/usuarios.php:61
+msgid "That user already exists."
+msgstr "Ese usuario ya existe."
+
+#: /var/www/typ/usuarios.php:63
+msgid "That email already exists"
+msgstr "Ese email ya existe"
+
+#: /var/www/typ/usuarios.php:65
+msgid "It can't be super admin!"
+msgstr "¡No puede ser super admin!"
+
+#: /var/www/typ/usuarios.php:68
+msgid "The user has been created."
+msgstr "El usuario ha sido creado"
+
+#: /var/www/typ/usuarios.php:90
+msgid "User password"
+msgstr "Contraseña del usuario"
+
+#: /var/www/typ/usuarios.php:99
+msgid "Re-type the user password"
+msgstr "Confirma la contraseña del usuario"
+
+#: /var/www/typ/usuarios.php:108 /var/www/typ/usuarios.php:202
+msgid "User email"
+msgstr "Email del usuario"
+
+#: /var/www/typ/usuarios.php:113 /var/www/typ/usuarios.php:208
+#: /var/www/typ/usuarios.php:327 /var/www/typ/usuarios.php:352
+msgid "Role"
+msgstr "Rango"
+
+#: /var/www/typ/usuarios.php:117 /var/www/typ/usuarios.php:214
+#: /var/www/typ/usuarios.php:218 /var/www/typ/typ-inc/usuarios.php:104
+msgid "Administrator"
+msgstr "Administrador"
+
+#: /var/www/typ/usuarios.php:118 /var/www/typ/usuarios.php:215
+#: /var/www/typ/usuarios.php:217 /var/www/typ/usuarios.php:220
+#: /var/www/typ/typ-inc/usuarios.php:107
+msgid "Updater"
+msgstr "Actualizador"
+
+#: /var/www/typ/usuarios.php:120 /var/www/typ/usuarios.php:223
+msgid "Which will be this user's role?"
+msgstr "¿Cuál será el rango de este usuario?"
+
+#: /var/www/typ/usuarios.php:124
+msgid "Add"
+msgstr "Añadir"
+
+#: /var/www/typ/usuarios.php:135
+msgid "The user you specify doesn't exist."
+msgstr "El usuario que especificas no existe."
+
+#: /var/www/typ/usuarios.php:138 /var/www/typ/usuarios.php:285
+msgid "You are not allowed to be here."
+msgstr "No tienes permiso para entrar aquí."
+
+#: /var/www/typ/usuarios.php:141
+msgid "You can't edit someone's user with a role bigger or the same that you."
+msgstr ""
+"No puedes editar el usuario de alguien con un rango mayor o igual al tuyo."
+
+#: /var/www/typ/usuarios.php:143
+#, php-format
+msgid "Edit user: %s"
+msgstr "Editar al usuario: %s"
+
+#: /var/www/typ/usuarios.php:145
+msgid "Edit user"
+msgstr "Editar al usuario"
+
+#: /var/www/typ/usuarios.php:147
+msgid "Back to user"
+msgstr "Volver al usuario"
+
+#: /var/www/typ/usuarios.php:169
+msgid "Type a valid username. From 3 to 12 characters."
+msgstr "Escribe un nombre de usuario válido. De 3 a 12 caracteres."
+
+#: /var/www/typ/usuarios.php:173
+msgid "That user already exist."
+msgstr "Ese usuario ya existe."
+
+#: /var/www/typ/usuarios.php:175
+msgid "That email already exist."
+msgstr "Ese email ya existe."
+
+#: /var/www/typ/usuarios.php:177
+msgid "You can't be super admin."
+msgstr "No puedes ser súper admin."
+
+#: /var/www/typ/usuarios.php:180
+msgid "The user has been updated."
+msgstr "El usuario ha sido actualizado."
+
+#: /var/www/typ/usuarios.php:225
+msgid "You can't change your own role."
+msgstr "No puedes cambiar tu propio rango."
+
+#: /var/www/typ/usuarios.php:243 /var/www/typ/usuarios.php:263
+#: /var/www/typ/usuarios.php:290
+msgid "The selected user doesn't exist."
+msgstr "El usuario seleccionado no existe."
+
+#: /var/www/typ/usuarios.php:246
+msgid "You can't delete your own user. >.<"
+msgstr "No puedes eliminar tu propio usuario.  >.<"
+
+#: /var/www/typ/usuarios.php:248
+#, php-format
+msgid "Delete the user: %s"
+msgstr "Eliminar el usuario: %s"
+
+#: /var/www/typ/usuarios.php:252
+#, php-format
+msgid "The user %s has been deleted"
+msgstr "El usuario %s ha sido eliminado."
+
+#: /var/www/typ/usuarios.php:257 /var/www/typ/usuarios.php:282
+msgid "You must specify an ID."
+msgstr "Debes especificar un ID."
+
+#: /var/www/typ/usuarios.php:266
+msgid "You can't ban your own user."
+msgstr "No puedes suspender a tu propio usuario."
+
+#: /var/www/typ/usuarios.php:269
+msgid "This user is already banned."
+msgstr "El usuario ya está suspendido."
+
+#: /var/www/typ/usuarios.php:271
+#, php-format
+msgid "Ban: %s"
+msgstr "Suspender: %s"
+
+#: /var/www/typ/usuarios.php:275
+#, php-format
+msgid "The user <strong>%s</strong> has been banned."
+msgstr "El usuario <strong>%s</strong> ha sido suspendido."
+
+#: /var/www/typ/usuarios.php:295
+msgid "This user is not banned."
+msgstr "El usuario no está suspendido."
+
+#: /var/www/typ/usuarios.php:297
+#, php-format
+msgid "Unbanning: %s"
+msgstr "Quitar suspensión: %s"
+
+#: /var/www/typ/usuarios.php:300
+#, php-format
+msgid "The user %s has been unbanned."
+msgstr "Al usuario %s se la he quitado la suspensión."
+
+#: /var/www/typ/usuarios.php:317
+msgid "This user doesn't exist or you're not allowed to read its data."
+msgstr "Este usuario no existe o no tienes permitido leer sus datos."
+
+#: /var/www/typ/usuarios.php:328
+msgid "Last update done"
+msgstr "Última actualización hecha"
+
+#: /var/www/typ/usuarios.php:333
+msgid "Unknown tracker"
+msgstr "Tracker desconocido"
+
+#: /var/www/typ/usuarios.php:336
+msgid "No recent updates have been found."
+msgstr "No se encontraron actualizaciones recientes"
+
+#: /var/www/typ/usuarios.php:341 /var/www/typ/usuarios.php:343
+#: /var/www/typ/typ-inc/cuerpo.php:151
+msgid "Users"
+msgstr "Usuarios"
+
+#: /var/www/typ/usuarios.php:377
+msgid "Ban"
+msgstr "Suspender"
+
+#: /var/www/typ/usuarios.php:379
+msgid "Unban"
+msgstr "Quitar suspensión"
+
+#: /var/www/typ/ajustes.php:19 /var/www/typ/ajustes.php:25
+#: /var/www/typ/typ-inc/cuerpo.php:155
+msgid "Settings"
+msgstr "Ajustes"
+
+#: /var/www/typ/ajustes.php:45
+msgid "The URL is not valid."
+msgstr "El URL no es válido."
+
+#: /var/www/typ/ajustes.php:50
+msgid "Settings have been updated."
+msgstr "Los ajustes han sido actualizados."
+
+#: /var/www/typ/ajustes.php:62
+msgid "Site title :)"
+msgstr "Título del sitio. :)"
+
+#: /var/www/typ/ajustes.php:67
+msgid "URL"
+msgstr "URL"
+
+#: /var/www/typ/ajustes.php:72
+msgid "Site URL, there's  no need to change it."
+msgstr "URL del sitio, no hay necesidad de cambiarlo."
+
+#: /var/www/typ/ajustes.php:77
+msgid "Theme"
+msgstr "Tema"
+
+#: /var/www/typ/ajustes.php:88
+msgid "Which theme do you like more?"
+msgstr "¿Qué tema te gusta más?"
+
+#: /var/www/typ/sesiones.php:25 /var/www/typ/sesiones.php:47
+#: /var/www/typ/typ-inc/cuerpo.php:178
+msgid "Sessions"
+msgstr "Sesiones"
+
+#: /var/www/typ/sesiones.php:34
+msgid "There aren't sessions for this user."
+msgstr "No hay sesiones para este usuario."
+
+#: /var/www/typ/sesiones.php:42
+msgid "There are not more sessions"
+msgstr "No hay más sesiones."
+
+#: /var/www/typ/sesiones.php:48
+msgid " of user: "
+msgstr "del usuario:"
+
+#: /var/www/typ/sesiones.php:54
+msgid "You must select one session to delete."
+msgstr "Debes seleccionar una sesión para eliminar."
+
+#: /var/www/typ/sesiones.php:60
+msgid "The sessions you selected have been deleted (if they existed)"
+msgstr "Las sesiones seleccionadas han sido eliminadas (si existían)"
+
+#: /var/www/typ/sesiones.php:73
+msgid "Data"
+msgstr "Datos"
+
+#: /var/www/typ/sesiones.php:76
+msgid " <strong>(current session)</strong>"
+msgstr "  <strong>(sesión actual)</strong>"
+
+#: /var/www/typ/sesiones.php:107
+msgid "your"
+msgstr "tu"
+
+#: /var/www/typ/sesiones.php:107
+msgid "this"
+msgstr "este"
+
+#: /var/www/typ/sesiones.php:109
+#, php-format
+msgid "Delete all %s user sessions"
+msgstr "Eliminar todas las sesiones de %s usuario"
+
+#: /var/www/typ/sesiones.php:112
+msgid "Delete selected sessions"
+msgstr "Eliminar las sesiones seleccionada"
+
+#: /var/www/typ/about.php:13 /var/www/typ/typ-inc/cuerpo.php:76
+msgid "About"
+msgstr "Acerca de"
+
+#: /var/www/typ/about.php:15
+msgid "About TrackYourPenguin"
+msgstr "Acerca de TrackYourPenguin"
+
+#: /var/www/typ/about.php:19
+#, php-format
+msgid ""
+"Welcome to <strong>TrackYourPenguin %s</strong>. TrackYourPenguin "
+"(<i>shorten like TYP</i>) is a trackers system coded in PHP and MySQL, "
+"currently developed by <a href=\"%s\" target\"_blank\">Zerquix18</a>. The "
+"goal is that you can track using multiple trackers, tweets, users and other "
+"features without having the need to code them or even touch code. All in "
+"one. :)"
+msgstr ""
+"Bienvenido/a a <strong>TrackYourPenguin %s</strong>. TrackYourPenguin "
+"(<i>acortado como TYP</i>) es un sistema de trackers escrito en PHP y MySQL, "
+"actualmente desarrollado por <a href=\"%s\" target\"_blank\">Zerquix18</a>. "
+"La meta es que puedas trackear usando múltiples  trackers, tweets, usuarios "
+"sin tener la necesidad de escribir el código o siquiera tocar código. Todo "
+"en uno. :)"
+
+#: /var/www/typ/about.php:34
+msgid "News of the version"
+msgstr "Novedades de la versión"
+
+#: /var/www/typ/about.php:42
+msgid "Unable to check the changelog"
+msgstr "No se pudo obtener el registro de cambios"
+
+#: /var/www/typ/about.php:45
+msgid "Credits"
+msgstr "Créditos"
+
+#: /var/www/typ/about.php:48
+msgid "The whole design and javascript plugins"
+msgstr "El diseño y los plugins javascript del sitio"
+
+#: /var/www/typ/about.php:49
+msgid "Aditional bootstrap themes"
+msgstr "Temas adicionales de Bootstrap"
+
+#: /var/www/typ/about.php:50
+msgid "Creator of i18n"
+msgstr "Creador de i18n"
+
+#: /var/www/typ/about.php:51
+msgid "Twitter libraries"
+msgstr "Librerías de Twitter"
+
+#: /var/www/typ/about.php:52
+msgid "Everything else you can see here! :)"
+msgstr "¡Todo lo demás que puedes ver aquí! :)"
+
+#: /var/www/typ/parametros.php:20
+msgid "I need a correct ID"
+msgstr "Necesito un ID correcto"
+
+#: /var/www/typ/parametros.php:25
+msgid "The tracker doesn't exist."
+msgstr "El tracker no existe."
+
+#: /var/www/typ/parametros.php:60
+msgid "You must select a valid position to edit its parameters."
+msgstr "Debes seleccionar una posición válida para editar sus parámetros."
+
+#: /var/www/typ/parametros.php:82
+#, php-format
+msgid "Edit %s's tracker parameters"
+msgstr "Editar los parámetros del tracker de %s"
+
+#: /var/www/typ/parametros.php:99 /var/www/typ/parametros.php:218
+msgid "Parameters updated. :)"
+msgstr "Parámetros actualizados. :)"
+
+#: /var/www/typ/parametros.php:108 /var/www/typ/parametros.php:166
+#: /var/www/typ/parametros.php:227
+msgid "Text size"
+msgstr "Tamaño del texto"
+
+#: /var/www/typ/parametros.php:112 /var/www/typ/parametros.php:170
+#: /var/www/typ/parametros.php:231
+msgid "Size of the text which will be written in the image"
+msgstr "Tamaño del texto que será escrito en la imagen."
+
+#: /var/www/typ/parametros.php:117 /var/www/typ/parametros.php:175
+#: /var/www/typ/parametros.php:236
+msgid "Angle"
+msgstr "Ángulo"
+
+#: /var/www/typ/parametros.php:121 /var/www/typ/parametros.php:179
+#: /var/www/typ/parametros.php:240
+msgid "Angle in which the text will be written"
+msgstr "Ángulo en el que será escrita la imagen"
+
+#: /var/www/typ/parametros.php:126 /var/www/typ/parametros.php:184
+#: /var/www/typ/parametros.php:245
+msgid "X position"
+msgstr "Posición X"
+
+#: /var/www/typ/parametros.php:130 /var/www/typ/parametros.php:188
+#: /var/www/typ/parametros.php:249
+msgid "X position where the text will be written."
+msgstr "Posición X en la que el texto será escrito"
+
+#: /var/www/typ/parametros.php:135 /var/www/typ/parametros.php:193
+#: /var/www/typ/parametros.php:254
+msgid "Y position"
+msgstr "Posición Y"
+
+#: /var/www/typ/parametros.php:139 /var/www/typ/parametros.php:197
+#: /var/www/typ/parametros.php:258
+msgid "Y position where the text will be written"
+msgstr "Posición Y en la que el texto será escrito"
+
+#: /var/www/typ/parametros.php:143
+msgid "Update parameters"
+msgstr "Actualizar parámetros"
+
+#: /var/www/typ/parametros.php:158
+msgid "Parameters updated :)"
+msgstr "Parámetros actualizados :)"
+
+#: /var/www/typ/parametros.php:201 /var/www/typ/parametros.php:262
+msgid "Update parameters."
+msgstr "Actualizar parámetros."
+
+#: /var/www/typ/parametros.php:306
+msgid "<strong>X position</strong>"
+msgstr "<strong>Posición X</strong>"
+
+#: /var/www/typ/parametros.php:307
+msgid "<strong>Y position</strong>"
+msgstr "<strong>Posición Y</strong>"
+
+#: /var/www/typ/parametros.php:316
+msgid "Get Y & X parameters"
+msgstr "Obtener los parámetros Y y X"
+
+#: /var/www/typ/parametros.php:319
+msgid "Get the X & Y paramters by clicking in a part of the image."
+msgstr "Obtén los parámetros de X  y Y cliqueando en una parte de la imagen."
+
+#: /var/www/typ/parametros.php:320
+msgid ""
+"Once you click, you can close this and click \"Update parameters\" to update "
+"them."
+msgstr ""
+"Una vez cliqueas, puedes cerrar esto y hacer click en \"Actualizar parámetros"
+"\" para actualizarlos."
+
+#: /var/www/typ/typ-inc/class-twitter.php:79
+msgid "200 - OK"
+msgstr "200 - OK"
+
+#: /var/www/typ/typ-inc/class-twitter.php:82
+msgid "Error 304: Not Modified - There was no new data to return."
+msgstr "Error 304: No modificado - No hubo data para volver"
+
+#: /var/www/typ/typ-inc/class-twitter.php:85
+msgid ""
+"Error 400: Bad Request - The request was invalid or cannot be otherwise "
+"served."
+msgstr ""
+"Error 400: Petición incorrecta - La petición fue inválida o no puede ser "
+"resuelta."
+
+#: /var/www/typ/typ-inc/class-twitter.php:88
+msgid ""
+"Error 401: Unauthorized - Authentication credentials were missing or "
+"incorrect."
+msgstr ""
+"Error 401: No autorizado - Las credenciales de autenticación faltan o son "
+"incorrectas."
+
+#: /var/www/typ/typ-inc/class-twitter.php:91
+msgid ""
+"Error 403: Forbidden - The request was understood, but it has been refused "
+"or access is not allowed."
+msgstr ""
+"Error 403: Prohibido - La petición fue entendida, pero fue rechazada o el "
+"acceso no está permitido."
+
+#: /var/www/typ/typ-inc/class-twitter.php:94
+msgid ""
+"Error 404: Not found - The URI requested is invalid or the resource "
+"requested, such as a user, does not exists."
+msgstr ""
+"Error 404: No encontrado - El URI solicitado es inválido o el recurso "
+"solicitad, tal como un usuario, no existe."
+
+#: /var/www/typ/typ-inc/class-twitter.php:97
+msgid ""
+"Error 406: Not acceptable - Returned by the Search API when an invalid "
+"format is specified in the request."
+msgstr ""
+"Error 406: No acceptable - Devuelto por la API de búsqueda cuando un formado "
+"inválido es especificado en la búsqueda."
+
+#: /var/www/typ/typ-inc/class-twitter.php:100
+msgid "Error 410: Gone - This resource is gone."
+msgstr "Error 410: Se fue - El recurso ya no existe."
+
+#: /var/www/typ/typ-inc/class-twitter.php:103
+msgid ""
+"Error 420: Returned by the version 1 Search and Trends APIs when you are "
+"being rate limited."
+msgstr ""
+"Error 420: Devuelto por la versión 1 en APIs para búsquedas y tendencias "
+"cuando se ha sobrepasado el límite."
+
+#: /var/www/typ/typ-inc/class-twitter.php:106
+msgid ""
+"Error 422: Unprocessable Entity - Returned when an image uploaded to POST "
+"account / update_profile_banner is unable to be processed."
+msgstr ""
+"Error 422: Entidad no procesable - Devuelto cuando una imagen subida a "
+"través de POST account / update_profile_banner no puede ser procesada."
+
+#: /var/www/typ/typ-inc/class-twitter.php:109
+msgid ""
+"Error 429: Too Many Requests - Returned in API v1.1 when a request cannot be "
+"served due to the application’s rate limit having been exhausted for the "
+"resource."
+msgstr ""
+"Error 429: Demasiadas peticiones - Devuelto en la API v1.1 cuando una "
+"petición no puede ser respondida debido a una exceso de peticiones que "
+"supera el límite."
+
+#: /var/www/typ/typ-inc/class-twitter.php:112
+msgid ""
+"Error 500: Internal Server Error - Something is broken. This is a Twitter "
+"error. Please, check Twitter Status."
+msgstr ""
+"Error 500: Error interno del servidor - Algo está roto. Es un error de "
+"Twitter. Por favor, revisa el estado de Twitter."
+
+#: /var/www/typ/typ-inc/class-twitter.php:115
+msgid "Error 502: Bad Gateway - Twitter is down or being upgraded."
+msgstr ""
+"Error 502: Pasarela incorrecta - Twitter está caído o está siendo "
+"actualizado."
+
+#: /var/www/typ/typ-inc/class-twitter.php:118
+msgid ""
+"Error 503: Service Unavailable - The Twitter servers are up, but overloaded "
+"with requests. Try again later."
+msgstr ""
+"Error 503: Servicio no disponible - Los servidores de Twitter están "
+"funcionando, pero están sobrecargados de peticiones. Prueba otra vez más "
+"tarde."
+
+#: /var/www/typ/typ-inc/class-twitter.php:121
+msgid ""
+"Error 504: Gateway timeout - The Twitter servers are up, but the request "
+"couldn’t be serviced due to some failure within our stack. Try again later."
+msgstr ""
+"Error 504: Tiempo de pasarela sobrepasado - Los servidores de Twitter están "
+"funcionando, pero las peticiones lo pueden ser respondidas debido a una "
+"falla dentro del servidor de Twitter. Prueba de nuevo más tarde."
+
+#: /var/www/typ/typ-inc/class-twitter.php:124
+msgid ""
+"Error: Could not authenticate you - Your call could not be completed as "
+"dialed."
+msgstr ""
+"Error: No se pudo autenticar - Tu llamada no pudo ser completada como fue "
+"marcada."
+
+#: /var/www/typ/typ-inc/class-twitter.php:127
+msgid ""
+"Error (404): Sorry, that page does not exist - The specified resource was "
+"not found."
+msgstr ""
+"Error (404): Lo siento, esa página no existe - El recurso especificado no "
+"fue encontrado."
+
+#: /var/www/typ/typ-inc/class-twitter.php:130
+msgid "The Twitter REST API v1 is no longer active. Please update."
+msgstr "La API REST v1 de Twitter ya no funciona. Por favor actualiza."
+
+#: /var/www/typ/typ-inc/class-twitter.php:133
+msgid ""
+"Error: Rate limit exceeded - The request limit for this resource has been "
+"reached for the current rate limit window."
+msgstr "Error: Límite excedido."
+
+#: /var/www/typ/typ-inc/class-twitter.php:136
+msgid ""
+"Error: Invalid or expired token - The access token used in the request is "
+"incorrect or has expired. Used in API v1.1"
+msgstr ""
+"Error: Token inválido o expirado - El token de acceso usado para la petición "
+"es incorrecto o expiró. Usado en la API v1.1"
+
+#: /var/www/typ/typ-inc/class-twitter.php:139
+msgid ""
+"Error (403): Your account is suspended and is not permitted to access this "
+"feature"
+msgstr ""
+"Error (403): Tu cuenta está suspendida y no tienes permitido acceder a estar "
+"característica."
+
+#: /var/www/typ/typ-inc/class-twitter.php:142
+msgid ""
+"Error (500): Internal error - Corresponds with an HTTP 500 - An unknown "
+"internal error occurred."
+msgstr ""
+"Error (500): Error interno - Corresponde a un error HTTP 500 - Un error "
+"interno de Twitter ha occurrido."
+
+#: /var/www/typ/typ-inc/class-twitter.php:145
+msgid ""
+"Error (401): Could not authenticate you - Corresponds with a HTTP 401 - it "
+"means that your oauth_timestamp is either ahead or behind our acceptable "
+"range"
+msgstr ""
+"Error (401): No se pudo autenticar - Corresponde a un error HTTP 401 - "
+"significa que tu oauth_timestamp o está adelantado o detrás del rango "
+"aceptable."
+
+#: /var/www/typ/typ-inc/class-twitter.php:148
+msgid ""
+"Error: Status is a duplicate - The status text has been Tweeted already by "
+"the authenticated account."
+msgstr ""
+"Error: Estado duplicado - El texto del tweet ha sido tuiteado antes por la "
+"cuenta autenticada."
+
+#: /var/www/typ/typ-inc/class-twitter.php:151
+msgid ""
+"Error (400): Bad authentication data - Typically sent with 1.1 responses "
+"with HTTP code 400. The method requires authentication but it was not "
+"presented or was wholly invalid.)"
+msgstr ""
+"Error (400): Datos de autenticación incorrectos - Típicamente enviado con "
+"respuestas 1.1 con código HTTP 400. El método requiere una autenticación "
+"pero no fue permitida o fue totalmente inválida."
+
+#: /var/www/typ/typ-inc/class-twitter.php:154
+msgid "Unknown error! ):"
+msgstr "¡Error desconocido! :("
+
+#: /var/www/typ/typ-inc/class-twitter.php:178
+msgid ""
+"Error: the application doesn't have enough permissions. Remember that both "
+"access tokens must have permissions to read and write."
+msgstr ""
+"Error: La aplicación no tiene los permisos suficientes. Recuerda que ambos "
+"tokens de acceso deben tener permisos de lectura y escritura."
+
+#: /var/www/typ/typ-inc/funciones.php:366 /var/www/typ/typ-inc/cuerpo.php:122
+#: /var/www/typ/typ-inc/cuerpo.php:131
+msgid "Short codes"
+msgstr "Short codes"
+
+#: /var/www/typ/typ-inc/funciones.php:369
+msgid ""
+"These are short codes that you can use to tweet things like status, server, "
+"room, etc. You just have to add them to the tweets."
+msgstr ""
+"Estos son códigos cortos que puedes usar para tuitear cosas como estado, "
+"servidor, sala, etc. Sólo tienes que añadirlo a los tuits."
+
+#: /var/www/typ/typ-inc/funciones.php:370
+#, php-format
+msgid "This prints the status.. Example: the status is: %es"
+msgstr "Esto imprime el estado.. Ejemplo: el estado es: %es"
+
+#: /var/www/typ/typ-inc/funciones.php:371
+#, php-format
+msgid "This prints the server. Example: #Someone is in the server: %se"
+msgstr "Esto imprime el servidor. Ejemplo: #Alguien está en el servidor: %se"
+
+#: /var/www/typ/typ-inc/funciones.php:372
+#, php-format
+msgid "This prints the room.. Example: #Someone is in the room:%sa"
+msgstr "Esto imrpime la sala.. Ejemplo: #Alguien está en la sala:%sa"
+
+#: /var/www/typ/typ-inc/funciones.php:373
+msgid ""
+"This prints \"#ClubPenguin\", it's useful to indicate people that your "
+"tweets are related to that. And also your tweets may appear in the searches "
+"about that."
+msgstr ""
+"Esto imprime \"#ClubPenguin\", es útil para para indicarle a la gente que "
+"tus tuits son relacionados a eso. Y también tus tuits pueden aparecer en las "
+"búsquedas sobre eso."
+
+#: /var/www/typ/typ-inc/funciones.php:374
+msgid "This prints a random number from 1 to 100, so your tweets won't repeat."
+msgstr ""
+"Esto imprime un número aleatorio del 1 al 100, así tus tuits no se repiten."
+
+#: /var/www/typ/typ-inc/funciones.php:375
+msgid ""
+"This prints the name of the character (the tracker's name)  Example: #%pe "
+"has been found in [...]"
+msgstr ""
+"Esto imprime el nombre del personaje (el nombre del tracker) Ejemplo: #%pe "
+"ha sido encontrado en [...]"
+
+#: /var/www/typ/typ-inc/funciones.php:376
+msgid ""
+"<strong>Full example:</strong><br>\n"
+"\t<i>#%pe has been found in %sa (%r) %cp</i> = #*trackersname* has been "
+"found in the room *sent room* (*random number from 1 to 100*) #ClubPenguin</"
+"i>"
+msgstr ""
+"<strong>Ejemplo completo:</strong><br>\n"
+"\t<i>#%pe ha sido encontrado/a en %sa (%r) %cp</i> = #*nombre del tracker* "
+"ha sido encontrado en la *sent room* (*número aleatorio del uno al 100*) "
+"#ClubPenguin</i>"
+
+#: /var/www/typ/typ-inc/cuerpo.php:73
+msgid "Extra"
+msgstr "Extra"
+
+#: /var/www/typ/typ-inc/cuerpo.php:77
+msgid "Log out"
+msgstr "Cerrar sesión"
+
+#: /var/www/typ/typ-inc/cuerpo.php:81
+msgid "Home"
+msgstr "Inicio"
+
+#: /var/www/typ/typ-inc/cuerpo.php:100
+msgid "Tools"
+msgstr "Herramientas"
+
+#: /var/www/typ/typ-inc/cuerpo.php:110
+msgid "Share"
+msgstr "Compartir"
+
+#: /var/www/typ/typ-inc/cuerpo.php:129
+msgid "Get parameters"
+msgstr "Obtener parámetros"
+
+#: /var/www/typ/typ-inc/cuerpo.php:139
+msgid "Javascript is disabled. Most of the functions will fail. :("
+msgstr "Javascript está desactivado. La mayoría de las funciones fallarán. :("
+
+#: /var/www/typ/typ-inc/cuerpo.php:160
+msgid "OAuth"
+msgstr "OAuth"
+
+#: /var/www/typ/typ-inc/cuerpo.php:167
+msgid "Log"
+msgstr "Registro"
+
+#: /var/www/typ/typ-inc/params.php:91
+msgid "The sent parameters aren't valid."
+msgstr "Los parámetros enviados no son válidos."
+
+#: /var/www/typ/typ-inc/ajax.php:22
+msgid "Please, log in to continue..."
+msgstr "Por favor, inicia sesión para continuar..."
+
+#: /var/www/typ/typ-inc/log.php:52
+msgid " at "
+msgstr " a las"
+
+#: /var/www/typ/typ-inc/log.php:67
+msgid "You updated "
+msgstr "Tú actualizaste"
+
+#: /var/www/typ/typ-inc/log.php:67
+#, php-format
+msgid "<strong>%s</strong> updated "
+msgstr "<strong>%s</strong> actualizó"
+
+#: /var/www/typ/typ-inc/log.php:68
+#, php-format
+msgid "<strong>%s</strong>'s tracker' \n"
+msgstr "Tracker de <strong>%s</strong> \n"
+
+#: /var/www/typ/typ-inc/log.php:69
+#, php-format
+msgid "Status: %s \n"
+msgstr "Estado: %s \n"
+
+#: /var/www/typ/typ-inc/log.php:70
+#, php-format
+msgid "Server: %s \n"
+msgstr "Servidor:  %s \n"
+
+#: /var/www/typ/typ-inc/log.php:71
+#, php-format
+msgid "Room: %s \n"
+msgstr "Sala: %s \n"
+
+#: /var/www/typ/typ-inc/log.php:72
+#, php-format
+msgid "Chosen tweet: %s"
+msgstr "Tuit elegido: %s"
+
+#: /var/www/typ/typ-inc/usuarios.php:101
+msgid "Super Administrator"
+msgstr "Súper Administrador"
+
+#: /var/www/typ/typ-inc/usuarios.php:110
+msgid "It has no rank .-. ):"
+msgstr "No tiene rango .-. ):"
+
+#: /var/www/typ/typ-inc/usuarios.php:141
+msgid "Active"
+msgstr "Activo"
+
+#: /var/www/typ/typ-inc/usuarios.php:141
+msgid "Banned"
+msgstr "Suspendido"
+
+#: /var/www/typ/typ-inc/hora.php:85
+msgid "Sunday"
+msgstr "Domingo"
+
+#: /var/www/typ/typ-inc/hora.php:86
+msgid "Monday"
+msgstr "Lunes"
+
+#: /var/www/typ/typ-inc/hora.php:87
+msgid "Tuesday"
+msgstr "Martes"
+
+#: /var/www/typ/typ-inc/hora.php:88
+msgid "Wednesday"
+msgstr "Miércoles"
+
+#: /var/www/typ/typ-inc/hora.php:89
+msgid "Thursday"
+msgstr "Jueves"
+
+#: /var/www/typ/typ-inc/hora.php:90
+msgid "Friday"
+msgstr "Viernes"
+
+#: /var/www/typ/typ-inc/hora.php:91
+msgid "Saturday"
+msgstr "Sábado"
+
+#: /var/www/typ/typ-inc/hora.php:94
+msgid "January"
+msgstr "Enero"
+
+#: /var/www/typ/typ-inc/hora.php:95
+msgid "February"
+msgstr "Febrero"
+
+#: /var/www/typ/typ-inc/hora.php:96
+msgid "March"
+msgstr "Marzo"
+
+#: /var/www/typ/typ-inc/hora.php:97
+msgid "April"
+msgstr "Abril"
+
+#: /var/www/typ/typ-inc/hora.php:98
+msgid "May"
+msgstr "Mayo"
+
+#: /var/www/typ/typ-inc/hora.php:99
+msgid "June"
+msgstr "Junio"
+
+#: /var/www/typ/typ-inc/hora.php:100
+msgid "July"
+msgstr "Julio"
+
+#: /var/www/typ/typ-inc/hora.php:101
+msgid "August"
+msgstr "Agosto"
+
+#: /var/www/typ/typ-inc/hora.php:102
+msgid "September"
+msgstr "Septiembre"
+
+#: /var/www/typ/typ-inc/hora.php:103
+msgid "October"
+msgstr "Octubre"
+
+#: /var/www/typ/typ-inc/hora.php:104
+msgid "November"
+msgstr "Noviembre"
+
+#: /var/www/typ/typ-inc/hora.php:105
+msgid "December"
+msgstr "Diciembre"
+
+#: /var/www/typ/typ-inc/hora.php:111
+msgid "Today is "
+msgstr "Hoy es"
+
+#: /var/www/typ/typ-inc/i18n.php:122
+msgid "English"
+msgstr "Inglés"
+
+#: /var/www/typ/typ-inc/i18n.php:123
+msgid "Spanish"
+msgstr "Español"
+
+#: /var/www/typ/typ-inc/class-archivos.php:37
+msgid "No file was selected."
+msgstr "No se seleccionó ningún archivo."
+
+#: /var/www/typ/typ-inc/class-archivos.php:51
+msgid ""
+"The filytype is not <strong>png</strong>, <strong>jpg</strong>, or "
+"<strong>jpeg</strong>"
+msgstr ""
+"El tipo de archivo no es <strong>png</strong>, <strong>jpg</strong>, o "
+"<strong>jpeg</strong>"
+
+#: /var/www/typ/typ-inc/class-archivos.php:54
+msgid "The file size can't be greather than 2 <strong>MB</strong>"
+msgstr "El tamaño del archivo no puede ser mayor a 2 <strong>MB</strong>"
+
+#: /var/www/typ/typ-inc/class-archivos.php:62
+msgid ""
+"The directory 'img' doesn't exist, it couldn't be made... Please, make it."
+msgstr "El directorio img no existe y no pudo ser creado. Por favor, créalo."
+
+#: /var/www/typ/typ-inc/class-archivos.php:73
+msgid "Unable to duplicate the file. Please update the permissions."
+msgstr "No se pudo duplicar el archivo, por favor actualiza por permisos."
+
+#: /var/www/typ/typ-inc/class-archivos.php:82
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+msgstr "El archivo subido excede la directiva upload_max_filesize del php.ini"
+
+#: /var/www/typ/typ-inc/class-archivos.php:86
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form."
+msgstr ""
+"El archivo subido excede la directiva MAX_FILE_SIZE que fue especificada en "
+"el formulario HTML."
+
+#: /var/www/typ/typ-inc/class-archivos.php:90
+msgid "The uploaded file was only partially uploaded."
+msgstr "El archivo fue subido sólo parcialmente."
+
+#: /var/www/typ/typ-inc/class-archivos.php:94
+msgid "No file was uploaded."
+msgstr "No se ha subido archivo."
+
+#: /var/www/typ/typ-inc/class-archivos.php:98
+msgid "Missing a temporary folder."
+msgstr "Falta la carpeta temporal."
+
+#: /var/www/typ/typ-inc/class-archivos.php:102
+msgid "Failed to write file to disk."
+msgstr "Falló al escribir en el disco."
+
+#: /var/www/typ/typ-inc/class-archivos.php:106
+msgid ""
+"A PHP extension stopped the file upload. PHP does not provide a way to "
+"ascertain which extension caused the file upload to stop; examining the list "
+"of loaded extensions with <strong>phpinfo()</strong> may help."
+msgstr ""
+"Una extensión de PHP ha detenido la carga del archivo. PHP no tiene una "
+"manera de saber qué extensión causó la detención de la subida; examinando la "
+"lista de extensiones cargadas con  <strong>phpinfo()</strong> puede ayudar."
+
+#: /var/www/typ/typ-inc/class-archivos.php:121
+msgid "The file doesn't exist."
+msgstr "El archivo no existe."
+
+#: /var/www/typ/typ-inc/class-archivos.php:127
+msgid "Unable to delete the file. Probably the permissions."
+msgstr "No se pudo eliminar el archivo. Probablemente los permisos."
+
+#: /var/www/typ/typ-inc/class-actualizar.php:36
+msgid ""
+"The class <strong>ZipArchive</strong> doesn't exist to unzip the files. It "
+"can't update. :("
+msgstr ""
+"La clases <strong>ZipArchive</strong> no existe para descomprimir los "
+"archivos. No se puede actualizar. :("
+
+#: /var/www/typ/typ-inc/class-actualizar.php:44
+msgid "Creating temporary file...<br>"
+msgstr "Creando archivo temporal... <br>"
+
+#: /var/www/typ/typ-inc/class-actualizar.php:46
+msgid "Unable to create the temporary file. Probably the permissions."
+msgstr "No se pudo crear el archivo temporal. Probablemente los permisos."
+
+#: /var/www/typ/typ-inc/class-actualizar.php:51
+#, php-format
+msgid "Downloading files from <strong>%s</strong><br><br>"
+msgstr "Descargando archivos desde <strong>%s</strong><br><br>"
+
+#: /var/www/typ/typ-inc/class-actualizar.php:54
+msgid ""
+"Unable to download the update file. The files don't have permissions and/or "
+"the cURL extension is not installed."
+msgstr ""
+"No se pudo descargar el archivo de actualización. Los archivos no tienen "
+"permisos y/o la extensión cURL no está instalada."
+
+#: /var/www/typ/typ-inc/class-actualizar.php:70
+msgid "Decompressing the TrackYourPenguin update file... <br>"
+msgstr "Descomprimiendo el archivo de TrackYourPenguin...<br>"
+
+#: /var/www/typ/typ-inc/class-actualizar.php:74
+msgid "Unable to decompress the TrackYourPenguin update file :("
+msgstr ""
+"No se pudo descomprimir el archivo de actualización de TrackYourPenguin :("
+
+#: /var/www/typ/typ-inc/class-actualizar.php:82
+msgid "Deleting temporary file...<br><br>"
+msgstr "Eliminando archivo temporal...<br><br>"
+
+#: /var/www/typ/typ-inc/class-actualizar.php:86
+msgid "Updating TrackYourPenguin...<br>"
+msgstr "Actualizando TrackYourPenguin...<br>"
+
+#: /var/www/typ/typ-inc/class-actualizar.php:113
+#, php-format
+msgid "Welcome to TrackYourPenguin <strong>%s</strong> :)"
+msgstr "Bienvenido a TrackYourPenguin <strong>%s</strong> :)"
+
+#: /var/www/typ/typ-inc/class-actualizar.php:119
+#, php-format
+msgid "It couldn't open the file: %s :("
+msgstr "No se pudo abrir el archivo: %s :("
+
+#: /var/www/typ/typ-inc/class-actualizar.php:160
+#, php-format
+msgid ""
+"TrackYourPenguin <strong>%s</strong> is available, please <a href=\"%s"
+"\">update.</a> :)"
+msgstr ""
+"TrackYourPenguin <strong>%s</strong> está disponible, por favor <a href=\"%s"
+"\">actualiza.</a> :)"
+
+#~ msgid "Which will be this user's role??"
+#~ msgstr "¿Cuál será el rango de este usuario?"
+
+#~ msgid "(no existe)"
+#~ msgstr "(no existe)"
