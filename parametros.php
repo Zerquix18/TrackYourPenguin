@@ -81,7 +81,7 @@ function navegacion() {
 }
 construir( 'cabecera', sprintf( __("Edit %s's tracker parameters"), ucwords($t->personaje) ) );
 ?>
-<h3><?php _e( sprintf("Edit %s's tracker parameters"), ucwords( $t->personaje ) ) ?></h3><hr>
+<h3><?php echo sprintf( __("Edit %s's tracker parameters"), ucwords($t->personaje) ) ?></h3><hr>
 <?php
 navegacion();
 if( 'estado' == $_GET['posicion'] ) :
