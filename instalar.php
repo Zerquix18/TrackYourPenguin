@@ -116,7 +116,7 @@ switch( $paso ) {
 					endif;
 				endif;
 			}else{
-				agregar_error( sprintf( __("MySQL connect failed. Error MySQL: %s "), $zerdb->error ) );
+				agregar_error( sprintf( __("MySQL connect failed. Error MySQL: %s "), $test->error ) );
 			}
 		}
       ?>
