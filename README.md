@@ -11,7 +11,8 @@ Welcome to TrackYourPenguin! TrackYourPenguin is a Club Penguin tracker system d
 - **User banning**: *You don't want anyone to update? You can ban it instead of delete them!*
 - **Updates**: *Every time that TrackYourPenguin has a new update with new features, you will be notified! Want to know something even better? You will be able to upgrade from the system!*
 - **Shortcodes for tweets**: *You can easily send the status, room, server and more in your tweets.*
-- **Multiple languages**: Currently available in english and spanish.
+- **Multiple languages**: *Currently available in english and spanish.*
+- **Multple themes**: *You can choose among 6 beautiful themes!*
 - **Many more!**
 
 ### Download
