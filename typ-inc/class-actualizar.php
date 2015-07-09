@@ -33,7 +33,7 @@ class actualizacion {
 		global $zerdb;
 		// El único requisito 100% necesario.
 		if( ! class_exists("ZipArchive") ) {
-			echo agregar_error( __("The class <strong>ZipArchive</strong> doesn't exist to unzip the files. It can't update. :("), false, true );
+			agregar_error( __("The class <strong>ZipArchive</strong> doesn't exist to unzip the files. It can't update. :("), false, true );
 			return false;
 		}
 
@@ -43,15 +43,15 @@ class actualizacion {
 
 		echo __("Creating temporary file...<br>"); // mensaje de aviso.
 		if( false == touch( $this->archivo ) ) {
-			echo agregar_error( __("Unable to create the temporary file. Probably the permissions."), false, true);
+			agregar_error( __("Unable to create the temporary file. Probably the permissions."), false, true);
 			return false;
 		}
 		chmod( $this->archivo, 0777 );
 		$this->d_url = $this->host . $this->archivo;
 		echo sprintf( __("Downloading files from <strong>%s</strong><br><br>"), $this->d_url );
-		if( false === (file_put_contents($this->archivo, file_get_contents($this->d_url ) ) ) ) {
+		if( false === ( @file_put_contents($this->archivo, @file_get_contents($this->d_url ) ) ) ) {
 			if( ! function_exists('curl_init') ) {
-				echo agregar_error( __("Unable to download the update file. The files don't have permissions and/or the cURL extension is not installed.") );
+				agregar_error( __("Unable to download the update file. The files don't have permissions and/or the cURL extension is not installed.") );
 				return false;
 			}
 			$this->f = fopen("./".$this->archivo, "w" ); // w = write = escribir
@@ -70,7 +70,7 @@ class actualizacion {
 			echo __("Decompressing the TrackYourPenguin update file... <br>");
 			dormir(1);
 			if( false == ($this->zip->extractTo("./") ) ) {
-				echo agregar_error( __("Unable to decompress the TrackYourPenguin update file :(") );
+				agregar_error( __("Unable to decompress the TrackYourPenguin update file :(") );
 				@unlink($this->archivo);
 				return false;
 			}
@@ -118,7 +118,7 @@ class actualizacion {
 				);
 			echo redireccion( url() . 'about.php', 3); // GUALÁAAAAAAA!!!!!!!!1 SOY EL PUTO AMOOOOOOOOo!!!!!!!!!!!D ASLDKALÑJ
 		}else{
-			echo agregar_error( sprintf( __("It couldn't open the file: %s :("), $this->archivo ) ); // ay :(
+			agregar_error( sprintf( __("It couldn't open the file: %s :("), $this->archivo ) ); // ay :(
 			unlink( $this->archivo );
 			return false;
 		}
@@ -132,7 +132,9 @@ class actualizacion {
 
 function obt_version() {
 	$url = "https://raw.githubusercontent.com/Zerquix18/TrackYourPenguin/master/typ-load.php";
-	$content = file_get_contents($url);
+	$content = @file_get_contents($url);
+	if( ! $content )
+		return false;
 	$regex = '/define\(\"VERSION\"\, \"(.*)?\"/';
 	if( preg_match($regex, $content, $matches) )
 		return $matches[1];
@@ -146,7 +148,7 @@ function obt_version() {
 *
 **/
 function hay_actualizacion() {
-	if( defined("NO_ACTUALIZACIONES") && TRUE == constant("NO_ACTUALIZACIONES") || false == ( $v = obt_version( false ) ) )
+	if( defined("NO_ACTUALIZACIONES") && TRUE == constant("NO_ACTUALIZACIONES") || false == ( $v = obt_version() ) )
 		return false;
 
 	return version_compare($v, constant('VERSION'), '>');
@@ -156,13 +158,13 @@ function hay_actualizacion() {
 *
 **/
 function actualizaciones() {
-	if( hay_actualizacion() )
-		return agregar_error(
+	if( ! hay_actualizacion() ) return;
+	
+	return agregar_error(
 				sprintf(
 						__('TrackYourPenguin <strong>%s</strong> is available, please <a href="%s">update.</a> :)'),
 						obt_version(),
 						url() . 'actualizaciones.php'
 					), true, false
 			);
-	return;
 }

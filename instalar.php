@@ -80,7 +80,7 @@ switch( $paso ) {
 			if( @rename( PATH . $file, PATH . $file2) )
 				header("Location: " . url() . 'instalar.php?paso=2');
 			else
-    				echo agregar_error( error_renombrar() );
+    				agregar_error( error_renombrar() );
 		else:
 			$post = "POST" == getenv('REQUEST_METHOD');
 			if( $post ) {
@@ -97,7 +97,7 @@ switch( $paso ) {
 					);
 					$actualizar = str_replace( array_keys($reemplazar), array_values($reemplazar), $data); // aquí el nuevo archivo (typ-config.php)
 					if( false == ($f = @fopen($file, "w") ) ):
-						echo agregar_error( sprintf( __("Can't open file :/, please replace <strong>typ-config-sample.php</strong> for the code below and rename it to <strong>typ-config.php</strong>") ) );
+						agregar_error( sprintf( __("Can't open file :/, please replace <strong>typ-config-sample.php</strong> for the code below and rename it to <strong>typ-config.php</strong>") ) );
 						echo '<br><br><textarea rows="25" readonly="readonly" style="width:100%">' . $actualizar . '</textarea>';
 						construir_pies();
 						exit;
@@ -106,7 +106,7 @@ switch( $paso ) {
 						$renombrar = @rename( PATH . $file, PATH . $file2);
 						fclose($f);
 						if( ! $write ) :
-							echo agregar_error( __("Can't rewrite file :/, please replace <strong>typ-config-sample.php</strong> by the code below and rename it to <strong>typ-config.php</strong>, or, or if it already exists <strong>typ-config.php</strong>, update it with this:") . '<br><br><textarea rows="25" readonly="readonly">' . $actualizar . '</textarea>');
+							agregar_error( __("Can't rewrite file :/, please replace <strong>typ-config-sample.php</strong> by the code below and rename it to <strong>typ-config.php</strong>, or, or if it already exists <strong>typ-config.php</strong>, update it with this:") . '<br><br><textarea rows="25" readonly="readonly">' . $actualizar . '</textarea>');
 							construir_pies();
 							exit;
 						elseif( ! $renombrar ) :
@@ -155,7 +155,7 @@ switch( $paso ) {
       <?php _e("Password") ?>
       </label>
         <div class="controls">
-         <input type="text" name="clave" required="required" <?php if($post) : ?>value="<?php echo $_POST['clave'] ?>"<?php endif ?>>
+         <input type="text" name="clave" <?php if($post) : ?>value="<?php echo $_POST['clave'] ?>"<?php endif ?>>
           <span class="help-block"><?php _e("Database password") ?></span>
       </div>
      </div>

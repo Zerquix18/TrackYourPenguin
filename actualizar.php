@@ -126,6 +126,8 @@ function actualizar_imagen( $tracker_id, $datos ) {
 				"usuario" => $_SESSION['usuario'],
 				"tracker" => $t->id,
 				);
+			foreach($datos as $a => $b)
+				$datos[$a] = $zerdb->real_escape($b);
 			$log = array_merge( $datos, $log );
 			if( isset($_POST['tweet']) || isset($_POST['tweetp']) ) {
 				$tweet__ = trim($_POST['tweetp']);

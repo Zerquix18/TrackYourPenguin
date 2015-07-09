@@ -39,7 +39,7 @@ array_shift($text);
 	?>
 </ul>
 <?php else:
-	echo agregar_error( __("Unable to check the changelog") );
+	agregar_error( __("Unable to check the changelog") );
 endif;
 ?>
 <h3><?php _e('Credits') ?></h3>
