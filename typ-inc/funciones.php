@@ -192,13 +192,19 @@ function sesion_iniciada() {
 * @param $mensaje string
 *
 **/
-function enviar_email($email = null, $asunto = null, $mensaje = null) {
-	if( is_null($email) or is_null($asunto) or is_null($mensaje) )
-		return false;
-
-	$admin = 'soporte@trackyourpenguin.com';
-	$cabeceras = 'TrackYourPenguin' . " <" . $admin . ">";
-	return mail($email, $asunto, $mensaje, $cabeceras);
+function enviar_email($email = array(), $asunto = null, $mensaje = null) {
+	if( empty($email) ) return false;
+	require_once( PATH . INC . 'mailer.php' );
+	$mail = new PHPMailer;
+	$mail->isHTML(1);
+	$mail->subject = $asunto;
+	if( is_string($email) )
+		$mail->addAddress($email);
+	elseif( is_array($email) )
+		foreach($email as $a => $b)
+			$mail->addAddress($email);
+	else return;
+	return $mail->send();
 }
 /**
 *

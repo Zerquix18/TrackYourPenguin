@@ -26,7 +26,7 @@ if( $ha && isset($_GET['actualizar']) ) {
 if( ! $ha ) {
 	agregar_info( __("There are not updates. You have the last version. :)"), false, true); //0,1
 }elseif( $ha && ! isset($_GET['actualizar']) ) {
-	agregar_error( sprintf( __("TrackYourPenguin <strong>%s</strong> is available. :)"), obt_version() ), false, false );
+	agregar_error( sprintf( __("TrackYourPenguin <strong>%s</strong> is available. :)"), $v_ ), false, false );
 	?>
 	<br><div style="text-align:center">
 	<a href="<?php echo url( true ) . '?actualizar=1' ?>" class="btn btn-primary btn-large"><?php _e('Update') ?></a>

@@ -30,15 +30,13 @@ class actualizacion {
   		} 
 	}
 	public function __construct() {
-		global $zerdb;
+		global $zerdb, $v_;
 		// El único requisito 100% necesario.
 		if( ! class_exists("ZipArchive") ) {
 			agregar_error( __("The class <strong>ZipArchive</strong> doesn't exist to unzip the files. It can't update. :("), false, true );
 			return false;
 		}
-
-		$v = obt_version();
-		$this->archivo = $v . '.zip';
+		$this->archivo = $v_ . '.zip';
 		// it starts...
 
 		echo __("Creating temporary file...<br>"); // mensaje de aviso.
@@ -113,7 +111,7 @@ class actualizacion {
 			agregar_info(
 					sprintf(
 							__("Welcome to TrackYourPenguin <strong>%s</strong> :)"),
-							$v
+							$v_
 						)
 				);
 			echo redireccion( url() . 'about.php', 3); // GUALÁAAAAAAA!!!!!!!!1 SOY EL PUTO AMOOOOOOOOo!!!!!!!!!!!D ASLDKALÑJ
@@ -141,6 +139,7 @@ function obt_version() {
 	return false;
 
 }
+$v_ = obt_version();
 /**
 *
 * Comprueba si se necesita actualizar
@@ -148,10 +147,7 @@ function obt_version() {
 *
 **/
 function hay_actualizacion() {
-	if( defined("NO_ACTUALIZACIONES") && TRUE == constant("NO_ACTUALIZACIONES") || false == ( $v = obt_version() ) )
-		return false;
-
-	return version_compare($v, constant('VERSION'), '>');
+	return $GLOBALS['v_'] ? version_compare($GLOBALS['v_'], constant('VERSION'), '>') : false;
 }
 /**
 * Lanza el mensaje de aviso si se necesita actualizar

@@ -17,8 +17,7 @@ function cambiar_modal( titulo, cuerpo, pies, opciones ) {
 function cambiar_tema( tema ) {
 	tema = (tema || "bootstrap");
 	url_ = uri + "typ-inc/css/";
-	$("#estilo").attr("href", url_ + tema + '.css');
-	$("#estilo_r").attr("href", url_ + tema + '.min.css');
+	$("#estilo").attr("href", url_ + tema + '.min.css');
 	var s = "i[class^='icon-']";
 	if( tema == "cyborg" || tema == "slate") {
 		$(s).addClass("icon-white");

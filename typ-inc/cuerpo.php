@@ -42,8 +42,7 @@ function construir( $a_construir, $titulo = "", $barra = true ) {
 		<html lang="es">
 		<head>
 			<title><?php if(!empty($titulo)) echo $titulo . ' - '; echo htmlspecialchars( nombre() ) ?></title>
-			<link rel="stylesheet" id="estilo" href="<?php echo url() . INC . CSS . tema() . '.css' ?>" />
-			<link rel="stylesheet" id="estilo_r" href="<?php echo url() . INC . CSS . tema() . '.min.css' ?>" />
+			<link rel="stylesheet" id="estilo" href="<?php echo url() . INC . CSS . tema() . '.min.css' ?>" />
 			<link rel="stylesheet" href="<?php echo url() . INC . CSS . 'typ.css' ?>" />
 			<meta charset="utf-8">
 			<meta name="robots" content="noindex, nofollow">
