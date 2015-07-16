@@ -143,10 +143,10 @@ switch( $acc ) {
 					If it wasn't you, don't do nothing, take it easy and nothing will happen. :)</body></html>"), 
 			$usuario->usuario, url() . 'acceso.php?accion=rc&hash=' . $hash . '&usuario=' . $usuario->usuario);
 			$mail = enviar_email($email, $asunto, $texto);
-			if( $mail )
+			if( $mail === true )
 				agregar_info( __("The mail has been sent. Check it.") );
 			else
-				agregar_error( __("Unafortunely, the email couldn't send. Maybe because the function <strong>mail()</strong> is disabled.") );
+				agregar_error( sprintf( __("Unafortunely, the email couldn't send. Error returned: %s"), $mail ) );
 		}
 	}
 	?>

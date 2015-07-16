@@ -193,7 +193,8 @@ function sesion_iniciada() {
 *
 **/
 function enviar_email($email = array(), $asunto = null, $mensaje = null) {
-	if( empty($email) ) return false;
+	if( empty($email) ) 
+		return false;
 	require_once( PATH . INC . 'mailer.php' );
 	$mail = new PHPMailer;
 	$mail->isHTML(1);
@@ -203,8 +204,14 @@ function enviar_email($email = array(), $asunto = null, $mensaje = null) {
 	elseif( is_array($email) )
 		foreach($email as $a => $b)
 			$mail->addAddress($email);
-	else return;
-	return $mail->send();
+	else
+		return false;
+	$mail->Body = $mensaje;
+	$m = $mail->send();
+	if( ! $m )
+		return $mail->ErrorInfo;
+	else
+		return true;
 }
 /**
 *

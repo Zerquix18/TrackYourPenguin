@@ -82,7 +82,7 @@ $sql['tweets'] = "CREATE TABLE IF NOT EXISTS $zerdb->tweets (
 /*Tabla de parámetros*/
 
 $sql['parametros'] = "CREATE TABLE IF NOT EXISTS $zerdb->parametros ( 
-		tracker int(11),
+		tracker int(4),
 		posicion int(1),
 		size int(11),
 		angulo int(11),

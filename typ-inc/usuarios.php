@@ -120,7 +120,7 @@ function comprobar_rangos( $rango1, $rango2 = '') {
 	if( ! is_numeric($rango1) )
 		return false;
 	$rango1 = (int) $rango1;
-	if( $rango1 !== 1 || $rango1 !== 2 || $rango1 !== 3)
+	if( ! in_array($rango1, array(1,2,3) ) )
 		return false;
 	$u = obt_usuario_actual();
 	if( empty($rango2) )
