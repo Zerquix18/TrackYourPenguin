@@ -53,7 +53,8 @@ function obt_geo() {
 	if( false == $pais )
 		return false;
 	$resultado = json_decode($pais);
-	if( (int) $resultado->geoplugin_status !== 200 )
+	if( ! property_exists($resultado, 'geoplugin_status') || 
+			(int) $resultado->geoplugin_status !== 200 )
 		return false;
 	return array(
 			"pais" => $resultado->geoplugin_countryName,
