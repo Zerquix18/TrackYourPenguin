@@ -143,10 +143,10 @@ construir( 'cabecera', sprintf( __("Edit the tweet: %s"), $t->nombre ), true );
 break;
 case "eliminar":
 
-if( ! isset($_GET['ids'] ) || ! is_string($_GET['ids']) || ! preg_match('/^[\d]+$/', @$_GET['id']) ) /* Je, je, je, fail (?) */
+if( ! isset($_GET['ids'] ) || ! is_string($_GET['ids']) || ! preg_match('/^[\d]+$/', @$_GET['ids']) ) /* Je, je, je, fail (?) */
 	typ_die( __("Wrong way to delete. Wrong.") );
 
-$zerdb->delete( $zerdb->twitter ) -> where("id", $_GET['id'] )->_();
+$zerdb->delete( $zerdb->twitter ) -> where("id", $_GET['ids'] )->_();
 
 construir('cabecera', __('Delete tweets') );
 
