@@ -17,7 +17,7 @@ define("JS", "js/");
 define("IMG", "img/");
 define("LANG", "lang/");
 define("PATH", dirname(__FILE__) . '/');
-define("VERSION", "1.1.1");
+define("VERSION", "1.1.2");
 $GLOBALS['v'] = constant("VERSION");
 $config = file_exists(PATH . 'typ-config.php') ? 'typ-config.php' : 'typ-config-sample.php';
 require_once( PATH . $config );
