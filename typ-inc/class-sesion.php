@@ -89,10 +89,10 @@ class sesiones {
 			return false;
 		$var = $zerdb->delete($zerdb->sesiones, array("hash" => $_SESSION['hash'], "id" => $_SESSION['id'] ) );
 		$var->execute();
+		@session_destroy();
+		@session_unset();
 		if( isset($_COOKIE['hash']) )
 			setcookie('hash', '', time() - 3600 );
-		session_destroy();
-		session_unset();
 	}
 /**
 *
